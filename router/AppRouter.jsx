@@ -13,7 +13,7 @@ export const useAppRoutes = () => {
                 {path: "", element: <Outlet/>},
             ],
         }, {
-            path: "/",
+            path: "/portfolio",
             element: <PortfolioIndex/>,
         },
         {
