@@ -69,30 +69,7 @@ const headers = {
             bg: "from-blue-600 to-blue-700",
             hoverBg: "from-blue-500 to-blue-600"
         }
-    ],
-    ctas: [
-        {
-            type: "download",
-            icon: "Download",
-            text: "Download CV",
-            bg: "from-purple-600 to-pink-600",
-            hoverBg: "from-purple-500 to-pink-500"
-        },
-        {
-            type: "contact",
-            icon: "Mail",
-            text: "Contact Me",
-            bg: "from-green-600 to-emerald-600",
-            hoverBg: "from-green-500 to-emerald-500"
-        }
-    ],
-    "quickLinks": [
-        {"label": "Home", "href": "#"},
-        {"label": "Skills", "href": "#"},
-        {"label": "Projects", "href": "#"},
-        {"label": "Experience", "href": "#"},
-        {"label": "Contact", "href": "#"}
-    ],
+    ]
 };
 
 const careerGoals =
@@ -155,7 +132,6 @@ const skills = {
         [
             {
                 title: "Backend Development",
-                // className="text-blue-400" size={32}
                 icon: "Terminal",
                 color: "blue",
                 gradient: "from-blue-500 to-cyan-500",
@@ -609,40 +585,6 @@ const hobbies = {
         }
     ]
 }
-
-const footers =
-    {
-        "profile": {
-            "initials": "PH",
-            "fullName": "Pham Quang Hai",
-            "title": "Software Development Engineer",
-            "description":
-                "Passionate backend developer specializing in building scalable microservices, optimizing database performance, and architecting cloud-native solutions."
-        },
-        "quickLinks": [
-            {"label": "Home", "href": "#"},
-            {"label": "Skills", "href": "#"},
-            {"label": "Projects", "href": "#"},
-            {"label": "Experience", "href": "#"},
-            {"label": "Contact", "href": "#"}
-        ],
-        "contacts": [
-            {
-                "type": "email",
-                "icon": "Mail",
-                "value": "haiphamjavadev@gmail.com",
-                "href": "mailto:haiphamjavadev@gmail.com"
-            },
-            {"type": "phone", "icon": "Phone", "value": "0979 015 430", "href": "tel:0979015430"},
-            {"type": "location", "icon": "MapPin", "value": "Hanoi, Vietnam"}
-        ],
-        "socials": [
-            {"icon": "Github", "href": "https://github.com"},
-            {"icon": "Linkedin", "href": "https://linkedin.com"},
-            {"icon": "Mail", "href": "mailto:haiphamjavadev@gmail.com"}
-        ]
-    }
-;
 const PortfolioIndex = () => {
     useEffect(() => {
         // Add custom animations to document

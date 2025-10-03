@@ -7,7 +7,7 @@ export const useAppRoutes = () => {
 
     return useRoutes([
         {
-            path: "/dashboard",
+            path: "/portfolio/dashboard",
             element: <DashboardCms/>,
             children: [
                 {path: "", element: <Outlet/>},

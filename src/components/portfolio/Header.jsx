@@ -1,13 +1,31 @@
-import {useState} from "react";
-import {Download, Github, Linkedin, Mail, MapPin, Phone, Terminal} from "lucide-react";
+import {useState, useEffect} from "react";
 import {AnimatedBackground} from "../../utils/AnimatedBackground.jsx";
 import {FloatingCodeLines} from "../../utils/FloatingCodeLines.jsx";
 import {ParticleSystem} from "../../utils/ParticleSystem.jsx";
 import {getIconComponent} from "../../utils/GetIconForAll.jsx";
+import {useTranslation} from "react-i18next";
 
-// Helper to get a random Tailwind color
+// Tailwind color palette
 const tailwindColors = [
     "blue-400", "purple-400", "green-400", "yellow-400", "pink-400", "red-400", "emerald-400", "indigo-400"
+];
+
+// CTA buttons JSON
+const ctas = [
+    {
+        type: "download",
+        icon: "Download",
+        text: "Download CV",
+        bg: "from-purple-600 to-pink-600",
+        hoverBg: "from-purple-500 to-pink-500"
+    },
+    {
+        type: "contact",
+        icon: "Mail",
+        text: "Contact Me",
+        bg: "from-green-600 to-emerald-600",
+        hoverBg: "from-green-500 to-emerald-500"
+    }
 ];
 
 function getRandomColor() {
@@ -16,6 +34,8 @@ function getRandomColor() {
 
 export const Header = ({headers}) => {
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
+    const [theme, setTheme] = useState("dark");
+    const {i18n, t} = useTranslation();
 
     const handleMouseMove = (e) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -25,14 +45,47 @@ export const Header = ({headers}) => {
         });
     };
 
+    const handleThemeToggle = () => {
+        setTheme(theme === "dark" ? "light" : "dark");
+    };
+
+    const handleLangChange = (lang) => {
+        i18n.changeLanguage(lang);
+    };
+
+    useEffect(() => {
+        document.documentElement.classList.toggle("dark", theme === "dark");
+    }, [theme]);
+
     return (
         <header
-            className="relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white py-24 overflow-hidden"
+            className={`relative ${theme === "dark"
+                ? "bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white"
+                : "bg-white text-gray-900"} py-24 overflow-hidden`}
             onMouseMove={handleMouseMove}
         >
             <AnimatedBackground/>
             <FloatingCodeLines/>
             <ParticleSystem/>
+
+            {/* Top-right controls */}
+            <div className="absolute top-6 right-6 flex gap-4 z-20">
+                <button
+                    onClick={handleThemeToggle}
+                    className="bg-white/10 px-3 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition"
+                    aria-label="Toggle theme"
+                >
+                    {theme === "dark"
+                        ? getIconComponent("Sun", 20, "text-yellow-400")
+                        : getIconComponent("Moon", 20, "text-blue-400")}
+                </button>
+                <button
+                    onClick={() => handleLangChange(i18n.language === "en" ? "vi" : "en")}
+                    className="bg-white/10 px-3 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition font-bold"
+                >
+                    {i18n.language === "en" ? "VI" : "EN"}
+                </button>
+            </div>
 
             <div
                 className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
@@ -58,13 +111,10 @@ export const Header = ({headers}) => {
                                         src={headers.profile.avatar || '/assets/imgs/default-avatar.jpg'}
                                         alt={headers.profile.name}
                                         className="w-full h-full object-cover"
-                                        // className="w-28 h-28 rounded-full border mb-3 object-cover"
-                                        onError={e => { e.target.onerror = null; e.target.src = '/assets/imgs/default-avatar.jpg'; }}
-                                    />
-                                    <img
-                                        src={headers.profile.avatar}
-                                        alt={headers.profile.name}
-                                        className="w-full h-full object-cover"
+                                        onError={e => {
+                                            e.target.onerror = null;
+                                            e.target.src = '/assets/imgs/default-avatar.jpg';
+                                        }}
                                     />
                                 </div>
                                 <div
@@ -90,19 +140,21 @@ export const Header = ({headers}) => {
                                 <span className="text-blue-400 font-mono text-sm">$ whoami</span>
                             </div>
                             <h1 className="text-5xl md:text-7xl font-black mb-4 relative">
-                                <span
-                                    className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient-x">
-                                    {headers.profile.name}
-                                </span>
+                                                            <span
+                                                                className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient-x">
+                                                                {headers.profile.name}
+                                                            </span>
                                 <div
                                     className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition"></div>
                             </h1>
                             <div className="flex items-center gap-3 justify-center md:justify-start mb-6">
-                                <Terminal className="text-green-400 animate-pulse" size={24}/>
+                                {getIconComponent("Terminal", 24, "text-green-400 animate-pulse")}
                                 <p className="text-2xl md:text-3xl font-bold">
                                     <span className="text-gray-300">{headers.profile.title.split(" ")[0]}</span>{" "}
                                     <span
-                                        className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">{headers.profile.title.split(" ").slice(1).join(" ")}</span>
+                                        className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                                                                    {headers.profile.title.split(" ").slice(1).join(" ")}
+                                                                </span>
                                 </p>
                             </div>
                             {/* Stats Bar */}
@@ -146,17 +198,17 @@ export const Header = ({headers}) => {
                                        className={`group relative bg-gradient-to-r ${social.bg} hover:${social.hoverBg} p-4 rounded-xl transition transform hover:scale-110 border border-gray-700 overflow-hidden`}>
                                         <div
                                             className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-20 transition"></div>
-                                        {getIconComponent(social.icon, 24, `relative z-10`)}
+                                        {getIconComponent(social.icon, 24, "relative z-10")}
                                     </a>
                                 ))}
-                                {headers.ctas.map((cta, idx) => (
+                                {ctas.map((cta, idx) => (
                                     <button
                                         key={idx}
                                         className={`group relative bg-gradient-to-r ${cta.bg} hover:${cta.hoverBg} px-8 py-4 rounded-xl flex items-center gap-3 transition transform hover:scale-105 overflow-hidden shadow-2xl`}
                                     >
                                         <div
                                             className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition"></div>
-                                        {getIconComponent(cta.icon, 24, `relative z-10 group-hover:animate-bounce`)}
+                                        {getIconComponent(cta.icon, 24, "relative z-10 group-hover:animate-bounce")}
                                         <span className="font-bold text-lg relative z-10">{cta.text}</span>
                                     </button>
                                 ))}
