@@ -1,22 +1,59 @@
 import React from "react";
-import { useIntersectionObserver } from "../../hooks/useIntersectionObserver.js";
-import { ParticleSystem } from "../../utils/ParticleSystem.jsx";
-import { Heart, CheckCircle, Zap } from "react-feather";
+import {useIntersectionObserver} from "../../hooks/useIntersectionObserver.js";
+import {ParticleSystem} from "../../utils/ParticleSystem.jsx";
+import {getIconComponent} from "../../utils/GetIconForAll.jsx";
+
+// Hobbies JSON
+const hobbies = {
+    hobbies: [
+        {name: "Gaming", icon: "🎮", color: "purple", desc: "Strategy & RPG enthusiast"},
+        {name: "Football", icon: "⚽", color: "green", desc: "Weekend warrior"},
+        {name: "Badminton", icon: "🏸", color: "red", desc: "Competitive player"},
+        {name: "Traveling", icon: "✈️", color: "blue", desc: "Exploring cultures"}
+    ],
+    personals: [
+        {
+            icon: "CheckCircle",
+            color: "blue-400",
+            text: "Passionate about building relationships through sports"
+        },
+        {
+            icon: "CheckCircle",
+            color: "green-400",
+            text: "Committed to continuous learning and growth"
+        },
+        {
+            icon: "CheckCircle",
+            color: "purple-400",
+            text: "Open to new challenges and opportunities"
+        }
+    ],
+    workStyles : [
+        {
+            icon: "CheckCircle",
+            color: "yellow-400",
+            text: "Willing to work overtime when needed"
+        },
+        {
+            icon: "CheckCircle",
+            color: "orange-400",
+            text: "Flexible with relocation opportunities"
+        },
+        {
+            icon: "CheckCircle",
+            color: "red-400",
+            text: "Team player with strong collaboration skills"
+        }
+    ]
+}
 
 export const Hobbies = () => {
     const [ref, isVisible] = useIntersectionObserver();
 
-    const hobbies = [
-        { name: "Gaming", icon: "🎮", color: "purple", desc: "Strategy & RPG enthusiast" },
-        { name: "Football", icon: "⚽", color: "green", desc: "Weekend warrior" },
-        { name: "Badminton", icon: "🏸", color: "red", desc: "Competitive player" },
-        { name: "Traveling", icon: "✈️", color: "blue", desc: "Exploring cultures" }
-    ];
-
     return (
         <section ref={ref}
                  className={`py-24 bg-gray-900 text-white relative overflow-hidden transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <ParticleSystem />
+            <ParticleSystem/>
 
             <div className="container mx-auto px-6 max-w-6xl relative z-10">
                 <div className="text-center mb-16">
@@ -31,11 +68,10 @@ export const Hobbies = () => {
                 </div>
 
                 <div className="grid md:grid-cols-4 gap-6 mb-12">
-                    {hobbies.map((hobby, idx) => (
+                    {hobbies.hobbies.map((hobby, idx) => (
                         <div key={idx} className="group relative">
                             <div
                                 className={`absolute inset-0 bg-gradient-to-r from-${hobby.color}-500 to-${hobby.color}-400 rounded-2xl blur opacity-30 group-hover:opacity-60 transition`}></div>
-
                             <div
                                 className="relative bg-gray-800 p-8 rounded-2xl shadow-2xl hover:shadow-3xl transition duration-500 transform group-hover:-translate-y-2 text-center border-2 border-gray-700">
                                 <div
@@ -53,22 +89,16 @@ export const Hobbies = () => {
                             className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition"></div>
                         <div className="relative bg-gray-800 p-8 rounded-2xl border-2 border-gray-700">
                             <h3 className="text-2xl font-black mb-4 flex items-center gap-3">
-                                <Heart className="text-red-400" size={28} />
+                                {getIconComponent("Heart", 28, "text-red-400")}
                                 Personal Values
                             </h3>
                             <ul className="space-y-3">
-                                <li className="flex items-start gap-3">
-                                    <CheckCircle className="text-blue-400 mt-1 flex-shrink-0" size={20} />
-                                    <span className="text-gray-300">Passionate about building relationships through sports</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <CheckCircle className="text-green-400 mt-1 flex-shrink-0" size={20} />
-                                    <span className="text-gray-300">Committed to continuous learning and growth</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <CheckCircle className="text-purple-400 mt-1 flex-shrink-0" size={20} />
-                                    <span className="text-gray-300">Open to new challenges and opportunities</span>
-                                </li>
+                                {hobbies.personals.map((item, idx) => (
+                                    <li key={idx} className="flex items-start gap-3">
+                                        {getIconComponent(item.icon, 20, `text-${item.color} mt-1 flex-shrink-0`)}
+                                        <span className="text-gray-300">{item.text}</span>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                     </div>
@@ -78,22 +108,16 @@ export const Hobbies = () => {
                             className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition"></div>
                         <div className="relative bg-gray-800 p-8 rounded-2xl border-2 border-gray-700">
                             <h3 className="text-2xl font-black mb-4 flex items-center gap-3">
-                                <Zap className="text-yellow-400" size={28} />
+                                {getIconComponent("Zap", 28, "text-yellow-400")}
                                 Work Style
                             </h3>
                             <ul className="space-y-3">
-                                <li className="flex items-start gap-3">
-                                    <CheckCircle className="text-yellow-400 mt-1 flex-shrink-0" size={20} />
-                                    <span className="text-gray-300">Willing to work overtime when needed</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <CheckCircle className="text-orange-400 mt-1 flex-shrink-0" size={20} />
-                                    <span className="text-gray-300">Flexible with relocation opportunities</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <CheckCircle className="text-red-400 mt-1 flex-shrink-0" size={20} />
-                                    <span className="text-gray-300">Team player with strong collaboration skills</span>
-                                </li>
+                                {hobbies.workStyles.map((item, idx) => (
+                                    <li key={idx} className="flex items-start gap-3">
+                                        {getIconComponent(item.icon, 20, `text-${item.color} mt-1 flex-shrink-0`)}
+                                        <span className="text-gray-300">{item.text}</span>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                     </div>

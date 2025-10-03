@@ -1,8 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
-    Briefcase, Clock, Users, CheckCircle, X, ExternalLink,
-    TrendingUp, Award, Code, Target, Calendar, MapPin,
-    ChevronRight, Zap, Star, Building, ArrowRight
+    ArrowRight,
+    Award,
+    Briefcase,
+    Building,
+    Calendar,
+    CheckCircle,
+    ChevronDown,
+    ChevronRight,
+    Clock,
+    Code,
+    Database,
+    ExternalLink,
+    GitBranch,
+    Layers,
+    Server,
+    Shield,
+    Target,
+    Users,
+    X
 } from 'lucide-react';
 
 // Intersection Observer Hook
@@ -15,7 +31,7 @@ const useIntersectionObserver = (options = {}) => {
             if (entry.isIntersecting) {
                 setIsVisible(true);
             }
-        }, { threshold: 0.1, ...options });
+        }, {threshold: 0.1, ...options});
 
         if (elementRef.current) {
             observer.observe(elementRef.current);
@@ -33,7 +49,7 @@ const useIntersectionObserver = (options = {}) => {
 
 // Particle System Component
 const ParticleSystem = () => {
-    const particles = Array.from({ length: 30 }, (_, i) => i);
+    const particles = Array.from({length: 30}, (_, i) => i);
 
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -53,13 +69,175 @@ const ParticleSystem = () => {
     );
 };
 
-// Experience Detail Modal Component
-const ExperienceModal = ({ experience, isOpen, onClose }) => {
+// Project Detail Modal Component
+const ProjectDetailModal = ({project, companyColor, isOpen, onClose}) => {
+    if (!isOpen || !project) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in">
+            <div className="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm" onClick={onClose}/>
+
+            <div
+                className="relative bg-white rounded-3xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto animate-scale-up">
+                {/* Header */}
+                <div
+                    className={`bg-gradient-to-r from-${companyColor}-600 to-${companyColor}-400 p-8 text-white relative overflow-hidden`}>
+                    <div className="absolute top-0 right-0 text-9xl opacity-10">🚀</div>
+
+                    <button onClick={onClose}
+                            className="absolute top-6 right-6 p-2 bg-white/20 hover:bg-white/30 rounded-full transition backdrop-blur-sm">
+                        <X size={24}/>
+                    </button>
+
+                    <div className="relative z-10">
+                        <div className="flex items-start gap-4 mb-4">
+                            <div className={`p-4 bg-white/20 backdrop-blur-lg rounded-2xl border-2 border-white/30`}>
+                                <Code size={32}/>
+                            </div>
+                            <div className="flex-1">
+                                <h2 className="text-4xl font-black mb-2">{project.name}</h2>
+                                <p className="text-xl text-white/90 mb-3">{project.description}</p>
+                                <div className="flex flex-wrap gap-3">
+                                    <div
+                                        className="flex items-center gap-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full border border-white/30">
+                                        <Calendar size={16}/>
+                                        <span className="font-semibold text-sm">{project.period}</span>
+                                    </div>
+                                    <div
+                                        className="flex items-center gap-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full border border-white/30">
+                                        <Users size={16}/>
+                                        <span className="font-semibold text-sm">{project.teamSize} members</span>
+                                    </div>
+                                    <div
+                                        className="flex items-center gap-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full border border-white/30">
+                                        <Briefcase size={16}/>
+                                        <span className="font-semibold text-sm">{project.role}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Body */}
+                <div className="p-8 space-y-8">
+                    {/* Customer */}
+                    <div>
+                        <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
+                            <Building className={`text-${companyColor}-600`} size={28}/>
+                            Customer Information
+                        </h3>
+                        <div className="p-6 bg-gray-50 rounded-xl">
+                            <p className="text-lg"><span className="font-bold">Customer:</span> {project.customer}</p>
+                            <p className="text-gray-600 mt-2">{project.fullDescription}</p>
+                        </div>
+                    </div>
+
+                    {/* My Role & Responsibilities */}
+                    <div>
+                        <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
+                            <Target className={`text-${companyColor}-600`} size={28}/>
+                            My Role & Responsibilities
+                        </h3>
+                        <div
+                            className="p-6 bg-gradient-to-br from-blue-50 to-white rounded-xl border-2 border-blue-100">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="p-3 bg-blue-600 rounded-xl">
+                                    <Award className="text-white" size={24}/>
+                                </div>
+                                <div>
+                                    <h4 className="text-xl font-black text-gray-900">{project.role}</h4>
+                                    <p className="text-sm text-gray-600">Position in this project</p>
+                                </div>
+                            </div>
+                            <ul className="space-y-3">
+                                {project.responsibilities.map((resp, idx) => (
+                                    <li key={idx} className="flex items-start gap-3 text-gray-700">
+                                        <CheckCircle className={`text-${companyColor}-600 mt-1 flex-shrink-0`}
+                                                     size={20}/>
+                                        <span className="leading-relaxed">{resp}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* Technologies Used */}
+                    <div>
+                        <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
+                            <Code className={`text-${companyColor}-600`} size={28}/>
+                            Technology Stack
+                        </h3>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            {Object.entries(project.techStack).map(([category, techs]) => (
+                                <div key={category} className="p-6 bg-gray-50 rounded-xl">
+                                    <h4 className="font-bold text-gray-900 mb-3 capitalize flex items-center gap-2">
+                                        {category === 'backend' && <Server size={18} className="text-blue-600"/>}
+                                        {category === 'database' && <Database size={18} className="text-green-600"/>}
+                                        {category === 'devops' && <GitBranch size={18} className="text-purple-600"/>}
+                                        {category === 'frontend' && <Layers size={18} className="text-orange-600"/>}
+                                        {category === 'security' && <Shield size={18} className="text-red-600"/>}
+                                        {category}
+                                    </h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {techs.map((tech, idx) => (
+                                            <span key={idx}
+                                                  className={`px-3 py-1 bg-${companyColor}-100 text-${companyColor}-800 rounded-full text-sm font-medium`}>
+                        {tech}
+                      </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Key Achievements */}
+                    {project.achievements && (
+                        <div>
+                            <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
+                                <Trophy className={`text-${companyColor}-600`} size={28}/>
+                                Key Achievements
+                            </h3>
+                            <div className="space-y-3">
+                                {project.achievements.map((achievement, idx) => (
+                                    <div key={idx}
+                                         className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border-2 border-green-100 flex items-start gap-3">
+                                        <div className="p-2 bg-green-500 rounded-lg">
+                                            <CheckCircle className="text-white" size={20}/>
+                                        </div>
+                                        <span className="text-gray-900 font-semibold flex-1">{achievement}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Footer */}
+                <div
+                    className={`bg-gradient-to-r from-${companyColor}-50 to-white p-6 border-t-2 border-${companyColor}-100`}>
+                    <button onClick={onClose}
+                            className={`w-full bg-gradient-to-r from-${companyColor}-600 to-${companyColor}-400 text-white py-4 rounded-xl font-bold hover:shadow-lg transition`}>
+                        Close Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// Company Experience Modal Component
+const CompanyExperienceModal = ({experience, isOpen, onClose}) => {
+    const [selectedProject, setSelectedProject] = useState(null);
+    const [expandedProject, setExpandedProject] = useState(null);
+
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'unset';
+            setExpandedProject(null);
         }
         return () => {
             document.body.style.overflow = 'unset';
@@ -69,259 +247,339 @@ const ExperienceModal = ({ experience, isOpen, onClose }) => {
     if (!isOpen || !experience) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in">
-            {/* Backdrop */}
-            <div
-                className="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm"
-                onClick={onClose}
-            />
+        <>
+            <div className="fixed inset-0 z-40 flex items-center justify-center p-4 animate-fade-in">
+                <div className="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm" onClick={onClose}/>
 
-            {/* Modal Content */}
-            <div className="relative bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scale-up">
-                {/* Header with gradient */}
-                <div className={`bg-gradient-to-r from-${experience.color}-600 to-${experience.color}-400 p-8 text-white relative overflow-hidden`}>
-                    <div className="absolute top-0 right-0 text-9xl opacity-10">{experience.logo}</div>
+                <div
+                    className="relative bg-white rounded-3xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto animate-scale-up">
+                    {/* Company Header */}
+                    <div
+                        className={`bg-gradient-to-r from-${experience.color}-600 to-${experience.color}-400 p-8 text-white relative overflow-hidden`}>
+                        <div className="absolute top-0 right-0 text-9xl opacity-10">{experience.logo}</div>
 
-                    <button
-                        onClick={onClose}
-                        className="absolute top-6 right-6 p-2 bg-white/20 hover:bg-white/30 rounded-full transition backdrop-blur-sm"
-                    >
-                        <X size={24} />
-                    </button>
-
-                    <div className="relative z-10">
-                        <div className="flex items-center gap-4 mb-4">
-                            <div className="w-16 h-16 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center text-4xl border-2 border-white/30">
-                                {experience.logo}
-                            </div>
-                            <div>
-                                <h2 className="text-3xl font-black">{experience.company}</h2>
-                                <p className="text-white/90 text-lg font-semibold">{experience.position}</p>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-wrap gap-4 text-sm">
-                            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full border border-white/30">
-                                <Calendar size={16} />
-                                <span className="font-semibold">{experience.period}</span>
-                            </div>
-                            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full border border-white/30">
-                                <Users size={16} />
-                                <span className="font-semibold">{experience.teamSize || 'Team Project'}</span>
-                            </div>
-                            {experience.current && (
-                                <div className="flex items-center gap-2 bg-green-500 px-4 py-2 rounded-full font-bold animate-pulse">
-                                    <span className="w-2 h-2 bg-white rounded-full"></span>
-                                    Currently Working
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Modal Body */}
-                <div className="p-8 space-y-8">
-                    {/* Description */}
-                    <div>
-                        <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
-                            <Building className={`text-${experience.color}-600`} size={28} />
-                            About the Role
-                        </h3>
-                        <p className="text-gray-700 leading-relaxed text-lg">{experience.description}</p>
-                    </div>
-
-                    {/* Key Achievements */}
-                    <div>
-                        <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
-                            <Award className={`text-${experience.color}-600`} size={28} />
-                            Key Achievements
-                        </h3>
-                        <div className="space-y-3">
-                            {experience.achievements.map((achievement, idx) => (
-                                <div key={idx} className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition group">
-                                    <div className={`p-2 bg-${experience.color}-100 rounded-lg group-hover:scale-110 transition flex-shrink-0`}>
-                                        <CheckCircle className={`text-${experience.color}-600`} size={20} />
-                                    </div>
-                                    <div className="flex-1">
-                                        <p className="text-gray-900 font-semibold leading-relaxed">{achievement}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Detailed Responsibilities */}
-                    {experience.responsibilities && (
-                        <div>
-                            <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
-                                <Target className={`text-${experience.color}-600`} size={28} />
-                                Responsibilities
-                            </h3>
-                            <ul className="space-y-2">
-                                {experience.responsibilities.map((resp, idx) => (
-                                    <li key={idx} className="flex items-start gap-3 text-gray-700">
-                                        <ChevronRight className={`text-${experience.color}-600 mt-1 flex-shrink-0`} size={18} />
-                                        <span>{resp}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-
-                    {/* Technologies Used */}
-                    <div>
-                        <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
-                            <Code className={`text-${experience.color}-600`} size={28} />
-                            Technologies & Tools
-                        </h3>
-                        <div className="flex flex-wrap gap-3">
-                            {experience.tech.map((tech, idx) => (
-                                <span
-                                    key={idx}
-                                    className={`px-4 py-2 bg-${experience.color}-100 text-${experience.color}-800 rounded-full font-semibold text-sm hover:scale-110 transition cursor-default`}
-                                >
-                  {tech}
-                </span>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Projects Worked On */}
-                    {experience.projects && (
-                        <div>
-                            <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
-                                <Briefcase className={`text-${experience.color}-600`} size={28} />
-                                Projects Delivered
-                            </h3>
-                            <div className="grid md:grid-cols-2 gap-4">
-                                {experience.projects.map((project, idx) => (
-                                    <div key={idx} className="p-4 bg-gray-50 rounded-xl hover:shadow-lg transition border-2 border-gray-100">
-                                        <h4 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
-                                            <Star className={`text-${experience.color}-600`} size={16} />
-                                            {project.name}
-                                        </h4>
-                                        <p className="text-sm text-gray-600">{project.description}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Impact & Metrics */}
-                    {experience.metrics && (
-                        <div>
-                            <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
-                                <TrendingUp className={`text-${experience.color}-600`} size={28} />
-                                Impact & Metrics
-                            </h3>
-                            <div className="grid md:grid-cols-3 gap-4">
-                                {experience.metrics.map((metric, idx) => (
-                                    <div key={idx} className={`p-6 bg-gradient-to-br from-${experience.color}-50 to-white rounded-xl border-2 border-${experience.color}-100`}>
-                                        <div className="text-4xl font-black text-gray-900 mb-2">{metric.value}</div>
-                                        <div className="text-sm text-gray-600 font-semibold">{metric.label}</div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                {/* Footer */}
-                <div className={`bg-gradient-to-r from-${experience.color}-50 to-white p-6 border-t-2 border-${experience.color}-100`}>
-                    <div className="flex items-center justify-between">
-                        <p className="text-gray-600 text-sm">
-                            Duration: <span className="font-bold text-gray-900">{experience.duration || 'Ongoing'}</span>
-                        </p>
-                        <button
-                            onClick={onClose}
-                            className={`px-6 py-3 bg-gradient-to-r from-${experience.color}-600 to-${experience.color}-400 text-white rounded-xl font-bold hover:shadow-lg transition flex items-center gap-2`}
-                        >
-                            <span>Close</span>
-                            <X size={18} />
+                        <button onClick={onClose}
+                                className="absolute top-6 right-6 p-2 bg-white/20 hover:bg-white/30 rounded-full transition backdrop-blur-sm">
+                            <X size={24}/>
                         </button>
+
+                        <div className="relative z-10">
+                            <div className="flex items-center gap-4 mb-4">
+                                <div
+                                    className="w-20 h-20 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center text-5xl border-2 border-white/30">
+                                    {experience.logo}
+                                </div>
+                                <div>
+                                    <h2 className="text-4xl font-black">{experience.company}</h2>
+                                    <p className="text-white/90 text-xl font-semibold">{experience.position}</p>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-wrap gap-4">
+                                <div
+                                    className="flex items-center gap-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full border border-white/30">
+                                    <Calendar size={18}/>
+                                    <span className="font-semibold">{experience.period}</span>
+                                </div>
+                                <div
+                                    className="flex items-center gap-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full border border-white/30">
+                                    <Briefcase size={18}/>
+                                    <span className="font-semibold">{experience.projects.length} Projects</span>
+                                </div>
+                                {experience.current && (
+                                    <div
+                                        className="flex items-center gap-2 bg-green-500 px-4 py-2 rounded-full font-bold animate-pulse">
+                                        <span className="w-2 h-2 bg-white rounded-full"></span>
+                                        Currently Working
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Company Overview */}
+                    <div className="p-8 border-b-2 border-gray-100">
+                        <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
+                            <Building className={`text-${experience.color}-600`} size={28}/>
+                            Company Overview
+                        </h3>
+                        <p className="text-gray-700 text-lg leading-relaxed">{experience.description}</p>
+                    </div>
+
+                    {/* Projects Section */}
+                    <div className="p-8">
+                        <h3 className="text-3xl font-black text-gray-900 mb-8 flex items-center gap-3">
+                            <Layers className={`text-${experience.color}-600`} size={32}/>
+                            Projects I Worked On
+                            <span
+                                className={`px-4 py-1 bg-${experience.color}-100 text-${experience.color}-800 rounded-full text-base font-bold`}>
+                {experience.projects.length}
+              </span>
+                        </h3>
+
+                        <div className="space-y-6">
+                            {experience.projects.map((project, idx) => (
+                                <div key={idx} className="group relative">
+                                    <div
+                                        className={`absolute inset-0 bg-gradient-to-r from-${experience.color}-400 to-${experience.color}-600 rounded-2xl blur opacity-10 group-hover:opacity-20 transition`}></div>
+
+                                    <div
+                                        className="relative bg-white border-2 border-gray-100 rounded-2xl shadow-lg hover:shadow-2xl transition overflow-hidden">
+                                        {/* Project Header */}
+                                        <div
+                                            className="p-6 cursor-pointer"
+                                            onClick={() => setExpandedProject(expandedProject === idx ? null : idx)}
+                                        >
+                                            <div className="flex items-start justify-between gap-4">
+                                                <div className="flex-1">
+                                                    <div className="flex items-center gap-3 mb-2">
+                                                        <div className={`p-2 bg-${experience.color}-100 rounded-lg`}>
+                                                            <Code className={`text-${experience.color}-600`} size={24}/>
+                                                        </div>
+                                                        <div>
+                                                            <h4 className="text-2xl font-black text-gray-900">{project.name}</h4>
+                                                            <p className="text-gray-600">{project.description}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="flex flex-wrap gap-3 mt-4">
+                                                        <div
+                                                            className="flex items-center gap-2 px-3 py-1 bg-gray-100 rounded-lg text-sm">
+                                                            <Calendar size={14}/>
+                                                            <span
+                                                                className="font-semibold text-gray-700">{project.period}</span>
+                                                        </div>
+                                                        <div
+                                                            className="flex items-center gap-2 px-3 py-1 bg-gray-100 rounded-lg text-sm">
+                                                            <Users size={14}/>
+                                                            <span
+                                                                className="font-semibold text-gray-700">{project.teamSize} members</span>
+                                                        </div>
+                                                        <div
+                                                            className="flex items-center gap-2 px-3 py-1 bg-blue-100 rounded-lg text-sm">
+                                                            <Award size={14} className="text-blue-600"/>
+                                                            <span
+                                                                className="font-semibold text-blue-700">{project.role}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex flex-col gap-2">
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setSelectedProject(project);
+                                                        }}
+                                                        className={`px-6 py-3 bg-gradient-to-r from-${experience.color}-600 to-${experience.color}-400 text-white rounded-xl font-bold hover:shadow-lg transition flex items-center gap-2 whitespace-nowrap`}
+                                                    >
+                                                        <span>Full Details</span>
+                                                        <ExternalLink size={18}/>
+                                                    </button>
+                                                    <button
+                                                        className="p-3 bg-gray-100 hover:bg-gray-200 rounded-xl transition">
+                                                        <ChevronDown
+                                                            size={20}
+                                                            className={`transform transition ${expandedProject === idx ? 'rotate-180' : ''}`}
+                                                        />
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Expanded Content */}
+                                        {expandedProject === idx && (
+                                            <div
+                                                className="px-6 pb-6 pt-0 border-t-2 border-gray-100 animate-slide-down">
+                                                <div className="grid md:grid-cols-2 gap-6 mt-6">
+                                                    {/* Quick Overview */}
+                                                    <div>
+                                                        <h5 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                                            <Target size={18}
+                                                                    className={`text-${experience.color}-600`}/>
+                                                            Quick Overview
+                                                        </h5>
+                                                        <div className="space-y-2 text-sm">
+                                                            <p><span
+                                                                className="font-semibold">Customer:</span> {project.customer}
+                                                            </p>
+                                                            <p><span
+                                                                className="font-semibold">Duration:</span> {project.period}
+                                                            </p>
+                                                            <p><span
+                                                                className="font-semibold">Team Size:</span> {project.teamSize} members
+                                                            </p>
+                                                            <p><span
+                                                                className="font-semibold">My Role:</span> {project.role}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Key Tech */}
+                                                    <div>
+                                                        <h5 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                                            <Code size={18} className={`text-${experience.color}-600`}/>
+                                                            Key Technologies
+                                                        </h5>
+                                                        <div className="flex flex-wrap gap-2">
+                                                            {Object.values(project.techStack).flat().slice(0, 8).map((tech, techIdx) => (
+                                                                <span key={techIdx}
+                                                                      className={`px-3 py-1 bg-${experience.color}-100 text-${experience.color}-800 rounded-full text-xs font-medium`}>
+                                  {tech}
+                                </span>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {/* My Responsibilities Preview */}
+                                                <div className="mt-6">
+                                                    <h5 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                                        <CheckCircle size={18}
+                                                                     className={`text-${experience.color}-600`}/>
+                                                        My Key Responsibilities
+                                                    </h5>
+                                                    <ul className="space-y-2">
+                                                        {project.responsibilities.slice(0, 4).map((resp, rIdx) => (
+                                                            <li key={rIdx}
+                                                                className="flex items-start gap-2 text-sm text-gray-700">
+                                                                <ChevronRight
+                                                                    className={`text-${experience.color}-600 mt-0.5 flex-shrink-0`}
+                                                                    size={16}/>
+                                                                <span>{resp}</span>
+                                                            </li>
+                                                        ))}
+                                                        {project.responsibilities.length > 4 && (
+                                                            <li className="text-sm text-gray-500 italic">
+                                                                +{project.responsibilities.length - 4} more
+                                                                responsibilities...
+                                                            </li>
+                                                        )}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div
+                        className={`bg-gradient-to-r from-${experience.color}-50 to-white p-6 border-t-2 border-${experience.color}-100`}>
+                        <div className="flex items-center justify-between">
+                            <p className="text-gray-600">
+                                Total Duration: <span
+                                className="font-bold text-gray-900">{experience.duration || 'Ongoing'}</span>
+                            </p>
+                            <button onClick={onClose}
+                                    className={`px-8 py-3 bg-gradient-to-r from-${experience.color}-600 to-${experience.color}-400 text-white rounded-xl font-bold hover:shadow-lg transition`}>
+                                Close
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            {/* Project Detail Modal (nested) */}
+            <ProjectDetailModal
+                project={selectedProject}
+                companyColor={experience.color}
+                isOpen={!!selectedProject}
+                onClose={() => setSelectedProject(null)}
+            />
+        </>
     );
 };
 
 // Experience Card Component
-const ExperienceCard = ({ experience, index, onClick }) => {
+const ExperienceCard = ({experience, index, onClick}) => {
     const isLeft = index % 2 === 0;
 
     return (
         <div className={`relative ${isLeft ? 'md:pr-[50%]' : 'md:pl-[50%] md:text-right'}`}>
             {/* Timeline dot */}
             <div className="absolute left-8 md:left-1/2 top-8 w-16 h-16 transform -translate-x-1/2 hidden md:block">
-                <div className={`w-full h-full bg-gradient-to-br from-${experience.color}-500 to-${experience.color}-400 rounded-full flex items-center justify-center text-3xl shadow-2xl animate-pulse-slow border-4 border-gray-900`}>
+                <div
+                    className={`w-full h-full bg-gradient-to-br from-${experience.color}-500 to-${experience.color}-400 rounded-full flex items-center justify-center text-3xl shadow-2xl animate-pulse-slow border-4 border-gray-900`}>
                     {experience.logo}
                 </div>
             </div>
 
             <div className="group relative md:mx-8">
-                <div className={`absolute inset-0 bg-gradient-to-r from-${experience.color}-500 to-${experience.color}-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition`}></div>
+                <div
+                    className={`absolute inset-0 bg-gradient-to-r from-${experience.color}-500 to-${experience.color}-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition`}></div>
 
-                <div className="relative bg-gray-800 p-8 rounded-2xl shadow-2xl hover:shadow-3xl transition duration-500 border-2 border-gray-700 transform group-hover:-translate-y-2">
-                    <div className="flex items-start justify-between flex-wrap gap-4 mb-4">
+                <div
+                    className="relative bg-gray-800 p-8 rounded-2xl shadow-2xl hover:shadow-3xl transition duration-500 border-2 border-gray-700 transform group-hover:-translate-y-2">
+                    <div className="flex items-start justify-between flex-wrap gap-4 mb-6">
                         <div className={isLeft ? '' : 'md:text-right'}>
                             <h3 className="text-3xl font-black mb-2">{experience.company}</h3>
                             <p className="text-xl font-bold text-gray-300 mb-2">{experience.position}</p>
-                            <p className="text-gray-400 leading-relaxed">{experience.description}</p>
+                            <p className="text-gray-400 leading-relaxed mb-4">{experience.description}</p>
+
+                            <div className="flex flex-wrap gap-2 mb-4">
+                <span
+                    className={`px-3 py-1 bg-${experience.color}-500/20 text-${experience.color}-300 rounded-full text-sm font-bold border border-${experience.color}-500/30`}>
+                  {experience.projects.length} Projects
+                </span>
+                                <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm font-bold">
+                  {experience.duration}
+                </span>
+                            </div>
                         </div>
+
                         <div className="flex flex-col items-end gap-2">
                             {experience.current && (
-                                <span className="px-4 py-2 bg-green-500 text-white rounded-full text-sm font-bold shadow-lg animate-pulse">
+                                <span
+                                    className="px-4 py-2 bg-green-500 text-white rounded-full text-sm font-bold shadow-lg animate-pulse">
                   Current
                 </span>
                             )}
                             <span className="flex items-center gap-2 text-gray-400 font-medium">
-                <Clock size={18} />
+                <Clock size={18}/>
                                 {experience.period}
               </span>
                         </div>
                     </div>
 
+                    {/* Project Preview Cards */}
                     <div className="mb-6">
-                        <h4 className="text-lg font-bold mb-3 flex items-center gap-2">
-                            <Zap className={`text-${experience.color}-400`} size={20} />
-                            Key Achievements
-                        </h4>
-                        <ul className="space-y-2">
-                            {experience.achievements.slice(0, 3).map((achievement, aIdx) => (
-                                <li key={aIdx} className="flex items-start gap-3">
-                                    <CheckCircle className={`text-${experience.color}-400 mt-1 flex-shrink-0`} size={18} />
-                                    <span className="text-gray-300">{achievement}</span>
-                                </li>
+                        <h4 className="text-sm font-bold text-gray-400 mb-3 uppercase tracking-wide">Key Projects:</h4>
+                        <div className="space-y-2">
+                            {experience.projects.slice(0, 3).map((project, pIdx) => (
+                                <div key={pIdx} className="p-3 bg-gray-700/50 rounded-lg border border-gray-600">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <p className="font-bold text-white text-sm">{project.name}</p>
+                                            <p className="text-xs text-gray-400">{project.role}</p>
+                                        </div>
+                                        <Users size={14} className="text-gray-400"/>
+                                    </div>
+                                </div>
                             ))}
-                        </ul>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-6">
-                        {experience.tech.slice(0, 5).map((tech, tIdx) => (
-                            <span key={tIdx} className={`px-3 py-1 bg-${experience.color}-500/20 text-${experience.color}-300 rounded-full text-sm font-medium border border-${experience.color}-500/30`}>
-                {tech}
-              </span>
-                        ))}
-                        {experience.tech.length > 5 && (
-                            <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm font-medium">
-                +{experience.tech.length - 5} more
-              </span>
-                        )}
+                            {experience.projects.length > 3 && (
+                                <p className="text-sm text-gray-400 italic">+{experience.projects.length - 3} more
+                                    projects...</p>
+                            )}
+                        </div>
                     </div>
 
                     <button
                         onClick={() => onClick(experience)}
-                        className={`w-full bg-gradient-to-r from-${experience.color}-600 to-${experience.color}-400 hover:from-${experience.color}-700 hover:to-${experience.color}-500 text-white py-3 px-6 rounded-xl font-bold transition transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg`}
+                        className={`w-full bg-gradient-to-r from-${experience.color}-600 to-${experience.color}-400 hover:from-${experience.color}-700 hover:to-${experience.color}-500 text-white py-4 px-6 rounded-xl font-bold transition transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg`}
                     >
-                        <span>View Full Details</span>
-                        <ArrowRight size={20} className="group-hover:translate-x-1 transition" />
+                        <span>View All {experience.projects.length} Projects</span>
+                        <ArrowRight size={20} className="group-hover:translate-x-1 transition"/>
                     </button>
                 </div>
             </div>
         </div>
     );
 };
+
+// Import Trophy icon
+const Trophy = Award;
 
 // Main Experience Component
 export const Experience = () => {
@@ -334,109 +592,229 @@ export const Experience = () => {
             period: "05/2024 - Present",
             duration: "9+ months",
             position: "Software Development Engineer",
-            description: "Leading development of enterprise-scale systems for Vietnam Airlines and VAS",
-            teamSize: "60 members",
-            achievements: [
-                "Architected microservices for 60-member team",
-                "Optimized system performance by 40%",
-                "Implemented CI/CD pipeline reducing deployment time by 60%",
-                "Built scalable event-driven architecture with Kafka",
-                "Mentored 5 junior developers on best practices"
-            ],
-            responsibilities: [
-                "Design and develop RESTful APIs for Web and Mobile platforms",
-                "Analyze SRS documents and work with Business Analysts",
-                "Participate in Agile ceremonies (stand-ups, sprint planning, retrospectives)",
-                "Optimize SQL queries and improve system performance",
-                "Build data synchronization systems between platforms",
-                "Debug and troubleshoot production issues"
-            ],
-            tech: ["Java", "Spring Boot", "K8S", "Kafka", "Redis", "MariaDB", "ELK", "Keycloak", "Jenkins", "Quartz"],
-            projects: [
-                { name: "VNA-MO", description: "Vietnam Airlines electronic flight document system" },
-                { name: "Mydio", description: "Audio streaming and podcast platform" }
-            ],
-            metrics: [
-                { value: "40%", label: "Performance Boost" },
-                { value: "60%", label: "Faster Deployment" },
-                { value: "10K+", label: "Daily Operations" }
-            ],
+            description: "Leading development of enterprise-scale systems for Vietnam Airlines and VAS with multiple high-impact projects",
             logo: "🔷",
             color: "blue",
-            current: true
+            current: true,
+            projects: [
+                {
+                    name: "VNA-MO",
+                    description: "Vietnam Airlines electronic flight document software system",
+                    period: "09/2024 - Present",
+                    customer: "Vietnam Airlines",
+                    teamSize: 60,
+                    role: "Backend Engineer",
+                    fullDescription: "Enterprise-scale electronic flight document management system handling 10,000+ daily operations with real-time data synchronization across multiple platforms.",
+                    responsibilities: [
+                        "Analyze SRS documents, work closely with Business Analyst to clarify business requirements",
+                        "Design and develop features on both web and mobile platforms",
+                        "Participate in Agile meetings (daily stand-up, sprint planning, retrospective)",
+                        "Design and implement RESTful API system for Web and Mobile platforms",
+                        "Debug, troubleshoot and optimize the system, ensure stable system operation",
+                        "Optimize SQL queries, improve system performance, reduce response time",
+                        "Build data synchronization system between platforms, ensuring consistency"
+                    ],
+                    techStack: {
+                        backend: ["Java", "Spring Boot", "Spring Cloud", "Hibernate"],
+                        database: ["MariaDB", "Redis"],
+                        devops: ["K8S", "Jenkins", "Docker"],
+                        messaging: ["Kafka"],
+                        security: ["Keycloak"],
+                        monitoring: ["ELK", "Zipkin"],
+                        scheduler: ["Quartz"]
+                    },
+                    achievements: [
+                        "Architected microservices for 60-member team",
+                        "Optimized system performance by 40%",
+                        "Reduced response time from 3s to 1.2s",
+                        "Implemented CI/CD pipeline reducing deployment time by 60%"
+                    ]
+                },
+                {
+                    name: "Mydio",
+                    description: "Provides an app/web to listen to audio and podcasts",
+                    period: "05/2024 - 09/2024",
+                    customer: "VAS - Viettel Business Center",
+                    teamSize: 27,
+                    role: "Backend Engineer",
+                    fullDescription: "Audio streaming and podcast platform serving 100K+ users with personalized recommendations and sophisticated book management system.",
+                    responsibilities: [
+                        "Discuss, receive requests, analyze and confirm API solutions with customers",
+                        "Write documents describing API solutions",
+                        "Design and deploy RESTful API systems for Web and Mobile platforms",
+                        "Participate in daily meetings with project team and customers",
+                        "Build book data management system, record information on views, favorites",
+                        "Maintain and optimize the system",
+                        "Build CI/CD by Jenkins and deploy applications to DEV environments"
+                    ],
+                    techStack: {
+                        backend: ["Java", "Spring Boot", "Spring Cloud", "OpenFeign"],
+                        database: ["MySQL", "Elasticsearch"],
+                        devops: ["Jenkins", "Docker"],
+                        messaging: ["Kafka"],
+                        cache: ["Redis"],
+                        logging: ["Log4j"]
+                    },
+                    achievements: [
+                        "Built scalable microservices architecture",
+                        "Integrated Elasticsearch for advanced search",
+                        "Implemented personalized recommendation system",
+                        "Handled 100K+ concurrent users"
+                    ]
+                }
+            ]
         },
         {
             company: "AC",
             period: "07/2022 - 04/2024",
             duration: "1 year 10 months",
             position: "Software Development Engineer",
-            description: "Full-stack development and team leadership for multiple client projects",
-            teamSize: "7-20 members",
-            achievements: [
-                "Led team of 7 engineers",
-                "Delivered 4 major projects on time",
-                "Reduced query response time by 50%",
-                "Implemented multitenancy architecture for Loyalty System",
-                "Worked onsite at TPBank for critical banking system"
-            ],
-            responsibilities: [
-                "Lead technical discussions and architecture decisions",
-                "Assign tasks and mentor team members",
-                "Review code and ensure quality standards",
-                "Design RESTful APIs for multiple platforms",
-                "Develop both frontend (React) and backend (Java)",
-                "Build CI/CD pipelines with GitLab CI",
-                "Optimize database queries and indexing"
-            ],
-            tech: ["Java", "PostgreSQL", "React", "Keycloak", "GitLab CI", "Spring Cloud", "Elasticsearch", "MinIO", "Oracle", "Kafka"],
-            projects: [
-                { name: "Cardoctor", description: "Driving support platform" },
-                { name: "Loyalty System", description: "Multi-tenant point accumulation" },
-                { name: "TPBank Blacklist", description: "Banking security system" }
-            ],
-            metrics: [
-                { value: "50%", label: "Query Optimization" },
-                { value: "4", label: "Projects Delivered" },
-                { value: "7", label: "Team Members Led" }
-            ],
+            description: "Full-stack development and team leadership for multiple client projects across fintech and automotive sectors",
             logo: "🟢",
             color: "green",
-            current: false
+            current: false,
+            projects: [
+                {
+                    name: "Cardoctor",
+                    description: "Safe - Convenient - Economical Driving Support Platform",
+                    period: "07/2022 - 10/2023",
+                    customer: "Cardoctor",
+                    teamSize: 20,
+                    role: "Backend Engineer",
+                    fullDescription: "Comprehensive driving assistance platform with real-time tracking, maintenance alerts, cost optimization, and integrated third-party services for vehicle management.",
+                    responsibilities: [
+                        "Communicate and receive requests with customers",
+                        "Participate in Agile meetings (daily stand-up, sprint planning, retrospective)",
+                        "Design and deploy RESTful API system for Web and Mobile platforms",
+                        "Debug, troubleshoot and optimize the system, ensuring stable system operation",
+                        "Optimize SQL queries, improve system performance, reduce response time",
+                        "Support other team members on technical issues"
+                    ],
+                    techStack: {
+                        backend: ["Java", "Spring Framework", "Spring MVC", "Spring Cloud", "OpenFeign"],
+                        database: ["PostgreSQL"],
+                        search: ["Elasticsearch"],
+                        storage: ["MinIO"],
+                        security: ["Keycloak"],
+                        devops: ["K8S", "GitLab CI"]
+                    },
+                    achievements: [
+                        "Built RESTful API for 20-member team",
+                        "Reduced query response time by 50%",
+                        "Implemented real-time vehicle tracking",
+                        "Integrated multiple payment gateways"
+                    ]
+                },
+                {
+                    name: "Loyalty System",
+                    description: "Point accumulation system for loyal customers",
+                    period: "02/2023 - 10/2023",
+                    customer: "Cardoctor",
+                    teamSize: 7,
+                    role: "Team Lead & Full-stack Engineer",
+                    fullDescription: "Multi-tenant loyalty management system supporting multiple clients with complex point calculation algorithms, reward management, and comprehensive admin dashboards.",
+                    responsibilities: [
+                        "Participate in Agile meetings and report progress",
+                        "Design and deploy RESTful API system for Web and Mobile platforms",
+                        "Debug, troubleshoot and optimize the system",
+                        "Optimize SQL queries, improve system performance",
+                        "Develop and maintain user interface (UI) for web and mobile applications",
+                        "Assign tasks, guide and mentor team members to improve technical skills",
+                        "Review code, manage project progress and ensure timely delivery",
+                        "Support other team members on technical issues",
+                        "Build CI/CD by GitLab CI and deploy applications to DEV environments"
+                    ],
+                    techStack: {
+                        backend: ["Java", "Spring Framework", "Spring MVC", "Spring Cloud"],
+                        database: ["PostgreSQL"],
+                        search: ["Elasticsearch"],
+                        storage: ["MinIO"],
+                        security: ["Keycloak (Multitenancy)"],
+                        frontend: ["React.js", "Material UI", "SCSS"],
+                        devops: ["GitLab CI", "K8S"]
+                    },
+                    achievements: [
+                        "Led team of 7 engineers successfully",
+                        "Implemented multitenancy architecture",
+                        "Built full-stack solution (React + Java)",
+                        "Delivered project on time with high quality",
+                        "Established code review process"
+                    ]
+                },
+                {
+                    name: "TPBank Blacklist System",
+                    description: "Suspicious customer project, blacklist management",
+                    period: "10/2023 - 04/2024",
+                    customer: "TPBank (Onsite)",
+                    teamSize: 3,
+                    role: "Backend Engineer (Onsite)",
+                    fullDescription: "Critical banking security infrastructure managing blacklisted customers and suspicious transactions with real-time event processing for fraud detection.",
+                    responsibilities: [
+                        "Participate in Agile meetings (daily stand-up, sprint planning, retrospective)",
+                        "Design and deploy RESTful API system for Web, ensuring performance and security",
+                        "Debug, troubleshoot and optimize the system, ensuring stable system operation",
+                        "Optimize SQL queries, improve system performance, reduce response time",
+                        "Develop and maintain user interface (UI) for web applications",
+                        "Build and deploy applications to DEV, UAT environments by Weblogic"
+                    ],
+                    techStack: {
+                        backend: ["Java", "Spring Framework", "Spring MVC"],
+                        database: ["Oracle"],
+                        messaging: ["Kafka"],
+                        server: ["Weblogic"]
+                    },
+                    achievements: [
+                        "Built critical banking security system",
+                        "Implemented real-time fraud detection with Kafka",
+                        "Optimized Oracle queries for high performance",
+                        "Worked onsite at TPBank headquarters",
+                        "Delivered secure and compliant solution"
+                    ]
+                }
+            ]
         },
         {
             company: "Vissoft JSC",
             period: "01/2022 - 06/2022",
             duration: "6 months",
             position: "Software Development Engineer",
-            description: "Developed HRM system with microservices architecture",
-            teamSize: "15 members",
-            achievements: [
-                "Built RESTful API gateway",
-                "Implemented OpenFeign service communication",
-                "Deployed to production environment",
-                "Developed employee management modules",
-                "Integrated MinIO for file storage"
-            ],
-            responsibilities: [
-                "Communicate and gather requirements from stakeholders",
-                "Design and implement microservices architecture",
-                "Develop API Gateway with Spring Cloud Gateway",
-                "Implement service discovery with Eureka",
-                "Build employee management features",
-                "Deploy applications to DEV environments"
-            ],
-            tech: ["Java", "Spring Cloud", "MariaDB", "MinIO", "React.js", "Bootstrap", "Spring Data JPA", "OpenFeign", "Eureka"],
-            projects: [
-                { name: "HRM System", description: "Internal human resource management platform" }
-            ],
-            metrics: [
-                { value: "15", label: "Team Members" },
-                { value: "100%", label: "On-Time Delivery" },
-                { value: "5+", label: "Modules Built" }
-            ],
+            description: "Developed internal HRM system with microservices architecture for employee management",
             logo: "🟣",
             color: "purple",
-            current: false
+            current: false,
+            projects: [
+                {
+                    name: "HRM System",
+                    description: "Human resource management system",
+                    period: "01/2022 - 06/2022",
+                    customer: "Internal Company",
+                    teamSize: 15,
+                    role: "Backend Engineer",
+                    fullDescription: "Internal HRM system handling employee management, attendance, payroll, and performance reviews with API Gateway pattern and service discovery.",
+                    responsibilities: [
+                        "Communicate and receive requests with customers",
+                        "Participate in Agile meetings (daily stand-up, sprint planning, retrospective)",
+                        "Design and deploy RESTful API system for Web and Mobile platforms",
+                        "Debug, troubleshoot and optimize the system, ensuring stable system operation",
+                        "Optimize SQL queries, improve system performance",
+                        "Build and deploy applications to DEV environments"
+                    ],
+                    techStack: {
+                        backend: ["Java", "Spring Data JPA", "Spring Cloud", "OpenFeign", "Eureka"],
+                        database: ["MariaDB"],
+                        storage: ["MinIO"],
+                        frontend: ["React.js", "Bootstrap"],
+                        gateway: ["Spring Cloud Gateway"]
+                    },
+                    achievements: [
+                        "Built API Gateway with Spring Cloud Gateway",
+                        "Implemented service discovery with Eureka",
+                        "Developed employee management modules",
+                        "Integrated MinIO for document storage",
+                        "Deployed to production environment successfully"
+                    ]
+                }
+            ]
         }
     ];
 
@@ -461,10 +839,23 @@ export const Experience = () => {
         from { transform: scale(0.9); opacity: 0; }
         to { transform: scale(1); opacity: 1; }
       }
+      @keyframes slide-down {
+        from { 
+          opacity: 0;
+          max-height: 0;
+          transform: translateY(-10px);
+        }
+        to { 
+          opacity: 1;
+          max-height: 1000px;
+          transform: translateY(0);
+        }
+      }
       .animate-particle { animation: particle linear infinite; }
       .animate-pulse-slow { animation: pulse-slow 2s ease-in-out infinite; }
       .animate-fade-in { animation: fade-in 0.3s ease-out; }
       .animate-scale-up { animation: scale-up 0.3s ease-out; }
+      .animate-slide-down { animation: slide-down 0.4s ease-out; }
       .shadow-3xl { box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3); }
     `;
         document.head.appendChild(style);
@@ -476,25 +867,29 @@ export const Experience = () => {
 
     return (
         <>
-            <section ref={ref} className={`py-24 bg-gray-900 text-white relative overflow-hidden transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                <ParticleSystem />
+            <section ref={ref}
+                     className={`py-24 bg-gray-900 text-white relative overflow-hidden transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                <ParticleSystem/>
 
                 <div className="container mx-auto px-6 max-w-6xl relative z-10">
                     <div className="text-center mb-16">
-                        <div className="inline-block bg-green-500/20 text-green-400 px-6 py-2 rounded-full font-bold text-sm mb-4 backdrop-blur-lg border border-green-500/30">
+                        <div
+                            className="inline-block bg-green-500/20 text-green-400 px-6 py-2 rounded-full font-bold text-sm mb-4 backdrop-blur-lg border border-green-500/30">
                             💼 PROFESSIONAL PATH
                         </div>
                         <h2 className="text-5xl md:text-6xl font-black mb-4">
-                            Work <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Experience</span>
+                            Work <span
+                            className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Experience</span>
                         </h2>
                         <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                            Building impactful solutions across multiple industries
+                            3+ years building impactful solutions across multiple industries
                         </p>
                     </div>
 
                     <div className="relative">
                         {/* Timeline line */}
-                        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-green-500 to-purple-500 hidden md:block transform -translate-x-1/2"></div>
+                        <div
+                            className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-green-500 to-purple-500 hidden md:block transform -translate-x-1/2"></div>
 
                         <div className="space-y-12">
                             {experiences.map((exp, idx) => (
@@ -510,8 +905,8 @@ export const Experience = () => {
                 </div>
             </section>
 
-            {/* Experience Detail Modal */}
-            <ExperienceModal
+            {/* Company Experience Modal */}
+            <CompanyExperienceModal
                 experience={selectedExperience}
                 isOpen={!!selectedExperience}
                 onClose={() => setSelectedExperience(null)}
