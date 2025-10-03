@@ -21,7 +21,7 @@ const educationList =
         }
     ];
 
-export const Education = () => {
+export const Education = ({educations}) => {
     const [ref, isVisible] = useIntersectionObserver();
 
     return (
@@ -39,7 +39,7 @@ export const Education = () => {
                         className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Journey</span>
                     </h2>
                 </div>
-                {educationList.map((education, idx) => (
+                {educations.map((education, idx) => (
                     <div key={idx} className="relative group perspective-1000 mb-12">
                         <div
                             className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition"></div>

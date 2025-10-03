@@ -3,51 +3,7 @@ import {useIntersectionObserver} from "../../hooks/useIntersectionObserver.js";
 import {ParticleSystem} from "../../utils/ParticleSystem.jsx";
 import {getIconComponent} from "../../utils/GetIconForAll.jsx";
 
-// Hobbies JSON
-const hobbies = {
-    hobbies: [
-        {name: "Gaming", icon: "🎮", color: "purple", desc: "Strategy & RPG enthusiast"},
-        {name: "Football", icon: "⚽", color: "green", desc: "Weekend warrior"},
-        {name: "Badminton", icon: "🏸", color: "red", desc: "Competitive player"},
-        {name: "Traveling", icon: "✈️", color: "blue", desc: "Exploring cultures"}
-    ],
-    personals: [
-        {
-            icon: "CheckCircle",
-            color: "blue-400",
-            text: "Passionate about building relationships through sports"
-        },
-        {
-            icon: "CheckCircle",
-            color: "green-400",
-            text: "Committed to continuous learning and growth"
-        },
-        {
-            icon: "CheckCircle",
-            color: "purple-400",
-            text: "Open to new challenges and opportunities"
-        }
-    ],
-    workStyles : [
-        {
-            icon: "CheckCircle",
-            color: "yellow-400",
-            text: "Willing to work overtime when needed"
-        },
-        {
-            icon: "CheckCircle",
-            color: "orange-400",
-            text: "Flexible with relocation opportunities"
-        },
-        {
-            icon: "CheckCircle",
-            color: "red-400",
-            text: "Team player with strong collaboration skills"
-        }
-    ]
-}
-
-export const Hobbies = () => {
+export const Hobbies = ({hobbies}) => {
     const [ref, isVisible] = useIntersectionObserver();
 
     return (

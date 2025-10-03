@@ -43,7 +43,7 @@ function getIconComponent(name, size = 20) {
 }
 
 
-export const CareerGoals = () => {
+export const CareerGoals = ({careerGoals}) => {
     const [ref, isVisible] = useIntersectionObserver();
 
     return (

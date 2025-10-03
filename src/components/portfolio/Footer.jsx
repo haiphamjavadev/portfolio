@@ -2,41 +2,15 @@ import {useIntersectionObserver} from "../../hooks/useIntersectionObserver.js";
 import {ParticleSystem} from "../../utils/ParticleSystem.jsx";
 import {getIconComponent} from "../../utils/GetIconForAll.jsx";
 
-const footers =
-    {
-        "profile": {
-            "initials": "PH",
-            "fullName": "Pham Quang Hai",
-            "title": "Software Development Engineer",
-            "description":
-                "Passionate backend developer specializing in building scalable microservices, optimizing database performance, and architecting cloud-native solutions."
-        },
-        "quickLinks": [
-            {"label": "Home", "href": "#"},
-            {"label": "Skills", "href": "#"},
-            {"label": "Projects", "href": "#"},
-            {"label": "Experience", "href": "#"},
-            {"label": "Contact", "href": "#"}
-        ],
-        "contacts": [
-            {
-                "type": "email",
-                "icon": "Mail",
-                "value": "haiphamjavadev@gmail.com",
-                "href": "mailto:haiphamjavadev@gmail.com"
-            },
-            {"type": "phone", "icon": "Phone", "value": "0979 015 430", "href": "tel:0979015430"},
-            {"type": "location", "icon": "MapPin", "value": "Hanoi, Vietnam"}
-        ],
-        "socials": [
-            {"icon": "Github", "href": "https://github.com"},
-            {"icon": "Linkedin", "href": "https://linkedin.com"},
-            {"icon": "Mail", "href": "mailto:haiphamjavadev@gmail.com"}
-        ]
-    }
-;
+const quickLinks = [
+    {"label": "Home", "href": "#"},
+    {"label": "Skills", "href": "#"},
+    {"label": "Projects", "href": "#"},
+    {"label": "Experience", "href": "#"},
+    {"label": "Contact", "href": "#"},
+];
 
-export const Footer = () => {
+export const Footer = ({profiles, socials, contacts}) => {
     const [ref, isVisible] = useIntersectionObserver();
 
     return (
@@ -54,19 +28,19 @@ export const Footer = () => {
                         <div className="flex items-center gap-3 mb-4">
                             <div
                                 className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center font-black text-xl">
-                                {footers.profile.initials}
+                                {profiles.initials}
                             </div>
                             <div>
-                                <h3 className="text-2xl font-black">{footers.profile.fullName}</h3>
-                                <p className="text-gray-400">{footers.profile.title}</p>
+                                <h3 className="text-2xl font-black">{profiles.name}</h3>
+                                <p className="text-gray-400">{profiles.title}</p>
                             </div>
                         </div>
                         <p className="text-gray-400 leading-relaxed mb-6">
-                            {footers.profile.description}
+                            {profiles.description}
                         </p>
 
                         <div className="flex gap-4">
-                            {footers.socials.map((social, idx) => (
+                            {socials.map((social, idx) => (
                                 <a
                                     key={idx}
                                     href={social.href}
@@ -84,7 +58,7 @@ export const Footer = () => {
                             Quick Links
                         </h3>
                         <ul className="space-y-2">
-                            {footers.quickLinks.map((link, idx) => (
+                            {quickLinks.map((link, idx) => (
                                 <li key={idx}>
                                     <a
                                         href={link.href}
@@ -104,7 +78,7 @@ export const Footer = () => {
                             Get In Touch
                         </h3>
                         <ul className="space-y-3 text-gray-400">
-                            {footers.contacts.map((contact, idx) => (
+                            {contacts.map((contact, idx) => (
                                 <li key={idx} className="flex items-start gap-2">
                                     {getIconComponent(
                                         contact.icon,

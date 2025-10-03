@@ -14,86 +14,7 @@ function getRandomColor() {
     return tailwindColors[Math.floor(Math.random() * tailwindColors.length)];
 }
 
-const headers = {
-    profile: {
-        name: "Pham Quang Hai",
-        avatar: "https://ui-avatars.com/api/?name=Pham+Quang+Hai&size=200&background=1e40af&color=fff&bold=true&format=svg",
-        title: "Software Development Engineer",
-        status: {text: "Available", color: "green-500"},
-        badges: [
-            {
-                text: "3+ Years",
-                color: "yellow-400",
-                textColor: "gray-900",
-                position: "top-right",
-                rotate: "rotate-12"
-            },
-            {
-                text: "Developer",
-                color: "purple-500",
-                textColor: "white",
-                position: "bottom-left",
-                rotate: "-rotate-12"
-            }
-        ]
-    },
-    stats: [
-        {value: "3+", label: "Years Exp"},
-        {value: "15+", label: "Projects"},
-        {value: "60+", label: "Team Size"}
-    ],
-    contacts: [
-        {
-            type: "email",
-            icon: "Mail",
-            value: "haiphamjavadev@gmail.com",
-            href: "mailto:haiphamjavadev@gmail.com"
-        },
-        {
-            type: "phone",
-            icon: "Phone",
-            value: "0979 015 430",
-            href: "tel:0979015430"
-        },
-        {
-            type: "location",
-            icon: "MapPin",
-            value: "Hanoi, Vietnam"
-        }
-    ],
-    socials: [
-        {
-            icon: "Github",
-            href: "https://github.com",
-            bg: "from-gray-800 to-gray-900",
-            hoverBg: "from-gray-700 to-gray-800"
-        },
-        {
-            icon: "Linkedin",
-            href: "https://linkedin.com",
-            bg: "from-blue-600 to-blue-700",
-            hoverBg: "from-blue-500 to-blue-600"
-        }
-    ],
-    ctas: [
-        {
-            type: "download",
-            icon: "Download",
-            text: "Download CV",
-            bg: "from-purple-600 to-pink-600",
-            hoverBg: "from-purple-500 to-pink-500"
-        },
-        {
-            type: "contact",
-            icon: "Mail",
-            text: "Contact Me",
-            bg: "from-green-600 to-emerald-600",
-            hoverBg: "from-green-500 to-emerald-500"
-        }
-    ]
-};
-
-export const Header = () => {
+export const Header = ({headers}) => {
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
 
     const handleMouseMove = (e) => {
@@ -133,6 +54,13 @@ export const Header = () => {
                                     className="absolute inset-2 rounded-full bg-gradient-to-r from-pink-500 via-blue-500 to-purple-500 animate-spin-reverse"></div>
                                 <div
                                     className="absolute inset-4 rounded-full bg-gray-900 overflow-hidden border-4 border-white shadow-2xl">
+                                    <img
+                                        src={headers.profile.avatar || '/assets/imgs/default-avatar.jpg'}
+                                        alt={headers.profile.name}
+                                        className="w-full h-full object-cover"
+                                        // className="w-28 h-28 rounded-full border mb-3 object-cover"
+                                        onError={e => { e.target.onerror = null; e.target.src = '/assets/imgs/default-avatar.jpg'; }}
+                                    />
                                     <img
                                         src={headers.profile.avatar}
                                         alt={headers.profile.name}
