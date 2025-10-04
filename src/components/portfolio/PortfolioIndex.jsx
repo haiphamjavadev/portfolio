@@ -7,77 +7,15 @@ import {Experience} from "./Experience.jsx";
 import {Projects} from "./Projects.jsx";
 import {Hobbies} from "./Hobbies.jsx";
 import {Footer} from "./Footer.jsx";
+import {getDuration} from "../../utils/DateUtils.jsx";
 
-const headers = {
-    profile: {
-        initials: "PH",
-        name: "Pham Quang Hai",
-        avatar: "https://ui-avatars.com/api/?name=Pham+Quang+Hai&size=200&background=1e40af&color=fff&bold=true&format=svg",
-        title: "Software Development Engineer",
-        status: {text: "Available", color: "green-500"},
-        badges: [
-            {
-                text: "3+ Years",
-                color: "yellow-400",
-                textColor: "gray-900",
-                position: "top-right",
-                rotate: "rotate-12"
-            },
-            {
-                text: "Developer",
-                color: "purple-500",
-                textColor: "white",
-                position: "bottom-left",
-                rotate: "-rotate-12"
-            }
-        ]
-    },
-    stats: [
-        {value: "3+", label: "Years Exp"},
-        {value: "15+", label: "Projects"},
-        {value: "60+", label: "Team Size"}
-    ],
-    contacts: [
-        {
-            type: "email",
-            icon: "Mail",
-            value: "haiphamjavadev@gmail.com",
-            href: "mailto:haiphamjavadev@gmail.com"
-        },
-        {
-            type: "phone",
-            icon: "Phone",
-            value: "0979 015 430",
-            href: "tel:0979015430"
-        },
-        {
-            type: "location",
-            icon: "MapPin",
-            value: "Hanoi, Vietnam"
-        }
-    ],
-    socials: [
-        {
-            icon: "Github",
-            href: "https://github.com",
-            bg: "from-gray-800 to-gray-900",
-            hoverBg: "from-gray-700 to-gray-800"
-        },
-        {
-            icon: "Linkedin",
-            href: "https://linkedin.com",
-            bg: "from-blue-600 to-blue-700",
-            hoverBg: "from-blue-500 to-blue-600"
-        }
-    ]
-};
 
 const careerGoals =
     [
         {
             "type": "short-term",
             "title": "Short-term Goals",
-            "subtitle": "Next 1-2 Years",
+            "subtitle": "Next 1-3 Years",
             "progressLabel": "PROGRESS",
             "progressValue": "65%",
             "progressPercent": 65,
@@ -93,7 +31,7 @@ const careerGoals =
         {
             "type": "long-term",
             "title": "Long-term Goals",
-            "subtitle": "Next 3-5 Years",
+            "subtitle": "Next 4-10 Years",
             "progressLabel": "VISION",
             "progressValue": "∞",
             "goals": [
@@ -112,17 +50,15 @@ const educations =
     [
         {
             "school": "Hanoi University of Business and Technology",
-            "degree": "Bachelor of Information Technology",
+            "degree": "Engineer of Information Technology",
             "gpa": "3.33/4.0",
             "gpaLabel": "GPA Score",
             "duration": "2019 - 2023",
             "durationLabel": "Duration",
             "courses": [
-                "Software Engineering",
-                "Data Structures",
-                "Algorithms",
-                "Database Design",
-                "Web Development"
+                "IT Fundamentals", "Programming & Languages",
+                "Software Architecture & Design", "Technology & Tools",
+                "Advanced Subjects", "Soft Skills"
             ]
         }
     ];
@@ -135,14 +71,22 @@ const skills = {
                 icon: "Terminal",
                 color: "blue",
                 gradient: "from-blue-500 to-cyan-500",
-                level: 95,
+                // level: 95,
                 skills: [
-                    {name: "Java Core", level: 95, icon: "☕"},
-                    {name: "Spring Boot", level: 90, icon: "🍃"},
-                    {name: "Spring Cloud", level: 85, icon: "☁️"},
-                    {name: "Microservices", level: 88, icon: "🔧"},
-                    {name: "REST API", level: 92, icon: "🌐"},
-                    {name: "Hibernate/JPA", level: 87, icon: "📦"}
+                    {name: "Java Core", level: 95, icon: "public/assets/imgs/skills/backend/java-background.png"},
+                    {name: "Spring Framework", level: 90, icon: "public/assets/imgs/skills/backend/spring-icon.svg"},
+                    {
+                        name: "Monolith & Microservices",
+                        level: 88,
+                        icon: "public/assets/imgs/skills/backend/microservice.png"
+                    },
+                    {name: "REST API", level: 92, icon: "public/assets/imgs/skills/backend/restApi.jpeg"},
+                    {name: "Hibernate/JPA", level: 87, icon: "public/assets/imgs/skills/backend/hibernate&jpa.png"},
+                    {name: "Maven/Gradle", level: 95, icon: "public/assets/imgs/skills/backend/maven&gradle.jpeg"},
+                    {name: "Kafka", level: 90, icon: "public/assets/imgs/skills/backend/kafka.png"},
+                    {name: "IAM (Keycloak)", level: 80, icon: "public/assets/imgs/skills/backend/keycloak.jpeg"},
+                    {name: "Object Storage (Minio)", level: 80, icon: "public/assets/imgs/skills/backend/minio.png"},
+                    {name: "Docs (Swagger)", level: 80, icon: "public/assets/imgs/skills/backend/swagger.png"},
                 ]
             },
             {
@@ -150,14 +94,22 @@ const skills = {
                 icon: "Database",
                 color: "green",
                 gradient: "from-green-500 to-emerald-500",
-                level: 90,
+                // level: 90,
                 skills: [
-                    {name: "MariaDB/MySQL", level: 92, icon: "🗄️"},
-                    {name: "PostgreSQL", level: 88, icon: "🐘"},
-                    {name: "Oracle", level: 85, icon: "🔴"},
-                    {name: "Redis", level: 87, icon: "⚡"},
-                    {name: "Query Optimization", level: 90, icon: "🚀"},
-                    {name: "Indexing Strategy", level: 88, icon: "📊"}
+                    {name: "Database Design", level: 95, icon: "public/assets/imgs/skills/database/database_design.png"},
+                    {name: "Transaction & ACID", level: 90, icon: "public/assets/imgs/skills/database/sql_skill.png"},
+                    {name: "MariaDB/MySQL", level: 92, icon: "public/assets/imgs/skills/database/mariadb&mysql.png"},
+                    {name: "PostgresSQL", level: 88, icon: "public/assets/imgs/skills/database/postgres.jpeg"},
+                    {name: "Oracle", level: 85, icon: "public/assets/imgs/skills/database/oracle.png"},
+                    {name: "Redis", level: 87, icon: "public/assets/imgs/skills/database/redis.png"},
+                    {
+                        name: "Query Optimization",
+                        level: 90,
+                        icon: "public/assets/imgs/skills/database/query_otimize.png"
+                    },
+                    {name: "Indexing Strategy", level: 88, icon: "public/assets/imgs/skills/database/index.png"},
+                    {name: "Migration", level: 90, icon: "public/assets/imgs/skills/database/liquibase.png"},
+                    {name: "Replication", level: 80, icon: "public/assets/imgs/skills/database/replication.png"},
                 ]
             },
             {
@@ -165,14 +117,19 @@ const skills = {
                 icon: "Server",
                 color: "purple",
                 gradient: "from-purple-500 to-pink-500",
-                level: 85,
+                // level: 85,
                 skills: [
-                    {name: "Docker", level: 90, icon: "🐳"},
-                    {name: "Kubernetes", level: 85, icon: "☸️"},
-                    {name: "Jenkins", level: 87, icon: "🔧"},
-                    {name: "GitLab CI/CD", level: 85, icon: "🦊"},
-                    {name: "Kafka", level: 82, icon: "📨"},
-                    {name: "ELK Stack", level: 80, icon: "🔍"}
+                    {name: "Opera System (Windows & Linux)", level: 80, icon: "public/assets/imgs/skills/devOps/opera_system.jpeg"},
+                    {name: "Docker", level: 90, icon: "public/assets/imgs/skills/devOps/docker.jpeg"},
+                    {name: "Kubernetes", level: 75, icon: "public/assets/imgs/skills/devOps/k8s.jpeg"},
+                    {name: "Jenkins", level: 87, icon: "public/assets/imgs/skills/devOps/jenkins.jpeg"},
+                    {name: "GitLab CI/CD", level: 85, icon: "public/assets/imgs/skills/devOps/gitlabcicd.png"},
+                    {name: "ELK Stack", level: 80, icon: "public/assets/imgs/skills/devOps/elk.png"},
+                    {
+                        name: "Prometheus & Grafana",
+                        level: 80,
+                        icon: "public/assets/imgs/skills/devOps/prometheus&&grafana.png"
+                    }
                 ]
             },
             {
@@ -180,19 +137,26 @@ const skills = {
                 icon: "Code",
                 color: "orange",
                 gradient: "from-orange-500 to-red-500",
-                level: 75,
+                // level: 75,
                 skills: [
-                    {name: "React.js", level: 80, icon: "⚛️"},
-                    {name: "Angular", level: 70, icon: "🅰️"},
-                    {name: "TypeScript", level: 75, icon: "📘"},
-                    {name: "HTML/CSS", level: 85, icon: "🎨"},
-                    {name: "Material UI", level: 78, icon: "💎"},
-                    {name: "Bootstrap", level: 82, icon: "🥾"}
+                    {name: "HTML/CSS", level: 85, icon: "public/assets/imgs/skills/frontend/html&css.png"},
+                    {name: "JavaScript/TypeScript", level: 80, icon: "public/assets/imgs/skills/frontend/js&ts.jpeg"},
+                    {name: "React", level: 80, icon: "public/assets/imgs/skills/frontend/reactjs.jpeg"},
+                    {name: "Angular", level: 70, icon: "public/assets/imgs/skills/frontend/angular.jpeg"},
+                    {name: "Bootstrap", level: 82, icon: "public/assets/imgs/skills/frontend/boostrap.jpeg"},
+                    {name: "Material UI", level: 78, icon: "public/assets/imgs/skills/frontend/masterialUi.png"},
+                    {name: "Tailwind CSS", level: 70, icon: "public/assets/imgs/skills/frontend/tailwind.png"}
                 ]
             }
         ],
-    techStacks: ["JAVA", "Spring Boot", "Spring Cloud", "Microservices", "REST API", "Hibernate/JPA",]
-}
+    get techStacks() {
+        return [...new Set(
+            this.skills.flatMap(category =>
+                category.skills.map(skill => skill.name)
+            )
+        )];
+    }
+};
 
 const experiences = [
     {
@@ -585,6 +549,75 @@ const hobbies = {
         }
     ]
 }
+
+const headers = {
+    profile: {
+        initials: "PH",
+        name: "Pham Quang Hai",
+        avatar: "https://ui-avatars.com/api/?name=Pham+Quang+Hai&size=200&background=1e40af&color=fff&bold=true&format=svg",
+        title: "Software Development Engineer",
+        status: {text: "Available", color: "green-500"},
+        badges: [
+            {
+                text: getDuration("2022-01-01"),
+                color: "yellow-400",
+                textColor: "gray-900",
+                position: "top-right",
+                rotate: "rotate-12"
+            },
+            {
+                text: "Developer",
+                color: "purple-500",
+                textColor: "white",
+                position: "bottom-left",
+                rotate: "-rotate-12"
+            }
+        ]
+    },
+    stats: [
+        {value: getDuration("2022-01-01"), label: "Years Exp"},
+        {value: projects.length, label: "Projects"},
+        {
+            value: projects.reduce((max, item) =>
+                item.team > max ? item.team : max, 0),
+            label: "Team Size"
+        }
+    ],
+    contacts: [
+        {
+            type: "email",
+            icon: "Mail",
+            value: "haiphamjavadev@gmail.com",
+            href: "mailto:haiphamjavadev@gmail.com"
+        },
+        {
+            type: "phone",
+            icon: "Phone",
+            value: "0979 015 430",
+            href: "tel:0979015430"
+        },
+        {
+            type: "location",
+            icon: "MapPin",
+            value: "Hanoi, Vietnam"
+        }
+    ],
+    socials: [
+        {
+            icon: "FiGithub",
+            href: "https://github.com",
+            bg: "from-gray-800 to-gray-900",
+            hoverBg: "from-gray-700 to-gray-800"
+        },
+        {
+            icon: "Linkedin",
+            href: "https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile",
+            bg: "from-blue-600 to-blue-700",
+            hoverBg: "from-blue-500 to-blue-600"
+        }
+    ]
+};
+
 const PortfolioIndex = () => {
     useEffect(() => {
         // Add custom animations to document

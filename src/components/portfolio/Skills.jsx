@@ -6,7 +6,6 @@ export const Skills = ({skills}) => {
     const [ref, isVisible] = useIntersectionObserver();
 
 
-
     return (
         <section ref={ref}
                  className={`py-24 bg-gradient-to-br from-white via-gray-50 to-blue-50 relative overflow-hidden transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -41,14 +40,12 @@ export const Skills = ({skills}) => {
                                         <div
                                             className={`bg-${category.color}-100 p-4 rounded-xl group-hover:scale-110 transition`}>
                                             {getIconComponent(category.icon, 32, `text-${category.color}-400`)}
+
                                         </div>
                                         <div>
                                             <h3 className="text-2xl font-black text-gray-900">{category.title}</h3>
                                             <p className="text-sm text-gray-500 font-medium">Proficiency Level</p>
                                         </div>
-                                    </div>
-                                    <div className="text-4xl font-black text-gray-900">
-                                        {category.level}<span className="text-xl text-gray-400">%</span>
                                     </div>
                                 </div>
 
@@ -56,7 +53,7 @@ export const Skills = ({skills}) => {
                                     <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
                                         <div
                                             className={`h-full bg-gradient-to-r ${category.gradient} rounded-full transition-all duration-1000 ${isVisible ? 'animate-skill-bar' : ''}`}
-                                            style={{width: isVisible ? `${category.level}%` : '0%'}}
+                                            style={{width: isVisible ? `${100}%` : '0%'}}
                                         ></div>
                                     </div>
                                 </div>
@@ -66,7 +63,11 @@ export const Skills = ({skills}) => {
                                         <div key={skillIdx}
                                              className="group/skill bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition">
                                             <div className="flex items-center gap-3 mb-2">
-                                                <span className="text-2xl">{skill.icon}</span>
+                                                <img
+                                                    src={skill.icon}
+                                                    alt={skill.name}
+                                                    className="w-10 h-10 object-contain"
+                                                />
                                                 <span className="font-bold text-gray-900 text-sm">{skill.name}</span>
                                             </div>
                                             <div className="flex items-center gap-2">
@@ -96,7 +97,8 @@ export const Skills = ({skills}) => {
                                     className="group relative px-5 py-3 bg-white rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 border-2 border-gray-200 hover:border-blue-400 font-bold text-gray-800 cursor-pointer"
                                 >
                     <span className="relative z-10">{tech}</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl opacity-0 group-hover:opacity-10 transition"></div>
+                    <div
+                        className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl opacity-0 group-hover:opacity-10 transition"></div>
                 </span>
                             ))}
                         </div>
