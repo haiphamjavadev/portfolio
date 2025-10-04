@@ -128,12 +128,12 @@ export const Header = ({headers}) => {
                                 <div
                                     className="absolute inset-4 rounded-full bg-gray-900 overflow-hidden border-4 border-white shadow-2xl">
                                     <img
-                                        src={headers.profile.avatar || '/assets/imgs/default-avatar.jpg'}
+                                        src={headers.profile.avatar || asset("/imgs/avatar/avatar_me.jpeg")}
                                         alt={headers.profile.name}
                                         className="w-full h-full object-cover"
                                         onError={e => {
                                             e.target.onerror = null;
-                                            e.target.src = '/assets/imgs/default-avatar.jpg';
+                                            e.target.src = asset("/imgs/avatar/avatar_me.jpeg");
                                         }}
                                     />
                                 </div>
