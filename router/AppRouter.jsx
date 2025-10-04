@@ -2,6 +2,7 @@ import {Outlet, useRoutes} from "react-router-dom";
 import PortfolioIndex from "../src/components/portfolio/PortfolioIndex.jsx";
 import DashboardCms from "../src/components/dashboard/Dashboard.jsx";
 import Error404Page from "../src/components/error/Error404Page.jsx";
+import QRGenerator from "../src/components/QRCode/QRGenerator.jsx";
 
 export const useAppRoutes = () => {
 
@@ -12,9 +13,14 @@ export const useAppRoutes = () => {
             children: [
                 {path: "", element: <Outlet/>},
             ],
-        }, {
+        },
+        {
             path: "/portfolio",
             element: <PortfolioIndex/>,
+        },
+        {
+            path: "/portfolio/qrcode",
+            element: <QRGenerator/>,
         },
         {
             path: "/error",
