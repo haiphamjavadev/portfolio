@@ -8,6 +8,7 @@ import {Projects} from "./Projects.jsx";
 import {Hobbies} from "./Hobbies.jsx";
 import {Footer} from "./Footer.jsx";
 import {getDuration} from "../../utils/DateUtils.jsx";
+import {asset} from "../../utils/Assets.jsx";
 
 
 const careerGoals =
@@ -73,20 +74,20 @@ const skills = {
                 gradient: "from-blue-500 to-cyan-500",
                 // level: 95,
                 skills: [
-                    {name: "Java Core", level: 95, icon: "public/assets/imgs/skills/backend/java-background.png"},
-                    {name: "Spring Framework", level: 90, icon: "public/assets/imgs/skills/backend/spring-icon.svg"},
+                    {name: "Java Core", level: 95, icon: asset("/imgs/skills/backend/java-background.png")},
+                    {name: "Spring Framework", level: 90, icon: asset("/imgs/skills/backend/spring-icon.svg")},
                     {
                         name: "Monolith & Microservices",
                         level: 88,
-                        icon: "public/assets/imgs/skills/backend/microservice.png"
+                        icon: asset("/imgs/skills/backend/microservice.png")
                     },
-                    {name: "REST API", level: 92, icon: "public/assets/imgs/skills/backend/restApi.jpeg"},
-                    {name: "Hibernate/JPA", level: 87, icon: "public/assets/imgs/skills/backend/hibernate&jpa.png"},
-                    {name: "Maven/Gradle", level: 95, icon: "public/assets/imgs/skills/backend/maven&gradle.jpeg"},
-                    {name: "Kafka", level: 90, icon: "public/assets/imgs/skills/backend/kafka.png"},
-                    {name: "IAM (Keycloak)", level: 80, icon: "public/assets/imgs/skills/backend/keycloak.jpeg"},
-                    {name: "Object Storage (Minio)", level: 80, icon: "public/assets/imgs/skills/backend/minio.png"},
-                    {name: "Docs (Swagger)", level: 80, icon: "public/assets/imgs/skills/backend/swagger.png"},
+                    {name: "REST API", level: 92, icon: asset("/imgs/skills/backend/restApi.jpeg")},
+                    {name: "Hibernate/JPA", level: 87, icon: asset("/imgs/skills/backend/hibernate&jpa.png")},
+                    {name: "Maven/Gradle", level: 95, icon: asset("/imgs/skills/backend/maven&gradle.jpeg")},
+                    {name: "Kafka", level: 90, icon: asset("/imgs/skills/backend/kafka.png")},
+                    {name: "IAM (Keycloak)", level: 80, icon: asset("/imgs/skills/backend/keycloak.jpeg")},
+                    {name: "Object Storage (Minio)", level: 80, icon: asset("/imgs/skills/backend/minio.png")},
+                    {name: "Docs (Swagger)", level: 80, icon: asset("/imgs/skills/backend/swagger.png")},
                 ]
             },
             {
@@ -96,20 +97,20 @@ const skills = {
                 gradient: "from-green-500 to-emerald-500",
                 // level: 90,
                 skills: [
-                    {name: "Database Design", level: 95, icon: "public/assets/imgs/skills/database/database_design.png"},
-                    {name: "Transaction & ACID", level: 90, icon: "public/assets/imgs/skills/database/sql_skill.png"},
-                    {name: "MariaDB/MySQL", level: 92, icon: "public/assets/imgs/skills/database/mariadb&mysql.png"},
-                    {name: "PostgresSQL", level: 88, icon: "public/assets/imgs/skills/database/postgres.jpeg"},
-                    {name: "Oracle", level: 85, icon: "public/assets/imgs/skills/database/oracle.png"},
-                    {name: "Redis", level: 87, icon: "public/assets/imgs/skills/database/redis.png"},
+                    {name: "Database Design", level: 95, icon: asset("/imgs/skills/database/database_design.png")},
+                    {name: "Transaction & ACID", level: 90, icon: asset("/imgs/skills/database/sql_skill.png")},
+                    {name: "MariaDB/MySQL", level: 92, icon: asset("/imgs/skills/database/mariadb&mysql.png")},
+                    {name: "PostgresSQL", level: 88, icon: asset("/imgs/skills/database/postgres.jpeg")},
+                    {name: "Oracle", level: 85, icon: asset("/imgs/skills/database/oracle.png")},
+                    {name: "Redis", level: 87, icon: asset("/imgs/skills/database/redis.png")},
                     {
                         name: "Query Optimization",
                         level: 90,
-                        icon: "public/assets/imgs/skills/database/query_otimize.png"
+                        icon: asset("/imgs/skills/database/query_otimize.png")
                     },
-                    {name: "Indexing Strategy", level: 88, icon: "public/assets/imgs/skills/database/index.png"},
-                    {name: "Migration", level: 90, icon: "public/assets/imgs/skills/database/liquibase.png"},
-                    {name: "Replication", level: 80, icon: "public/assets/imgs/skills/database/replication.png"},
+                    {name: "Indexing Strategy", level: 88, icon: asset("/imgs/skills/database/index.png")},
+                    {name: "Migration", level: 90, icon: asset("/imgs/skills/database/liquibase.png")},
+                    {name: "Replication", level: 80, icon: asset("/imgs/skills/database/replication.png")},
                 ]
             },
             {
@@ -119,16 +120,16 @@ const skills = {
                 gradient: "from-purple-500 to-pink-500",
                 // level: 85,
                 skills: [
-                    {name: "Opera System (Windows & Linux)", level: 80, icon: "public/assets/imgs/skills/devOps/opera_system.jpeg"},
-                    {name: "Docker", level: 90, icon: "public/assets/imgs/skills/devOps/docker.jpeg"},
-                    {name: "Kubernetes", level: 75, icon: "public/assets/imgs/skills/devOps/k8s.jpeg"},
-                    {name: "Jenkins", level: 87, icon: "public/assets/imgs/skills/devOps/jenkins.jpeg"},
-                    {name: "GitLab CI/CD", level: 85, icon: "public/assets/imgs/skills/devOps/gitlabcicd.png"},
-                    {name: "ELK Stack", level: 80, icon: "public/assets/imgs/skills/devOps/elk.png"},
+                    {name: "Opera System (Windows & Linux)", level: 80, icon: asset("/imgs/skills/devOps/opera_system.jpeg")},
+                    {name: "Docker", level: 90, icon: asset("/imgs/skills/devOps/docker.jpeg")},
+                    {name: "Kubernetes", level: 75, icon: asset("/imgs/skills/devOps/k8s.jpeg")},
+                    {name: "Jenkins", level: 87, icon: asset("/imgs/skills/devOps/jenkins.jpeg")},
+                    {name: "GitLab CI/CD", level: 85, icon: asset("/imgs/skills/devOps/gitlabcicd.png")},
+                    {name: "ELK Stack", level: 80, icon: asset("/imgs/skills/devOps/elk.png")},
                     {
                         name: "Prometheus & Grafana",
                         level: 80,
-                        icon: "public/assets/imgs/skills/devOps/prometheus&&grafana.png"
+                        icon: asset("/imgs/skills/devOps/prometheus&&grafana.png")
                     }
                 ]
             },
@@ -139,13 +140,13 @@ const skills = {
                 gradient: "from-orange-500 to-red-500",
                 // level: 75,
                 skills: [
-                    {name: "HTML/CSS", level: 85, icon: "public/assets/imgs/skills/frontend/html&css.png"},
-                    {name: "JavaScript/TypeScript", level: 80, icon: "public/assets/imgs/skills/frontend/js&ts.jpeg"},
-                    {name: "React", level: 80, icon: "public/assets/imgs/skills/frontend/reactjs.jpeg"},
-                    {name: "Angular", level: 70, icon: "public/assets/imgs/skills/frontend/angular.jpeg"},
-                    {name: "Bootstrap", level: 82, icon: "public/assets/imgs/skills/frontend/boostrap.jpeg"},
-                    {name: "Material UI", level: 78, icon: "public/assets/imgs/skills/frontend/masterialUi.png"},
-                    {name: "Tailwind CSS", level: 70, icon: "public/assets/imgs/skills/frontend/tailwind.png"}
+                    {name: "HTML/CSS", level: 85, icon: asset("/imgs/skills/frontend/html&css.png")},
+                    {name: "JavaScript/TypeScript", level: 80, icon: asset("/imgs/skills/frontend/js&ts.jpeg")},
+                    {name: "React", level: 80, icon: asset("/imgs/skills/frontend/reactjs.jpeg")},
+                    {name: "Angular", level: 70, icon: asset("/imgs/skills/frontend/angular.jpeg")},
+                    {name: "Bootstrap", level: 82, icon: asset("/imgs/skills/frontend/boostrap.jpeg")},
+                    {name: "Material UI", level: 78, icon: asset("/imgs/skills/frontend/masterialUi.png")},
+                    {name: "Tailwind CSS", level: 70, icon: asset("/imgs/skills/frontend/tailwind.png")}
                 ]
             }
         ],
