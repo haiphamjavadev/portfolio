@@ -120,7 +120,11 @@ const skills = {
                 gradient: "from-purple-500 to-pink-500",
                 // level: 85,
                 skills: [
-                    {name: "Opera System (Windows & Linux)", level: 80, icon: asset("/imgs/skills/devOps/opera_system.jpeg")},
+                    {
+                        name: "Opera System (Windows & Linux)",
+                        level: 80,
+                        icon: asset("/imgs/skills/devOps/opera_system.jpeg")
+                    },
                     {name: "Docker", level: 90, icon: asset("/imgs/skills/devOps/docker.jpeg")},
                     {name: "Kubernetes", level: 75, icon: asset("/imgs/skills/devOps/k8s.jpeg")},
                     {name: "Jenkins", level: 87, icon: asset("/imgs/skills/devOps/jenkins.jpeg")},
@@ -163,11 +167,11 @@ const experiences = [
     {
         company: "Viettel Software",
         period: "05/2024 - Present",
-        duration: "9+ months",
+        duration: getDuration("2024-05-01", new Date()),
         position: "Software Development Engineer",
-        description: "Leading development of enterprise-scale systems for Vietnam Airlines and VAS with multiple high-impact projects",
-        logo: "🔷",
-        color: "blue",
+        description: "Sub Leader development of enterprise-scale systems for Vietnam Airlines and VAS with multiple high-impact projects",
+        logo: asset("/imgs/company/viettelsoftware.png"),
+        color: "green",
         current: true,
         projects: [
             {
@@ -177,7 +181,7 @@ const experiences = [
                 customer: "Vietnam Airlines",
                 teamSize: 60,
                 role: "Backend Engineer",
-                fullDescription: "Enterprise-scale electronic flight document management system handling 10,000+ daily operations with real-time data synchronization across multiple platforms.",
+                fullDescription: "Enterprise-scale electronic flight document management system supporting 70,000 users including cabin crews, pilots, and flight operation center staff, handling over 10,000 daily operations with real-time data synchronization across multiple platforms to ensure seamless flight operations and safety compliance.",
                 responsibilities: [
                     "Analyze SRS documents, work closely with Business Analyst to clarify business requirements",
                     "Design and develop features on both web and mobile platforms",
@@ -188,13 +192,16 @@ const experiences = [
                     "Build data synchronization system between platforms, ensuring consistency"
                 ],
                 techStack: {
-                    backend: ["Java", "Spring Boot", "Spring Cloud", "Hibernate"],
-                    database: ["MariaDB", "Redis"],
-                    devops: ["K8S", "Jenkins", "Docker"],
-                    messaging: ["Kafka"],
-                    security: ["Keycloak"],
-                    monitoring: ["ELK", "Zipkin"],
-                    scheduler: ["Quartz"]
+                    Architecture: ["Microservices", "Event-Driven"],
+                    Backend: ["Java", "Spring Boot", "Spring Cloud", "Spring MVC", "Hibernate/JPA", "OpenFeign"],
+                    Gateway: ["Kong"],
+                    Database: ["MariaDB", "Max Scale"],
+                    Devops: ["Kubernetes", "Jenkins", "Docker", "Harbor"],
+                    Messaging: ["Kafka"],
+                    Security: ["Keycloak", "Spring Security"],
+                    Monitoring: ["ELK", "Zipkin", "Prometheus & Grafana"],
+                    Cache: ["Redis"],
+                    Scheduler: ["Quartz"]
                 },
                 achievements: [
                     "Architected microservices for 60-member team",
@@ -240,11 +247,11 @@ const experiences = [
     {
         company: "AC",
         period: "07/2022 - 04/2024",
-        duration: "1 year 10 months",
+        duration: getDuration("2022-07-01", "2024-04-30"),
         position: "Software Development Engineer",
         description: "Full-stack development and team leadership for multiple client projects across fintech and automotive sectors",
-        logo: "🟢",
-        color: "green",
+        logo: asset("/imgs/company/ac_company.png"),
+        color: "blue",
         current: false,
         projects: [
             {
@@ -349,10 +356,10 @@ const experiences = [
     {
         company: "Vissoft JSC",
         period: "01/2022 - 06/2022",
-        duration: "6 months",
+        duration: getDuration("2022-01-01", "2022-06-30"),
         position: "Software Development Engineer",
         description: "Developed internal HRM system with microservices architecture for employee management",
-        logo: "🟣",
+        logo: asset("/imgs/company/vissoft.png"),
         color: "purple",
         current: false,
         projects: [
@@ -388,123 +395,6 @@ const experiences = [
                 ]
             }
         ]
-    }
-];
-
-const projects = [
-    {
-        name: "VNA-MO",
-        company: "Viettel Software",
-        period: "09/2024 - Present",
-        description: "Enterprise-scale electronic flight document management system for Vietnam Airlines",
-        fullDescription: "Architected and developed a comprehensive flight document management system handling 10,000+ daily operations. Implemented microservices architecture with event-driven design for real-time data synchronization across multiple platforms.",
-        team: 60,
-        role: "Backend Engineer",
-        tech: ["Java", "Spring Boot", "MariaDB", "Redis", "Kafka", "ELK", "Keycloak", "K8S", "Jenkins"],
-        highlights: [
-            "RESTful API Design for Web & Mobile",
-            "Real-time Data Synchronization System",
-            "40% Performance Optimization",
-            "Agile/Scrum Development Process"
-        ],
-        status: "Active",
-        color: "blue",
-        icon: "✈️"
-    },
-    {
-        name: "Mydio",
-        company: "Viettel Software",
-        period: "05/2024 - 09/2024",
-        description: "Audio streaming and podcast platform with personalized recommendations",
-        fullDescription: "Built a scalable microservices-based audio streaming platform serving 100K+ users. Implemented sophisticated book management system with view tracking, favorites, and personalized recommendations using Elasticsearch.",
-        team: 27,
-        role: "Backend Engineer",
-        tech: ["Java", "Spring Boot", "Spring Cloud", "MySQL", "Elasticsearch", "Kafka", "Redis", "Docker"],
-        highlights: [
-            "Microservices Architecture",
-            "Elasticsearch Integration",
-            "Book Management System",
-            "Jenkins CI/CD Pipeline"
-        ],
-        status: "Completed",
-        color: "purple",
-        icon: "🎧"
-    },
-    {
-        name: "Cardoctor",
-        company: "AC",
-        period: "07/2022 - 10/2023",
-        description: "Comprehensive driving support platform with safety and economic features",
-        fullDescription: "Developed a full-featured driving assistance platform with real-time tracking, maintenance alerts, and cost optimization. Integrated multiple third-party services for comprehensive vehicle management.",
-        team: 20,
-        role: "Backend Engineer",
-        tech: ["Java", "Spring Framework", "PostgreSQL", "Elasticsearch", "MinIO", "Keycloak", "K8S"],
-        highlights: [
-            "RESTful API Development",
-            "50% Query Optimization",
-            "Kubernetes Deployment",
-            "Team Collaboration"
-        ],
-        status: "Completed",
-        color: "green",
-        icon: "🚗"
-    },
-    {
-        name: "Loyalty System",
-        company: "AC",
-        period: "02/2023 - 10/2023",
-        description: "Multi-tenant point accumulation system for customer retention",
-        fullDescription: "Led development of a sophisticated loyalty management system supporting multiple tenants. Implemented complex point calculation algorithms, reward management, and admin dashboards with React.",
-        team: 7,
-        role: "Team Lead & Full-stack Engineer",
-        tech: ["Java", "Spring Framework", "PostgreSQL", "Elasticsearch", "React.js", "MUI", "GitLab CI"],
-        highlights: [
-            "Full-stack Development",
-            "Team Leadership (7 members)",
-            "Multitenancy Architecture",
-            "Code Review Process"
-        ],
-        status: "Completed",
-        color: "orange",
-        icon: "🎁"
-    },
-    {
-        name: "TPBank Blacklist",
-        company: "AC (Onsite)",
-        period: "10/2023 - 04/2024",
-        description: "Banking security system for suspicious customer and blacklist management",
-        fullDescription: "Developed critical security infrastructure for TPBank managing blacklisted customers and suspicious transactions. Implemented real-time event processing with Kafka for fraud detection.",
-        team: 3,
-        role: "Backend Engineer",
-        tech: ["Java", "Spring Framework", "Oracle", "Kafka", "Weblogic"],
-        highlights: [
-            "Banking Security System",
-            "Real-time Event Processing",
-            "Production Deployment",
-            "Oracle Optimization"
-        ],
-        status: "Completed",
-        color: "red",
-        icon: "🔒"
-    },
-    {
-        name: "HRM System",
-        company: "Vissoft JSC",
-        period: "01/2022 - 06/2022",
-        description: "Human resource management system with microservices architecture",
-        fullDescription: "Built internal HRM system handling employee management, attendance, payroll, and performance reviews. Implemented API Gateway pattern with Spring Cloud Gateway and service discovery with Eureka.",
-        team: 15,
-        role: "Backend Engineer",
-        tech: ["Java", "Spring Data JPA", "Spring Cloud", "MariaDB", "MinIO", "React.js", "Bootstrap"],
-        highlights: [
-            "Gateway Architecture",
-            "OpenFeign Integration",
-            "Employee Management Module",
-            "Agile Development"
-        ],
-        status: "Completed",
-        color: "indigo",
-        icon: "👥"
     }
 ];
 
@@ -551,12 +441,19 @@ const hobbies = {
     ]
 }
 
+const allProjects = experiences.flatMap(exp => exp.projects || []); // gom hết project từ mọi experience
+
 const headers = {
     profile: {
         initials: "PH",
         name: "Pham Quang Hai",
-        avatar: "https://ui-avatars.com/api/?name=Pham+Quang+Hai&size=200&background=1e40af&color=fff&bold=true&format=svg",
+        avatar: asset("/imgs/avatar/avatar_me.jpeg"),
         title: "Software Development Engineer",
+        bio: "Software Development Engineer with expertise in Spring Boot, Spring Security, " +
+            "Spring Cloud, and microservices architecture. Experienced in designing scalable " +
+            "backend systems, building REST APIs, and integrating with SQL databases, Kafka, Docker," +
+            " and Kubernetes. Passionate about clean code, problem-solving, and delivering enterprise-grade" +
+            " applications that serve thousands of users daily.",
         status: {text: "Available", color: "green-500"},
         badges: [
             {
@@ -577,12 +474,8 @@ const headers = {
     },
     stats: [
         {value: getDuration("2022-01-01"), label: "Years Exp"},
-        {value: projects.length, label: "Projects"},
-        {
-            value: projects.reduce((max, item) =>
-                item.team > max ? item.team : max, 0),
-            label: "Team Size"
-        }
+        {value: allProjects.length, label: "Projects"},
+        {value: Math.max(...allProjects.map(p => p.teamSize || 0)), label: "Team Size"} //
     ],
     contacts: [
         {
@@ -715,6 +608,8 @@ const PortfolioIndex = () => {
         };
     }, []);
 
+    console.log("All Projects:", allProjects);
+
     return (
         <div className="min-h-screen bg-white font-sans antialiased">
             <Header headers={headers}/>
@@ -722,7 +617,7 @@ const PortfolioIndex = () => {
             <Education educations={educations}/>
             <Skills skills={skills}/>
             <Experience experiences={experiences}/>
-            <Projects projects={projects}/>
+            <Projects projects={allProjects}/>
             <Hobbies hobbies={hobbies}/>
             <Footer profiles={headers.profile}
                     socials={headers.socials}

@@ -36,7 +36,7 @@ export const Footer = ({profiles, socials, contacts}) => {
                             </div>
                         </div>
                         <p className="text-gray-400 leading-relaxed mb-6">
-                            {profiles.description}
+                            {profiles.bio}
                         </p>
 
                         <div className="flex gap-4">
@@ -113,7 +113,7 @@ export const Footer = ({profiles, socials, contacts}) => {
                             &copy; 2025 Pham Quang Hai. All rights reserved.
                         </p>
                         <div className="flex items-center gap-2 text-gray-500 text-sm">
-                            <span>Built with</span>
+                            <span>Built with Claude AI</span>
                             {getIconComponent("Heart", 16, "text-red-500 animate-pulse")}
                             <span>using React & Tailwind CSS</span>
                         </div>

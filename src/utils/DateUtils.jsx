@@ -28,6 +28,7 @@ export function getDuration(startDate, endDate = new Date()) {
 
     let result = "";
     if (years > 0) result += `${years}.`;
+    if (years < 1) result += `${0}.`;
     if (months > 0) result += `${months}`;
     if (days > 0) result += "+";
 

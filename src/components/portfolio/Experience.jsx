@@ -85,8 +85,8 @@ const ProjectDetailModal = ({project, companyColor, isOpen, onClose}) => {
                     <div className="absolute top-0 right-0 text-9xl opacity-10">🚀</div>
 
                     <button onClick={onClose}
-                            className="absolute top-6 right-6 p-2 bg-white/20 hover:bg-white/30 rounded-full transition backdrop-blur-sm">
-                        <X size={24}/>
+                            className="absolute top-6 right-6 p-2 bg-white/20 hover:bg-white/30 rounded-full transition backdrop-blur-sm z-20">
+                        <X size={25}/>
                     </button>
 
                     <div className="relative z-10">
@@ -172,11 +172,6 @@ const ProjectDetailModal = ({project, companyColor, isOpen, onClose}) => {
                             {Object.entries(project.techStack).map(([category, techs]) => (
                                 <div key={category} className="p-6 bg-gray-50 rounded-xl">
                                     <h4 className="font-bold text-gray-900 mb-3 capitalize flex items-center gap-2">
-                                        {category === 'backend' && <Server size={18} className="text-blue-600"/>}
-                                        {category === 'database' && <Database size={18} className="text-green-600"/>}
-                                        {category === 'devops' && <GitBranch size={18} className="text-purple-600"/>}
-                                        {category === 'frontend' && <Layers size={18} className="text-orange-600"/>}
-                                        {category === 'security' && <Shield size={18} className="text-red-600"/>}
                                         {category}
                                     </h4>
                                     <div className="flex flex-wrap gap-2">
@@ -192,7 +187,6 @@ const ProjectDetailModal = ({project, companyColor, isOpen, onClose}) => {
                         </div>
                     </div>
 
-                    {/* Key Achievements */}
                     {project.achievements && (
                         <div>
                             <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
@@ -256,18 +250,17 @@ const CompanyExperienceModal = ({experience, isOpen, onClose}) => {
                     {/* Company Header */}
                     <div
                         className={`bg-gradient-to-r from-${experience.color}-600 to-${experience.color}-400 p-8 text-white relative overflow-hidden`}>
-                        <div className="absolute top-0 right-0 text-9xl opacity-10">{experience.logo}</div>
 
                         <button onClick={onClose}
-                                className="absolute top-6 right-6 p-2 bg-white/20 hover:bg-white/30 rounded-full transition backdrop-blur-sm">
+                                className="absolute top-6 right-6 p-2 bg-white/20 hover:bg-white/30 rounded-full transition backdrop-blur-sm z-20">
                             <X size={24}/>
                         </button>
 
                         <div className="relative z-10">
                             <div className="flex items-center gap-4 mb-4">
                                 <div
-                                    className="w-20 h-20 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center text-5xl border-2 border-white/30">
-                                    {experience.logo}
+                                    className="w-20 h-20 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center text-5xl">
+                                    <img src={experience.logo} alt={experience.company} className="w-20 h-20 object-contain"/>
                                 </div>
                                 <div>
                                     <h2 className="text-4xl font-black">{experience.company}</h2>
@@ -470,7 +463,7 @@ const CompanyExperienceModal = ({experience, isOpen, onClose}) => {
                         <div className="flex items-center justify-between">
                             <p className="text-gray-600">
                                 Total Duration: <span
-                                className="font-bold text-gray-900">{experience.duration || 'Ongoing'}</span>
+                                className="font-bold text-gray-900">{experience.duration || 'Ongoing'} Year</span>
                             </p>
                             <button onClick={onClose}
                                     className={`px-8 py-3 bg-gradient-to-r from-${experience.color}-600 to-${experience.color}-400 text-white rounded-xl font-bold hover:shadow-lg transition`}>
@@ -502,7 +495,7 @@ const ExperienceCard = ({experience, index, onClick}) => {
             <div className="absolute left-8 md:left-1/2 top-8 w-16 h-16 transform -translate-x-1/2 hidden md:block">
                 <div
                     className={`w-full h-full bg-gradient-to-br from-${experience.color}-500 to-${experience.color}-400 rounded-full flex items-center justify-center text-3xl shadow-2xl animate-pulse-slow border-4 border-gray-900`}>
-                    {experience.logo}
+                    <img src={experience.logo} alt={experience.company} className="w-20 h-20 object-contain"/>
                 </div>
             </div>
 
@@ -524,7 +517,7 @@ const ExperienceCard = ({experience, index, onClick}) => {
                   {experience.projects.length} Projects
                 </span>
                                 <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm font-bold">
-                  {experience.duration}
+                  {experience.duration} Year
                 </span>
                             </div>
                         </div>
@@ -647,9 +640,6 @@ export const Experience = ({experiences}) => {
                             Work <span
                             className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Experience</span>
                         </h2>
-                        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                            3+ years building impactful solutions across multiple industries
-                        </p>
                     </div>
 
                     <div className="relative">

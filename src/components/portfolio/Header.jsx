@@ -1,9 +1,11 @@
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {AnimatedBackground} from "../../utils/AnimatedBackground.jsx";
 import {FloatingCodeLines} from "../../utils/FloatingCodeLines.jsx";
 import {ParticleSystem} from "../../utils/ParticleSystem.jsx";
 import {getIconComponent} from "../../utils/GetIconForAll.jsx";
 import {useTranslation} from "react-i18next";
+import {TypingBio} from "../../utils/TypingBio.jsx";
+import {asset} from "../../utils/Assets.jsx";
 
 // Tailwind color palette
 const tailwindColors = [
@@ -17,16 +19,34 @@ const ctas = [
         icon: "Download",
         text: "Download CV",
         bg: "from-purple-600 to-pink-600",
-        hoverBg: "from-purple-500 to-pink-500"
+        hoverBg: "from-purple-500 to-pink-500",
+        onClickHandle: "downloadCV",
+        href: asset("/cv/pham_quang_hai_software_develop.pdf")
     },
     {
         type: "contact",
         icon: "Mail",
         text: "Contact Me",
         bg: "from-green-600 to-emerald-600",
-        hoverBg: "from-green-500 to-emerald-500"
+        hoverBg: "from-green-500 to-emerald-500",
+        onClickHandle: "contactMe",
+        href: "#contact"
     }
 ];
+
+const handlers = {
+    downloadCV: (cta) => {
+        const link = document.createElement("a");
+        link.href = cta.href;
+        link.download = "PhamQuangHai_CV.pdf"; // tên file tải về
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    },
+    contactMe: () => {
+        window.location.href = "mailto:haiphamjavadev@gmail.com";
+    }
+};
 
 function getRandomColor() {
     return tailwindColors[Math.floor(Math.random() * tailwindColors.length)];
@@ -157,6 +177,9 @@ export const Header = ({headers}) => {
                                                                 </span>
                                 </p>
                             </div>
+
+                            <TypingBio text={headers.profile.bio} speed={40} />
+
                             {/* Stats Bar */}
                             <div className="grid grid-cols-3 gap-4 mb-8 max-w-xl mx-auto md:mx-0">
                                 {headers.stats.map((stat, idx) => {
@@ -205,6 +228,7 @@ export const Header = ({headers}) => {
                                     <button
                                         key={idx}
                                         className={`group relative bg-gradient-to-r ${cta.bg} hover:${cta.hoverBg} px-8 py-4 rounded-xl flex items-center gap-3 transition transform hover:scale-105 overflow-hidden shadow-2xl`}
+                                        onClick={() => handlers[cta.onClickHandle]?.(cta)}
                                     >
                                         <div
                                             className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition"></div>
