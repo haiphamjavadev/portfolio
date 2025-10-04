@@ -1,6 +1,7 @@
 import {useIntersectionObserver} from "../../hooks/useIntersectionObserver.js";
 import {ParticleSystem} from "../../utils/ParticleSystem.jsx";
 import {getIconComponent} from "../../utils/GetIconForAll.jsx";
+import {asset} from "../../utils/Assets.jsx";
 
 const quickLinks = [
     {"label": "Home", "href": "#"},
@@ -104,6 +105,15 @@ export const Footer = ({profiles, socials, contacts}) => {
                                 </li>
                             ))}
                         </ul>
+
+                        <div className="mt-6 flex flex-col items-start">
+                            <span className="text-sm text-gray-400 mb-2">Scan to visit website</span>
+                            <img
+                                src={asset("/imgs/qr_show_web.png")}
+                                alt="QR code for website"
+                                className="w-24 h-24 rounded-lg shadow-lg"
+                            />
+                        </div>
                     </div>
                 </div>
 
