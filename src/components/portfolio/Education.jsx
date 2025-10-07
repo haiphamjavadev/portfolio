@@ -2,27 +2,10 @@ import {useIntersectionObserver} from "../../hooks/useIntersectionObserver.js";
 import {Award, Calendar, GraduationCap} from "lucide-react";
 import {ParticleSystem} from "../../utils/ParticleSystem.jsx";
 
-const educationList =
-    [
-        {
-            "school": "Hanoi University of Business and Technology",
-            "degree": "Bachelor of Information Technology",
-            "gpa": "3.33/4.0",
-            "gpaLabel": "GPA Score",
-            "duration": "2019 - 2023",
-            "durationLabel": "Duration",
-            "courses": [
-                "Software Engineering",
-                "Data Structures",
-                "Algorithms",
-                "Database Design",
-                "Web Development"
-            ]
-        }
-    ];
-
-export const Education = ({educations}) => {
+export const Education = ({educations = []}) => {
     const [ref, isVisible] = useIntersectionObserver();
+
+    console.log("Educations:", educations);
 
     return (
         <section ref={ref}
@@ -39,7 +22,7 @@ export const Education = ({educations}) => {
                         className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Journey</span>
                     </h2>
                 </div>
-                {educations.map((education, idx) => (
+                {Array.isArray(educations) && educations.map((education, idx) => (
                     <div key={idx} className="relative group perspective-1000 mb-12">
                         <div
                             className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition"></div>

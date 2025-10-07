@@ -1,9 +1,12 @@
 import {Terminal, Database, Server, Code} from 'react-feather';
 import {useIntersectionObserver} from '../../hooks/useIntersectionObserver.js';
 import {getIconComponent} from "../../utils/GetIconForAll.jsx";
+import {useState} from "react";
 
 export const Skills = ({skills}) => {
     const [ref, isVisible] = useIntersectionObserver();
+    const [showAll, setShowAll] = useState(false);
+    const MAX_VISIBLE = 5;
 
 
     return (
@@ -91,17 +94,25 @@ export const Skills = ({skills}) => {
                     <div className="mt-16 text-center">
                         <h3 className="text-2xl font-bold text-gray-900 mb-8">Complete Tech Stack</h3>
                         <div className="flex flex-wrap gap-3 justify-center max-w-5xl mx-auto">
-                            {skills.techStacks.map((tech, idx) => (
+                            {(showAll ? skills.techStacks : skills.techStacks.slice(0, MAX_VISIBLE)).map((tech, idx) => (
                                 <span
                                     key={idx}
                                     className="group relative px-5 py-3 bg-white rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 border-2 border-gray-200 hover:border-blue-400 font-bold text-gray-800 cursor-pointer"
                                 >
-                    <span className="relative z-10">{tech}</span>
-                    <div
-                        className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl opacity-0 group-hover:opacity-10 transition"></div>
-                </span>
+                                <span className="relative z-10">{tech}</span>
+                                  <div
+                                      className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl opacity-0 group-hover:opacity-10 transition"></div>
+                                </span>
                             ))}
                         </div>
+                        {skills.techStacks.length > MAX_VISIBLE && (
+                            <button
+                                className="mt-6 px-6 py-2 bg-blue-500 text-white rounded-full font-bold shadow hover:bg-blue-600 transition"
+                                onClick={() => setShowAll((prev) => !prev)}
+                            >
+                                {showAll ? "Show Less" : "Show More"}
+                            </button>
+                        )}
                     </div>
                 )}
 

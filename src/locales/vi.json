@@ -1,0 +1,92 @@
+{
+  "header": {
+    "downloadCV": "Tải CV",
+    "contactMe": "Liên hệ",
+    "status": {
+      "Available": "Sẵn sàng",
+      "Busy": "Bận",
+      "Open to work": "Tìm việc"
+    },
+    "badges": {
+      "5+ Years": "5+ Năm",
+      "Top Rated": "Hàng đầu"
+    },
+    "stats": {
+      "Projects": "Dự án",
+      "Clients": "Khách hàng",
+      "Awards": "Giải thưởng",
+      "Experience": "Kinh nghiệm",
+      "labels": {
+        "year_exp": "Năm kinh nghiệm",
+        "projects_completed": "Dự án hoàn thành",
+        "projects": "Dự án",
+        "clients": "Khách hàng",
+        "team_size": "Quy mô nhóm"
+      }
+    }
+  },
+  "navigation": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "skills": "Kỹ năng",
+    "projects": "Dự án",
+    "experience": "Kinh nghiệm",
+    "education": "Học vấn",
+    "contact": "Liên hệ"
+  },
+  "about": {
+    "title": "Về tôi",
+    "description": "Tôi là một developer đam mê công nghệ với hơn 5 năm kinh nghiệm"
+  },
+  "skills": {
+    "title": "Kỹ năng",
+    "technical": "Kỹ thuật",
+    "soft": "Mềm",
+    "languages": "Ngôn ngữ lập trình"
+  },
+  "projects": {
+    "title": "Dự án",
+    "viewAll": "Xem tất cả",
+    "viewDetails": "Xem chi tiết",
+    "demo": "Demo",
+    "source": "Mã nguồn"
+  },
+  "experience": {
+    "title": "Kinh nghiệm làm việc",
+    "present": "Hiện tại"
+  },
+  "education": {
+    "title": "Học vấn",
+    "degree": "Bằng cấp",
+    "major": "Chuyên ngành"
+  },
+  "contact": {
+    "title": "Liên hệ với tôi",
+    "name": "Tên của bạn",
+    "email": "Email",
+    "message": "Tin nhắn",
+    "send": "Gửi tin nhắn",
+    "sending": "Đang gửi...",
+    "success": "Gửi thành công!",
+    "error": "Có lỗi xảy ra, vui lòng thử lại"
+  },
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "previous": "Trước đó",
+    "close": "Đóng",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "delete": "Xóa",
+    "edit": "Sửa"
+  },
+  "footer": {
+    "copyright": "© 2024 Bản quyền thuộc về",
+    "madeWith": "Được tạo với",
+    "by": "bởi"
+  }
+}

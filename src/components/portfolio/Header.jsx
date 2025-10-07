@@ -3,9 +3,10 @@ import {AnimatedBackground} from "../../utils/AnimatedBackground.jsx";
 import {FloatingCodeLines} from "../../utils/FloatingCodeLines.jsx";
 import {ParticleSystem} from "../../utils/ParticleSystem.jsx";
 import {getIconComponent} from "../../utils/GetIconForAll.jsx";
-import {useTranslation} from "react-i18next";
 import {TypingBio} from "../../utils/TypingBio.jsx";
 import {asset} from "../../utils/Assets.jsx";
+import {useTheme} from "../../contexts/ThemeContext.jsx";
+import {useI18n} from "../../contexts/I18nContext.jsx";
 
 // Tailwind color palette
 const tailwindColors = [
@@ -17,7 +18,7 @@ const ctas = [
     {
         type: "download",
         icon: "Download",
-        text: "Download CV",
+        textKey: "header.downloadCV", // i18n key
         bg: "from-purple-600 to-pink-600",
         hoverBg: "from-purple-500 to-pink-500",
         onClickHandle: "downloadCV",
@@ -26,7 +27,7 @@ const ctas = [
     {
         type: "contact",
         icon: "Mail",
-        text: "Contact Me",
+        textKey: "header.contactMe", // i18n key
         bg: "from-green-600 to-emerald-600",
         hoverBg: "from-green-500 to-emerald-500",
         onClickHandle: "contactMe",
@@ -38,7 +39,7 @@ const handlers = {
     downloadCV: (cta) => {
         const link = document.createElement("a");
         link.href = cta.href;
-        link.download = "PhamQuangHai_CV.pdf"; // tên file tải về
+        link.download = "PhamQuangHai_CV.pdf";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -54,8 +55,10 @@ function getRandomColor() {
 
 export const Header = ({headers}) => {
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
-    const [theme, setTheme] = useState("dark");
-    const {i18n, t} = useTranslation();
+
+    // ✅ Sử dụng đúng hooks
+    const {theme, toggleTheme, isDark} = useTheme();
+    const {t, locale, changeLocale} = useI18n();
 
     const handleMouseMove = (e) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -65,50 +68,68 @@ export const Header = ({headers}) => {
         });
     };
 
-    const handleThemeToggle = () => {
-        setTheme(theme === "dark" ? "light" : "dark");
+    // ✅ Toggle giữa vi và en
+    const handleLangChange = () => {
+        changeLocale(locale === "en" ? "vi" : "en");
     };
 
-    const handleLangChange = (lang) => {
-        i18n.changeLanguage(lang);
-    };
-
+    // ✅ Sync theme với dark class
     useEffect(() => {
-        document.documentElement.classList.toggle("dark", theme === "dark");
-    }, [theme]);
+        document.documentElement.classList.toggle("dark", isDark);
+    }, [isDark]);
 
     return (
         <header
-            className={`relative ${theme === "dark"
+            className={`relative ${isDark
                 ? "bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white"
-                : "bg-white text-gray-900"} py-24 overflow-hidden`}
+                : "bg-white text-gray-900"
+            } py-24 overflow-hidden transition-colors duration-300`}
             onMouseMove={handleMouseMove}
         >
             <AnimatedBackground/>
             <FloatingCodeLines/>
             <ParticleSystem/>
 
-            {/* Top-right controls */}
+            {/* ✅ Top-right controls - Fixed */}
             <div className="absolute top-6 right-6 flex gap-4 z-20">
+                {/* Theme Toggle Button */}
                 <button
-                    onClick={handleThemeToggle}
-                    className="bg-white/10 px-3 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition"
+                    onClick={toggleTheme}
+                    className={`${
+                        isDark
+                            ? "bg-white/10 hover:bg-white/20"
+                            : "bg-gray-200 hover:bg-gray-300"
+                    } px-3 py-2 rounded-lg border ${
+                        isDark ? "border-white/20" : "border-gray-300"
+                    } transition-all duration-300`}
                     aria-label="Toggle theme"
                 >
-                    {theme === "dark"
+                    {isDark
                         ? getIconComponent("Sun", 20, "text-yellow-400")
-                        : getIconComponent("Moon", 20, "text-blue-400")}
+                        : getIconComponent("Moon", 20, "text-blue-600")}
                 </button>
+
+                {/* Language Toggle Button */}
                 <button
-                    onClick={() => handleLangChange(i18n.language === "en" ? "vi" : "en")}
-                    className="bg-white/10 px-3 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition font-bold"
+                    onClick={handleLangChange}
+                    className={`${
+                        isDark
+                            ? "bg-white/10 hover:bg-white/20"
+                            : "bg-gray-200 hover:bg-gray-300"
+                    } px-3 py-2 rounded-lg border ${
+                        isDark ? "border-white/20" : "border-gray-300"
+                    } transition-all duration-300 font-bold`}
                 >
-                    {i18n.language === "en" ? "VI" : "EN"}
+                    {locale === "en" ? "🇻🇳 VI" : "🇬🇧 EN"}
                 </button>
             </div>
 
-            <div
-                className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
+            {/* Grid Background */}
+            <div className={`absolute inset-0 ${
+                isDark
+                    ? "bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)]"
+                    : "bg-[linear-gradient(rgba(59,130,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.05)_1px,transparent_1px)]"
+            } bg-[size:100px_100px]`}></div>
 
             <div className="container mx-auto px-6 relative z-10">
                 <div className="max-w-6xl mx-auto">
@@ -117,7 +138,8 @@ export const Header = ({headers}) => {
                         <div
                             className="relative group perspective-1000"
                             style={{
-                                transform: `rotateX(${-mousePosition.y}deg) rotateY(${mousePosition.x}deg)`
+                                transform: `rotateX(${-mousePosition.y}deg) rotateY(${mousePosition.x}deg)`,
+                                transition: 'transform 0.1s ease-out'
                             }}
                         >
                             <div className="w-48 h-48 relative">
@@ -125,8 +147,9 @@ export const Header = ({headers}) => {
                                     className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-spin-slow"></div>
                                 <div
                                     className="absolute inset-2 rounded-full bg-gradient-to-r from-pink-500 via-blue-500 to-purple-500 animate-spin-reverse"></div>
-                                <div
-                                    className="absolute inset-4 rounded-full bg-gray-900 overflow-hidden border-4 border-white shadow-2xl">
+                                <div className={`absolute inset-4 rounded-full ${
+                                    isDark ? "bg-gray-900" : "bg-white"
+                                } overflow-hidden border-4 border-white shadow-2xl`}>
                                     <img
                                         src={headers.profile.avatar || asset("/imgs/avatar/avatar_me.jpeg")}
                                         alt={headers.profile.name}
@@ -140,33 +163,44 @@ export const Header = ({headers}) => {
                                 <div
                                     className={`absolute bottom-4 right-4 flex items-center gap-2 bg-${headers.profile.status.color} px-3 py-1 rounded-full shadow-lg animate-pulse`}>
                                     <div className="w-2 h-2 bg-white rounded-full"></div>
-                                    <span className="text-xs font-bold text-white">{headers.profile.status.text}</span>
+                                    <span className="text-xs font-bold text-white">
+                                        {t(`header.status.profile`)}
+                                    </span>
                                 </div>
                             </div>
+
                             {/* Floating badges */}
                             {headers.profile.badges.map((badge, idx) => (
                                 <div
                                     key={idx}
-                                    className={`absolute ${badge.position === "top-right" ? "-top-4 -right-4" : "-bottom-2 -left-4"} bg-${badge.color} text-${badge.textColor} px-4 py-2 rounded-lg font-bold text-sm shadow-xl transform ${badge.rotate} animate-bounce-slow`}
+                                    className={`absolute ${
+                                        badge.position === "top-right" ? "-top-4 -right-4" : "-bottom-2 -left-4"
+                                    } bg-${badge.color} text-${badge.textColor} px-4 py-2 rounded-lg font-bold text-sm shadow-xl transform ${badge.rotate} animate-bounce-slow`}
                                     style={{animationDelay: idx * 500 + "ms"}}
                                 >
                                     {badge.text}
+                                    {t(`header.badges.${badge.i18n}`) || badge.i18n}
                                 </div>
                             ))}
                         </div>
 
+                        {/* Main Content */}
                         <div className="flex-1 text-center md:text-left">
                             <div className="mb-4">
-                                <span className="text-blue-400 font-mono text-sm">$ whoami</span>
+                                <span className={`${
+                                    isDark ? "text-blue-400" : "text-blue-600"
+                                } font-mono text-sm`}>$ whoami</span>
                             </div>
+
                             <h1 className="text-5xl md:text-7xl font-black mb-4 relative">
-                                                            <span
-                                                                className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient-x">
-                                                                {headers.profile.name}
-                                                            </span>
+                                <span
+                                    className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient-x">
+                                    {headers.profile.name}
+                                </span>
                                 <div
                                     className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition"></div>
                             </h1>
+
                             <div className="flex items-center gap-3 justify-center md:justify-start mb-6">
                                 {getIconComponent("Terminal", 24, "text-green-400 animate-pulse")}
                                 <p className="text-2xl md:text-3xl font-bold">
@@ -178,7 +212,7 @@ export const Header = ({headers}) => {
                                 </p>
                             </div>
 
-                            <TypingBio text={headers.profile.bio} speed={40} />
+                            <TypingBio text={headers.profile.bio} speed={40}/>
 
                             {/* Stats Bar */}
                             <div className="grid grid-cols-3 gap-4 mb-8 max-w-xl mx-auto md:mx-0">
@@ -187,38 +221,66 @@ export const Header = ({headers}) => {
                                     return (
                                         <div
                                             key={idx}
-                                            className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20 hover:scale-105 transition transform"
+                                            className={`${
+                                                isDark ? "bg-white/10" : "bg-gray-100"
+                                            } backdrop-blur-lg rounded-xl p-4 border ${
+                                                isDark ? "border-white/20" : "border-gray-200"
+                                            } hover:scale-105 transition transform`}
                                         >
                                             <div className={`text-3xl font-bold text-${color}`}>{stat.value}</div>
-                                            <div className="text-sm text-gray-300">{stat.label}</div>
+                                            <div className={isDark ? "text-gray-300" : "text-gray-600 text-sm"}>
+                                                {t(`header.stats.labels.${stat.i18n}`) || stat.i18n}
+                                            </div>
                                         </div>
                                     );
                                 })}
                             </div>
+
                             {/* Contact info */}
-                            <div className="flex flex-wrap gap-4 justify-center md:justify-start text-gray-300 mb-8">
+                            <div className={`flex flex-wrap gap-4 justify-center md:justify-start ${
+                                isDark ? "text-gray-300" : "text-gray-700"
+                            } mb-8`}>
                                 {headers.contacts.map((contact, idx) => {
                                     const color = contact.color || getRandomColor();
                                     return contact.href ? (
-                                        <a key={idx} href={contact.href}
-                                           className="flex items-center gap-2 bg-white/10 backdrop-blur-lg px-4 py-2 rounded-lg hover:bg-white/20 transition border border-white/20">
+                                        <a
+                                            key={idx}
+                                            href={contact.href}
+                                            className={`flex items-center gap-2 ${
+                                                isDark
+                                                    ? "bg-white/10 hover:bg-white/20 border-white/20"
+                                                    : "bg-gray-100 hover:bg-gray-200 border-gray-200"
+                                            } backdrop-blur-lg px-4 py-2 rounded-lg transition border`}
+                                        >
                                             {getIconComponent(contact.icon, 18, `text-${color}`)}
                                             <span className="text-sm font-medium">{contact.value}</span>
                                         </a>
                                     ) : (
-                                        <div key={idx}
-                                             className="flex items-center gap-2 bg-white/10 backdrop-blur-lg px-4 py-2 rounded-lg border border-white/20">
+                                        <div
+                                            key={idx}
+                                            className={`flex items-center gap-2 ${
+                                                isDark ? "bg-white/10 border-white/20" : "bg-gray-100 border-gray-200"
+                                            } backdrop-blur-lg px-4 py-2 rounded-lg border`}
+                                        >
                                             {getIconComponent(contact.icon, 18, `text-${color}`)}
                                             <span className="text-sm font-medium">{contact.value}</span>
                                         </div>
                                     );
                                 })}
                             </div>
+
                             {/* CTA Buttons and Socials */}
                             <div className="flex gap-4 justify-center md:justify-start flex-wrap">
+                                {/* Social Links */}
                                 {headers.socials.map((social, idx) => (
-                                    <a key={idx} href={social.href} target="_blank" rel="noopener noreferrer"
-                                       className={`group relative bg-gradient-to-r ${social.bg} hover:${social.hoverBg} p-4 rounded-xl transition transform hover:scale-110 border border-gray-700 overflow-hidden`}>
+                                    <a
+                                        key={idx}
+                                        href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={`group relative bg-gradient-to-r ${social.bg} hover:${social.hoverBg} p-4 rounded-xl transition transform hover:scale-110 border border-gray-700 overflow-hidden`}
+                                        aria-label={social.icon}
+                                    >
                                         <div
                                             className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-20 transition"></div>
                                         {getIconComponent(social.icon, 24, "relative z-10")}
@@ -233,7 +295,9 @@ export const Header = ({headers}) => {
                                         <div
                                             className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition"></div>
                                         {getIconComponent(cta.icon, 24, "relative z-10 group-hover:animate-bounce")}
-                                        <span className="font-bold text-lg relative z-10">{cta.text}</span>
+                                        <span className="font-bold text-lg relative z-10">
+                                            {t(cta.textKey) || cta.text}
+                                        </span>
                                     </button>
                                 ))}
                             </div>
@@ -241,9 +305,15 @@ export const Header = ({headers}) => {
                     </div>
                 </div>
             </div>
+
+            {/* Scroll indicator */}
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-                <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
-                    <div className="w-1 h-2 bg-white rounded-full animate-scroll"></div>
+                <div className={`w-6 h-10 border-2 ${
+                    isDark ? "border-white/30" : "border-gray-400"
+                } rounded-full flex items-start justify-center p-2`}>
+                    <div className={`w-1 h-2 ${
+                        isDark ? "bg-white" : "bg-gray-600"
+                    } rounded-full animate-scroll`}></div>
                 </div>
             </div>
         </header>
