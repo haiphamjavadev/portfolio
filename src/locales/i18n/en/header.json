@@ -1,0 +1,18 @@
+{
+  "downloadCV": "Download CV",
+  "contactMe": "Contact",
+  "status": {
+    "profile": "Available"
+  },
+  "badges": {
+    "role": "Developer",
+    "year_exp": "Years"
+  },
+  "stats": {
+    "labels": {
+      "year_exp": "Years of experience",
+      "projects": "Projects",
+      "team_size": "Team size"
+    }
+  }
+}

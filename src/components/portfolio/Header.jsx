@@ -6,7 +6,7 @@ import {getIconComponent} from "../../utils/GetIconForAll.jsx";
 import {TypingBio} from "../../utils/TypingBio.jsx";
 import {asset} from "../../utils/Assets.jsx";
 import {useTheme} from "../../contexts/ThemeContext.jsx";
-import {useI18n} from "../../contexts/I18nContext.jsx";
+import {useTranslation} from "react-i18next";
 
 // Tailwind color palette
 const tailwindColors = [
@@ -18,7 +18,7 @@ const ctas = [
     {
         type: "download",
         icon: "Download",
-        textKey: "header.downloadCV", // i18n key
+        textKey: "downloadCV", // i18n key
         bg: "from-purple-600 to-pink-600",
         hoverBg: "from-purple-500 to-pink-500",
         onClickHandle: "downloadCV",
@@ -27,7 +27,7 @@ const ctas = [
     {
         type: "contact",
         icon: "Mail",
-        textKey: "header.contactMe", // i18n key
+        textKey: "contactMe", // i18n key
         bg: "from-green-600 to-emerald-600",
         hoverBg: "from-green-500 to-emerald-500",
         onClickHandle: "contactMe",
@@ -58,7 +58,7 @@ export const Header = ({headers}) => {
 
     // ✅ Sử dụng đúng hooks
     const {theme, toggleTheme, isDark} = useTheme();
-    const {t, locale, changeLocale} = useI18n();
+    const {t, i18n} = useTranslation("header");
 
     const handleMouseMove = (e) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -70,7 +70,9 @@ export const Header = ({headers}) => {
 
     // ✅ Toggle giữa vi và en
     const handleLangChange = () => {
-        changeLocale(locale === "en" ? "vi" : "en");
+        const newLang = i18n.language === "en" ? "vi" : "en";
+        console.log("Changing language to:", newLang);
+        i18n.changeLanguage(newLang); // tự động lưu localStorage
     };
 
     // ✅ Sync theme với dark class
@@ -120,7 +122,7 @@ export const Header = ({headers}) => {
                         isDark ? "border-white/20" : "border-gray-300"
                     } transition-all duration-300 font-bold`}
                 >
-                    {locale === "en" ? "🇻🇳 VI" : "🇬🇧 EN"}
+                    {i18n.language === "en" ? "🇻🇳 VI" : "🇬🇧 EN"}
                 </button>
             </div>
 
@@ -164,7 +166,7 @@ export const Header = ({headers}) => {
                                     className={`absolute bottom-4 right-4 flex items-center gap-2 bg-${headers.profile.status.color} px-3 py-1 rounded-full shadow-lg animate-pulse`}>
                                     <div className="w-2 h-2 bg-white rounded-full"></div>
                                     <span className="text-xs font-bold text-white">
-                                        {t(`header.status.profile`)}
+                                        {t(`status.profile`)}
                                     </span>
                                 </div>
                             </div>
@@ -179,7 +181,7 @@ export const Header = ({headers}) => {
                                     style={{animationDelay: idx * 500 + "ms"}}
                                 >
                                     {badge.text}
-                                    {t(`header.badges.${badge.i18n}`) || badge.i18n}
+                                    {t(`badges.${badge.i18n}`) || badge.i18n}
                                 </div>
                             ))}
                         </div>
@@ -229,7 +231,7 @@ export const Header = ({headers}) => {
                                         >
                                             <div className={`text-3xl font-bold text-${color}`}>{stat.value}</div>
                                             <div className={isDark ? "text-gray-300" : "text-gray-600 text-sm"}>
-                                                {t(`header.stats.labels.${stat.i18n}`) || stat.i18n}
+                                                {t(`stats.labels.${stat.i18n}`) || stat.i18n}
                                             </div>
                                         </div>
                                     );

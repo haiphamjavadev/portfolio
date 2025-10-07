@@ -1,41 +1,6 @@
 import * as FeatherIcons from 'react-feather';
 import {useIntersectionObserver} from '../../hooks/useIntersectionObserver.js';
-
-const careerGoals =
-    [
-        {
-            "type": "short-term",
-            "title": "Short-term Goals",
-            "subtitle": "Next 1-2 Years",
-            "progressLabel": "PROGRESS",
-            "progressValue": "65%",
-            "progressPercent": 65,
-            "goals": [
-                {"icon": "Code", "text": "Master advanced system design & architecture patterns"},
-                {"icon": "TrendingUp", "text": "Scale real-world projects (100K+ users)"},
-                {"icon": "Server", "text": "Deep dive: Cloud, DevOps, CI/CD, K8S"},
-                {"icon": "Users", "text": "Level up soft skills: leadership & communication"},
-                {"icon": "Award", "text": "Earn professional certifications (AWS, GCP)"},
-                {"icon": "Briefcase", "text": "Lead team of 3-5 engineers"}
-            ]
-        },
-        {
-            "type": "long-term",
-            "title": "Long-term Goals",
-            "subtitle": "Next 3-5 Years",
-            "progressLabel": "VISION",
-            "progressValue": "∞",
-            "goals": [
-                {"icon": "Award", "text": "Become Senior Software Engineer / Architect"},
-                {"icon": "Briefcase", "text": "Tech Lead / Solution Architect position"},
-                {"icon": "Users", "text": "Transition to engineering management (PM)"},
-                {"icon": "Zap", "text": "Launch innovative tech startup"},
-                {"icon": "Globe", "text": "Contribute to open-source & tech community"},
-                {"icon": "TrendingUp", "text": "Mentor next-gen developers"}
-            ]
-        }
-    ]
-;
+import {useTranslation} from "react-i18next";
 
 function getIconComponent(name, size = 20) {
     const Icon = FeatherIcons[name];
@@ -45,6 +10,8 @@ function getIconComponent(name, size = 20) {
 
 export const CareerGoals = ({careerGoals}) => {
     const [ref, isVisible] = useIntersectionObserver();
+    const {t} = useTranslation("careerGoals");
+
 
     return (
         <section ref={ref}
@@ -58,14 +25,18 @@ export const CareerGoals = ({careerGoals}) => {
                 <div className="text-center mb-16">
                     <div
                         className="inline-block bg-blue-100 text-blue-600 px-6 py-2 rounded-full font-bold text-sm mb-4 animate-fade-in">
-                        🎯 MY VISION
+                        🎯 {t("my_vision")}
                     </div>
                     <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-4">
-                        Career <span
-                        className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Roadmap</span>
+                        {t("title_career")} &nbsp;
+                        <span
+                            className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        {t("title_roadmap")}
+                        </span>
                     </h2>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                        Building the future, one commit at a time
+                        {t("subtitle")}
+                        {/*Building the future, one commit at a time*/}
                     </p>
                 </div>
 

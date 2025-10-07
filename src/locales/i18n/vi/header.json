@@ -1,0 +1,18 @@
+{
+  "downloadCV": "Tải CV",
+  "contactMe": "Liên hệ",
+  "status": {
+    "profile": "Sẵn sàng"
+  },
+  "badges": {
+    "role": "Lập trình viên",
+    "year_exp": "Năm"
+  },
+  "stats": {
+    "labels": {
+      "year_exp": "Năm kinh nghiệm",
+      "projects": "Dự án",
+      "team_size": "Quy mô nhóm"
+    }
+  }
+}

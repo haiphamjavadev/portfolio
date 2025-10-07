@@ -9,11 +9,14 @@ import {Hobbies} from "./Hobbies.jsx";
 import {Footer} from "./Footer.jsx";
 import * as en from '../../locales/api/en.js';
 import * as vi from '../../locales/api/vi.js';
-
-const locale = localStorage.getItem('locale') || 'vi';
-const data = locale === 'vi' ? vi : en;
+import {useTranslation} from "react-i18next";
 
 const PortfolioIndex = () => {
+    const { i18n } = useTranslation();
+
+    // ✅ lấy dữ liệu theo ngôn ngữ hiện tại
+    const data = i18n.language === "vi" ? vi : en;
+
     useEffect(() => {
         // Add custom animations to document
         const style = document.createElement('style');
@@ -110,7 +113,6 @@ const PortfolioIndex = () => {
     }, []);
 
     return (
-        console.log("Rendering PortfolioIndex with locale:", locale),
         console.log("Rendering header:", data.headers),
 
         <div className="min-h-screen bg-white font-sans antialiased">
