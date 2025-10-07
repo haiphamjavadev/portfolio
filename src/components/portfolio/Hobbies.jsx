@@ -1,25 +1,27 @@
 import React from "react";
-import {useIntersectionObserver} from "../../hooks/useIntersectionObserver.js";
-import {ParticleSystem} from "../../utils/ParticleSystem.jsx";
-import {getIconComponent} from "../../utils/GetIconForAll.jsx";
+import { useIntersectionObserver } from "../../hooks/useIntersectionObserver.js";
+import { ParticleSystem } from "../../utils/ParticleSystem.jsx";
+import { getIconComponent } from "../../utils/GetIconForAll.jsx";
+import { useTranslation } from "react-i18next";
 
-export const Hobbies = ({hobbies}) => {
+export const Hobbies = ({ hobbies }) => {
     const [ref, isVisible] = useIntersectionObserver();
+    const { t } = useTranslation("hobbies");
 
     return (
         <section ref={ref}
-                 className={`py-24 bg-gray-900 text-white relative overflow-hidden transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <ParticleSystem/>
+            className={`py-24 bg-gray-900 text-white relative overflow-hidden transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <ParticleSystem />
 
             <div className="container mx-auto px-6 max-w-6xl relative z-10">
                 <div className="text-center mb-16">
                     <div
                         className="inline-block bg-pink-500/20 text-pink-400 px-6 py-2 rounded-full font-bold text-sm mb-4 backdrop-blur-lg border border-pink-500/30">
-                        ❤️ LIFE BEYOND CODE
+                        ❤️ {t("lifeBeyondCode")}
                     </div>
                     <h2 className="text-5xl md:text-6xl font-black mb-4">
-                        Hobbies & <span
-                        className="bg-gradient-to-r from-pink-400 to-red-400 bg-clip-text text-transparent">Interests</span>
+                        {t("hobbies")} & <span
+                            className="bg-gradient-to-r from-pink-400 to-red-400 bg-clip-text text-transparent">{t("interests")}</span>
                     </h2>
                 </div>
 
@@ -46,7 +48,7 @@ export const Hobbies = ({hobbies}) => {
                         <div className="relative bg-gray-800 p-8 rounded-2xl border-2 border-gray-700">
                             <h3 className="text-2xl font-black mb-4 flex items-center gap-3">
                                 {getIconComponent("Heart", 28, "text-red-400")}
-                                Personal Values
+                                {t("personalValues")}
                             </h3>
                             <ul className="space-y-3">
                                 {hobbies.personals.map((item, idx) => (
@@ -65,7 +67,7 @@ export const Hobbies = ({hobbies}) => {
                         <div className="relative bg-gray-800 p-8 rounded-2xl border-2 border-gray-700">
                             <h3 className="text-2xl font-black mb-4 flex items-center gap-3">
                                 {getIconComponent("Zap", 28, "text-yellow-400")}
-                                Work Style
+                                {t("workStyle")}
                             </h3>
                             <ul className="space-y-3">
                                 {hobbies.workStyles.map((item, idx) => (

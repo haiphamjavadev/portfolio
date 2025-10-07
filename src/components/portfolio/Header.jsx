@@ -1,12 +1,12 @@
-import {useEffect, useState} from "react";
-import {AnimatedBackground} from "../../utils/AnimatedBackground.jsx";
-import {FloatingCodeLines} from "../../utils/FloatingCodeLines.jsx";
-import {ParticleSystem} from "../../utils/ParticleSystem.jsx";
-import {getIconComponent} from "../../utils/GetIconForAll.jsx";
-import {TypingBio} from "../../utils/TypingBio.jsx";
-import {asset} from "../../utils/Assets.jsx";
-import {useTheme} from "../../contexts/ThemeContext.jsx";
-import {useTranslation} from "react-i18next";
+import { useEffect, useState } from "react";
+import { AnimatedBackground } from "../../utils/AnimatedBackground.jsx";
+import { FloatingCodeLines } from "../../utils/FloatingCodeLines.jsx";
+import { ParticleSystem } from "../../utils/ParticleSystem.jsx";
+import { getIconComponent } from "../../utils/GetIconForAll.jsx";
+import { TypingBio } from "../../utils/TypingBio.jsx";
+import { asset } from "../../utils/Assets.jsx";
+import { useTheme } from "../../contexts/ThemeContext.jsx";
+import { useTranslation } from "react-i18next";
 
 // Tailwind color palette
 const tailwindColors = [
@@ -53,12 +53,12 @@ function getRandomColor() {
     return tailwindColors[Math.floor(Math.random() * tailwindColors.length)];
 }
 
-export const Header = ({headers}) => {
-    const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
+export const Header = ({ headers }) => {
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
     // ✅ Sử dụng đúng hooks
-    const {theme, toggleTheme, isDark} = useTheme();
-    const {t, i18n} = useTranslation("header");
+    const { theme, toggleTheme, isDark } = useTheme();
+    const { t, i18n } = useTranslation("header");
 
     const handleMouseMove = (e) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -71,7 +71,6 @@ export const Header = ({headers}) => {
     // ✅ Toggle giữa vi và en
     const handleLangChange = () => {
         const newLang = i18n.language === "en" ? "vi" : "en";
-        console.log("Changing language to:", newLang);
         i18n.changeLanguage(newLang); // tự động lưu localStorage
     };
 
@@ -85,25 +84,50 @@ export const Header = ({headers}) => {
             className={`relative ${isDark
                 ? "bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white"
                 : "bg-white text-gray-900"
-            } py-24 overflow-hidden transition-colors duration-300`}
+                } py-24 overflow-hidden transition-colors duration-300`}
             onMouseMove={handleMouseMove}
         >
-            <AnimatedBackground/>
-            <FloatingCodeLines/>
-            <ParticleSystem/>
 
-            {/* ✅ Top-right controls - Fixed */}
+            <div className="absolute top-6 left-6 z-30">
+                {isDark
+                    ? getIconComponent("Moon", 32, "text-blue-400 drop-shadow-lg")
+                    : getIconComponent("Sun", 32, "text-yellow-400 drop-shadow-lg")}
+            </div>
+
+            <AnimatedBackground />
+            <FloatingCodeLines />
+            <ParticleSystem />
+
+            {/* Hiệu ứng sao background */}
+            <div className="absolute inset-0 pointer-events-none z-0">
+                <div className="w-full h-full">
+                    {[...Array(50)].map((_, i) => (
+                        <span
+                            key={i}
+                            className="absolute star-twinkle"
+                            style={{
+                                top: `${Math.random() * 100}%`,
+                                left: `${Math.random() * 100}%`,
+                                fontSize: `${Math.random() * 8 + 8}px`,
+                                color: "#fff",
+                                opacity: Math.random() * 0.7 + 0.3,
+                                filter: "drop-shadow(0 0 6px #fff)"
+                            }}
+                        >★</span>
+                    ))}
+                </div>
+            </div>
+
+            {/* Top-right controls - Fixed */}
             <div className="absolute top-6 right-6 flex gap-4 z-20">
                 {/* Theme Toggle Button */}
                 <button
                     onClick={toggleTheme}
-                    className={`${
-                        isDark
-                            ? "bg-white/10 hover:bg-white/20"
-                            : "bg-gray-200 hover:bg-gray-300"
-                    } px-3 py-2 rounded-lg border ${
-                        isDark ? "border-white/20" : "border-gray-300"
-                    } transition-all duration-300`}
+                    className={`${isDark
+                        ? "bg-white/10 hover:bg-white/20"
+                        : "bg-gray-200 hover:bg-gray-300"
+                        } px-3 py-2 rounded-lg border ${isDark ? "border-white/20" : "border-gray-300"
+                        } transition-all duration-300`}
                     aria-label="Toggle theme"
                 >
                     {isDark
@@ -114,24 +138,32 @@ export const Header = ({headers}) => {
                 {/* Language Toggle Button */}
                 <button
                     onClick={handleLangChange}
-                    className={`${
-                        isDark
-                            ? "bg-white/10 hover:bg-white/20"
-                            : "bg-gray-200 hover:bg-gray-300"
-                    } px-3 py-2 rounded-lg border ${
-                        isDark ? "border-white/20" : "border-gray-300"
-                    } transition-all duration-300 font-bold`}
+                    className={`${isDark
+                        ? "bg-white/10 hover:bg-white/20"
+                        : "bg-gray-200 hover:bg-gray-300"
+                        } px-3 py-2 rounded-lg border ${isDark ? "border-white/20" : "border-gray-300"
+                        } transition-all duration-300 font-bold flex items-center gap-2`}
                 >
-                    {i18n.language === "en" ? "🇻🇳 VI" : "🇬🇧 EN"}
+                    {i18n.language === "en"
+                        ? (
+                            <>
+                                <span className="text-xl">🇻🇳</span> VI
+                            </>
+                        )
+                        : (
+                            <>
+                                <span className="text-xl">🇬🇧</span> EN
+                            </>
+                        )
+                    }
                 </button>
             </div>
 
             {/* Grid Background */}
-            <div className={`absolute inset-0 ${
-                isDark
-                    ? "bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)]"
-                    : "bg-[linear-gradient(rgba(59,130,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.05)_1px,transparent_1px)]"
-            } bg-[size:100px_100px]`}></div>
+            <div className={`absolute inset-0 ${isDark
+                ? "bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)]"
+                : "bg-[linear-gradient(rgba(59,130,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.05)_1px,transparent_1px)]"
+                } bg-[size:100px_100px]`}></div>
 
             <div className="container mx-auto px-6 relative z-10">
                 <div className="max-w-6xl mx-auto">
@@ -139,19 +171,14 @@ export const Header = ({headers}) => {
                         {/* Avatar with 3D tilt effect */}
                         <div
                             className="relative group perspective-1000"
-                            style={{
-                                transform: `rotateX(${-mousePosition.y}deg) rotateY(${mousePosition.x}deg)`,
-                                transition: 'transform 0.1s ease-out'
-                            }}
                         >
                             <div className="w-48 h-48 relative">
                                 <div
-                                    className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-spin-slow"></div>
+                                    className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
                                 <div
-                                    className="absolute inset-2 rounded-full bg-gradient-to-r from-pink-500 via-blue-500 to-purple-500 animate-spin-reverse"></div>
-                                <div className={`absolute inset-4 rounded-full ${
-                                    isDark ? "bg-gray-900" : "bg-white"
-                                } overflow-hidden border-4 border-white shadow-2xl`}>
+                                    className="absolute inset-2 rounded-full bg-gradient-to-r from-pink-500 via-blue-500 to-purple-500"></div>
+                                <div className={`absolute inset-4 rounded-full ${isDark ? "bg-gray-900" : "bg-white"
+                                    } overflow-hidden border-4 border-white shadow-2xl`}>
                                     <img
                                         src={headers.profile.avatar || asset("/imgs/avatar/avatar_me.jpeg")}
                                         alt={headers.profile.name}
@@ -175,10 +202,9 @@ export const Header = ({headers}) => {
                             {headers.profile.badges.map((badge, idx) => (
                                 <div
                                     key={idx}
-                                    className={`absolute ${
-                                        badge.position === "top-right" ? "-top-4 -right-4" : "-bottom-2 -left-4"
-                                    } bg-${badge.color} text-${badge.textColor} px-4 py-2 rounded-lg font-bold text-sm shadow-xl transform ${badge.rotate} animate-bounce-slow`}
-                                    style={{animationDelay: idx * 500 + "ms"}}
+                                    className={`absolute ${badge.position === "top-right" ? "-top-4 -right-4" : "-bottom-2 -left-4"
+                                        } bg-${badge.color} text-${badge.textColor} px-4 py-2 rounded-lg font-bold text-sm shadow-xl transform ${badge.rotate} animate-bounce-slow`}
+                                    style={{ animationDelay: idx * 500 + "ms" }}
                                 >
                                     {badge.text}
                                     {t(`badges.${badge.i18n}`) || badge.i18n}
@@ -189,9 +215,8 @@ export const Header = ({headers}) => {
                         {/* Main Content */}
                         <div className="flex-1 text-center md:text-left">
                             <div className="mb-4">
-                                <span className={`${
-                                    isDark ? "text-blue-400" : "text-blue-600"
-                                } font-mono text-sm`}>$ whoami</span>
+                                <span className={`${isDark ? "text-blue-400" : "text-blue-600"
+                                    } font-mono text-sm`}>$ whoami</span>
                             </div>
 
                             <h1 className="text-5xl md:text-7xl font-black mb-4 relative">
@@ -209,12 +234,12 @@ export const Header = ({headers}) => {
                                     <span className="text-gray-300">{headers.profile.title.split(" ")[0]}</span>{" "}
                                     <span
                                         className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-                                                                    {headers.profile.title.split(" ").slice(1).join(" ")}
-                                                                </span>
+                                        {headers.profile.title.split(" ").slice(1).join(" ")}
+                                    </span>
                                 </p>
                             </div>
 
-                            <TypingBio text={headers.profile.bio} speed={40}/>
+                            <TypingBio text={headers.profile.bio} speed={40} />
 
                             {/* Stats Bar */}
                             <div className="grid grid-cols-3 gap-4 mb-8 max-w-xl mx-auto md:mx-0">
@@ -223,11 +248,9 @@ export const Header = ({headers}) => {
                                     return (
                                         <div
                                             key={idx}
-                                            className={`${
-                                                isDark ? "bg-white/10" : "bg-gray-100"
-                                            } backdrop-blur-lg rounded-xl p-4 border ${
-                                                isDark ? "border-white/20" : "border-gray-200"
-                                            } hover:scale-105 transition transform`}
+                                            className={`${isDark ? "bg-white/10" : "bg-gray-100"
+                                                } backdrop-blur-lg rounded-xl p-4 border ${isDark ? "border-white/20" : "border-gray-200"
+                                                } hover:scale-105 transition transform`}
                                         >
                                             <div className={`text-3xl font-bold text-${color}`}>{stat.value}</div>
                                             <div className={isDark ? "text-gray-300" : "text-gray-600 text-sm"}>
@@ -239,20 +262,18 @@ export const Header = ({headers}) => {
                             </div>
 
                             {/* Contact info */}
-                            <div className={`flex flex-wrap gap-4 justify-center md:justify-start ${
-                                isDark ? "text-gray-300" : "text-gray-700"
-                            } mb-8`}>
+                            <div className={`flex flex-wrap gap-4 justify-center md:justify-start ${isDark ? "text-gray-300" : "text-gray-700"
+                                } mb-8`}>
                                 {headers.contacts.map((contact, idx) => {
                                     const color = contact.color || getRandomColor();
                                     return contact.href ? (
                                         <a
                                             key={idx}
                                             href={contact.href}
-                                            className={`flex items-center gap-2 ${
-                                                isDark
-                                                    ? "bg-white/10 hover:bg-white/20 border-white/20"
-                                                    : "bg-gray-100 hover:bg-gray-200 border-gray-200"
-                                            } backdrop-blur-lg px-4 py-2 rounded-lg transition border`}
+                                            className={`flex items-center gap-2 ${isDark
+                                                ? "bg-white/10 hover:bg-white/20 border-white/20"
+                                                : "bg-gray-100 hover:bg-gray-200 border-gray-200"
+                                                } backdrop-blur-lg px-4 py-2 rounded-lg transition border`}
                                         >
                                             {getIconComponent(contact.icon, 18, `text-${color}`)}
                                             <span className="text-sm font-medium">{contact.value}</span>
@@ -260,9 +281,8 @@ export const Header = ({headers}) => {
                                     ) : (
                                         <div
                                             key={idx}
-                                            className={`flex items-center gap-2 ${
-                                                isDark ? "bg-white/10 border-white/20" : "bg-gray-100 border-gray-200"
-                                            } backdrop-blur-lg px-4 py-2 rounded-lg border`}
+                                            className={`flex items-center gap-2 ${isDark ? "bg-white/10 border-white/20" : "bg-gray-100 border-gray-200"
+                                                } backdrop-blur-lg px-4 py-2 rounded-lg border`}
                                         >
                                             {getIconComponent(contact.icon, 18, `text-${color}`)}
                                             <span className="text-sm font-medium">{contact.value}</span>
@@ -310,12 +330,10 @@ export const Header = ({headers}) => {
 
             {/* Scroll indicator */}
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-                <div className={`w-6 h-10 border-2 ${
-                    isDark ? "border-white/30" : "border-gray-400"
-                } rounded-full flex items-start justify-center p-2`}>
-                    <div className={`w-1 h-2 ${
-                        isDark ? "bg-white" : "bg-gray-600"
-                    } rounded-full animate-scroll`}></div>
+                <div className={`w-6 h-10 border-2 ${isDark ? "border-white/30" : "border-gray-400"
+                    } rounded-full flex items-start justify-center p-2`}>
+                    <div className={`w-1 h-2 ${isDark ? "bg-white" : "bg-gray-600"
+                        } rounded-full animate-scroll`}></div>
                 </div>
             </div>
         </header>

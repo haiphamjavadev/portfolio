@@ -383,7 +383,7 @@ export const hobbies = {
     ]
 };
 
-export const allProjects = experiences.flatMap(exp => exp.projects || []); // gom hết project từ mọi experience
+export const allProjects = experiences.flatMap(exp => exp.projects || []);
 
 export const headers = {
     profile: {

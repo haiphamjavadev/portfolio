@@ -1,0 +1,22 @@
+{
+    "professionalPath": "Professional Path",
+    "myWorkExperience": "My Work",
+    "experience": "Experience",
+    "currentlyWorkingHere": "Currently working here",
+    "companyOverview": "Company Overview",
+    "projectsIWorkedOn": "Projects I Worked On",
+    "keyProjects": "Key Projects",
+    "moreProjects": "more projects",
+    "viewAllProjects": "View all {{count}} projects",
+    "customerDetails": "Customer Details",
+    "customer": "Customer",
+    "myRoleResponsibilities": "My Role & Responsibilities",
+    "positionInThisProject": "Position in this project",
+    "quickOverview": "Quick Overview",
+    "duration": "Duration",
+    "teamSize": "Team Size",
+    "myRole": "My Role",
+    "keyTechnologies": "Key Technologies",
+    "totalDuration": "Total Duration",
+    "myResponsibilities" : "My Responsibilities"
+}

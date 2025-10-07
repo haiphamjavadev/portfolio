@@ -1,27 +1,28 @@
-import {useIntersectionObserver} from "../../hooks/useIntersectionObserver.js";
-import {ParticleSystem} from "../../utils/ParticleSystem.jsx";
-import {getIconComponent} from "../../utils/GetIconForAll.jsx";
-import {asset} from "../../utils/Assets.jsx";
+import { useIntersectionObserver } from "../../hooks/useIntersectionObserver.js";
+import { ParticleSystem } from "../../utils/ParticleSystem.jsx";
+import { getIconComponent } from "../../utils/GetIconForAll.jsx";
+import { asset } from "../../utils/Assets.jsx";
+import { useTranslation } from "react-i18next";
 
 const quickLinks = [
-    {"label": "Home", "href": "#"},
-    {"label": "Skills", "href": "#"},
-    {"label": "Projects", "href": "#"},
-    {"label": "Experience", "href": "#"},
-    {"label": "Contact", "href": "#"},
+    { "label": "Home", "href": "#" },
+    { "label": "Skills", "href": "#" },
+    { "label": "Projects", "href": "#" },
+    { "label": "Experience", "href": "#" },
+    { "label": "Contact", "href": "#" },
 ];
 
-export const Footer = ({profiles, socials, contacts}) => {
+export const Footer = ({ profiles, socials, contacts }) => {
     const [ref, isVisible] = useIntersectionObserver();
+    const { t } = useTranslation("common");
 
     return (
         <section
             ref={ref}
-            className={`py-24 bg-gray-900 text-white relative overflow-hidden transition-all duration-1000 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
+            className={`py-24 bg-gray-900 text-white relative overflow-hidden transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                }`}
         >
-            <ParticleSystem/>
+            <ParticleSystem />
 
             <div className="container mx-auto px-6 max-w-6xl relative z-10">
                 <div className="grid md:grid-cols-4 gap-8 mb-12">
@@ -56,7 +57,7 @@ export const Footer = ({profiles, socials, contacts}) => {
                     <div>
                         <h3 className="text-xl font-black mb-4 flex items-center gap-2">
                             {getIconComponent("ChevronRight", 20, "text-blue-400")}
-                            Quick Links
+                            {t("quickLinks")}
                         </h3>
                         <ul className="space-y-2">
                             {quickLinks.map((link, idx) => (
@@ -76,7 +77,7 @@ export const Footer = ({profiles, socials, contacts}) => {
                     <div>
                         <h3 className="text-xl font-black mb-4 flex items-center gap-2">
                             {getIconComponent("Mail", 20, "text-blue-400")}
-                            Get In Touch
+                            {t("getInTouch")}
                         </h3>
                         <ul className="space-y-3 text-gray-400">
                             {contacts.map((contact, idx) => (
@@ -93,9 +94,8 @@ export const Footer = ({profiles, socials, contacts}) => {
                                     {contact.href ? (
                                         <a
                                             href={contact.value}
-                                            className={`hover:text-${
-                                                contact.type === "phone" ? "green" : "blue"
-                                            }-400 transition text-sm break-all`}
+                                            className={`hover:text-${contact.type === "phone" ? "green" : "blue"
+                                                }-400 transition text-sm break-all`}
                                         >
                                             {contact.value}
                                         </a>
@@ -107,7 +107,7 @@ export const Footer = ({profiles, socials, contacts}) => {
                         </ul>
 
                         <div className="mt-6 flex flex-col items-start">
-                            <span className="text-sm text-gray-400 mb-2">Scan to visit website</span>
+                            <span className="text-sm text-gray-400 mb-2">{t("scanToVisitWebsite")}</span>
                             <img
                                 src={asset("/imgs/qr_show_web.png")}
                                 alt="QR code for website"

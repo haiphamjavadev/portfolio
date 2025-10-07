@@ -1,17 +1,19 @@
-import {Terminal, Database, Server, Code} from 'react-feather';
-import {useIntersectionObserver} from '../../hooks/useIntersectionObserver.js';
-import {getIconComponent} from "../../utils/GetIconForAll.jsx";
-import {useState} from "react";
+import { Terminal, Database, Server, Code } from 'react-feather';
+import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.js';
+import { getIconComponent } from "../../utils/GetIconForAll.jsx";
+import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 
-export const Skills = ({skills}) => {
+export const Skills = ({ skills }) => {
     const [ref, isVisible] = useIntersectionObserver();
     const [showAll, setShowAll] = useState(false);
+    const { t } = useTranslation("skills");
     const MAX_VISIBLE = 5;
 
 
     return (
         <section ref={ref}
-                 className={`py-24 bg-gradient-to-br from-white via-gray-50 to-blue-50 relative overflow-hidden transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            className={`py-24 bg-gradient-to-br from-white via-gray-50 to-blue-50 relative overflow-hidden transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <div
                 className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_70%)]"></div>
 
@@ -19,14 +21,14 @@ export const Skills = ({skills}) => {
                 <div className="text-center mb-16">
                     <div
                         className="inline-block bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-2 rounded-full font-bold text-sm mb-4 shadow-lg">
-                        💪 EXPERTISE
+                        💪 {t("expertise")}
                     </div>
                     <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-4">
-                        Technical <span
-                        className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Arsenal</span>
+                        {t("technical")} <span
+                            className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{t("arsenal")}</span>
                     </h2>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                        Mastering the tools that power modern software
+                        {t("masteringTools")}
                     </p>
                 </div>
 
@@ -47,7 +49,7 @@ export const Skills = ({skills}) => {
                                         </div>
                                         <div>
                                             <h3 className="text-2xl font-black text-gray-900">{category.title}</h3>
-                                            <p className="text-sm text-gray-500 font-medium">Proficiency Level</p>
+                                            <p className="text-sm text-gray-500 font-medium">{t("proficiencyLevel")}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +58,7 @@ export const Skills = ({skills}) => {
                                     <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
                                         <div
                                             className={`h-full bg-gradient-to-r ${category.gradient} rounded-full transition-all duration-1000 ${isVisible ? 'animate-skill-bar' : ''}`}
-                                            style={{width: isVisible ? `${100}%` : '0%'}}
+                                            style={{ width: isVisible ? `${100}%` : '0%' }}
                                         ></div>
                                     </div>
                                 </div>
@@ -64,7 +66,7 @@ export const Skills = ({skills}) => {
                                 <div className="grid grid-cols-2 gap-4">
                                     {category.skills.map((skill, skillIdx) => (
                                         <div key={skillIdx}
-                                             className="group/skill bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition">
+                                            className="group/skill bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition">
                                             <div className="flex items-center gap-3 mb-2">
                                                 <img
                                                     src={skill.icon}
@@ -77,7 +79,7 @@ export const Skills = ({skills}) => {
                                                 <div className="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                                                     <div
                                                         className={`h-full bg-gradient-to-r ${category.gradient} rounded-full transition-all duration-1000`}
-                                                        style={{width: isVisible ? `${skill.level}%` : '0%'}}
+                                                        style={{ width: isVisible ? `${skill.level}%` : '0%' }}
                                                     ></div>
                                                 </div>
                                                 <span className="text-xs font-bold text-gray-600">{skill.level}%</span>
@@ -92,16 +94,16 @@ export const Skills = ({skills}) => {
 
                 {skills.techStacks.length > 0 && (
                     <div className="mt-16 text-center">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-8">Complete Tech Stack</h3>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-8">{t("completeTechStack")}</h3>
                         <div className="flex flex-wrap gap-3 justify-center max-w-5xl mx-auto">
                             {(showAll ? skills.techStacks : skills.techStacks.slice(0, MAX_VISIBLE)).map((tech, idx) => (
                                 <span
                                     key={idx}
                                     className="group relative px-5 py-3 bg-white rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 border-2 border-gray-200 hover:border-blue-400 font-bold text-gray-800 cursor-pointer"
                                 >
-                                <span className="relative z-10">{tech}</span>
-                                  <div
-                                      className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl opacity-0 group-hover:opacity-10 transition"></div>
+                                    <span className="relative z-10">{tech}</span>
+                                    <div
+                                        className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl opacity-0 group-hover:opacity-10 transition"></div>
                                 </span>
                             ))}
                         </div>
@@ -110,7 +112,7 @@ export const Skills = ({skills}) => {
                                 className="mt-6 px-6 py-2 bg-blue-500 text-white rounded-full font-bold shadow hover:bg-blue-600 transition"
                                 onClick={() => setShowAll((prev) => !prev)}
                             >
-                                {showAll ? "Show Less" : "Show More"}
+                                {showAll ? t("showLess") : t("showMore")}
                             </button>
                         )}
                     </div>

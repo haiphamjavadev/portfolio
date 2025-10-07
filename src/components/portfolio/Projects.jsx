@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
-import {X, Calendar, Users, Briefcase, CheckCircle, ChevronRight, Award, Code, Target} from 'lucide-react';
+import React, { useState } from 'react';
+import { X, Calendar, Users, Briefcase, CheckCircle, ChevronRight, Award, Code, Target } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const colorKeys = [
     "blue", "purple", "green", "orange", "red", "indigo",
@@ -8,8 +9,9 @@ const colorKeys = [
 ];
 const getRandomColor = () => colorKeys[Math.floor(Math.random() * colorKeys.length)];
 
-export const Projects = ({projects}) => {
+export const Projects = ({ projects }) => {
     const [selectedProject, setSelectedProject] = useState(null);
+    const { t } = useTranslation("projects");
 
     const getColorClasses = (color) => {
         const colors = {
@@ -149,14 +151,14 @@ export const Projects = ({projects}) => {
                 <div className="text-center mb-16">
                     <div
                         className="inline-block bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-2 rounded-full font-bold text-sm mb-4 shadow-lg">
-                        🚀 PORTFOLIO
+                        🚀 {t("portfolio")}
                     </div>
                     <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-4">
-                        Featured <span
-                        className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">Projects</span>
+                        {t("featured")} - <span
+                            className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">{t("projects")}</span>
                     </h2>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                        Building impactful solutions for enterprise clients
+                        {t("deliveringSolutions")}
                     </p>
                 </div>
 
@@ -195,41 +197,41 @@ export const Projects = ({projects}) => {
 
                                         <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
                                             <div className="flex items-center gap-2">
-                                                <Calendar className="w-4 h-4 text-gray-500"/>
+                                                <Calendar className="w-4 h-4 text-gray-500" />
                                                 <span className="font-medium">{project.period}</span>
                                             </div>
                                             <div className="flex items-center gap-2">
-                                                <Users className="w-4 h-4 text-gray-500"/>
+                                                <Users className="w-4 h-4 text-gray-500" />
                                                 <span className="font-medium">{project.team}</span>
                                             </div>
                                         </div>
 
                                         <div className="mb-4">
                                             <div className="flex items-center gap-2 mb-2">
-                                                <Briefcase className="w-4 h-4 text-gray-500"/>
+                                                <Briefcase className="w-4 h-4 text-gray-500" />
                                                 <span className="text-sm font-bold text-gray-900">{project.role}</span>
                                             </div>
-                                            <h4 className="text-sm font-bold text-gray-900 mb-2">Tech Stack:</h4>
+                                            <h4 className="text-sm font-bold text-gray-900 mb-2">{t("common:technologyStack")}:</h4>
                                             <div className="flex flex-wrap gap-2">
                                                 {allTech.slice(0, 4).map((tech, techIdx) => (
                                                     <span key={techIdx}
-                                                          className={`px-2 py-1 ${colors.bg} ${colors.text} rounded text-xs font-medium`}>
-                            {tech}
-                          </span>
+                                                        className={`px-2 py-1 ${colors.bg} ${colors.text} rounded text-xs font-medium`}>
+                                                        {tech}
+                                                    </span>
                                                 ))}
                                                 {allTech.length > 4 && (
                                                     <span
                                                         className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-medium">
-                            +{allTech.length - 4}
-                          </span>
+                                                        +{allTech.length - 4}
+                                                    </span>
                                                 )}
                                             </div>
                                         </div>
 
                                         <button
                                             className={`w-full bg-gradient-to-r ${colors.gradient} ${colors.hover} text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition transform group-hover:scale-105 shadow-lg`}>
-                                            <span>View Details</span>
-                                            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition"/>
+                                            <span>{t("common:viewDetails")}</span>
+                                            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition" />
                                         </button>
                                     </div>
                                 </div>
@@ -245,7 +247,7 @@ export const Projects = ({projects}) => {
                     className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-60 backdrop-blur-sm"
                     onClick={() => setSelectedProject(null)}>
                     <div className="bg-white rounded-3xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden"
-                         onClick={(e) => e.stopPropagation()}>
+                        onClick={(e) => e.stopPropagation()}>
                         {/* Modal Header */}
                         <div
                             className={`bg-gradient-to-r ${getColorClasses(selectedProject.color).gradient} p-8 relative overflow-hidden`}>
@@ -254,7 +256,7 @@ export const Projects = ({projects}) => {
                                 onClick={() => setSelectedProject(null)}
                                 className="absolute top-4 right-4 w-10 h-10 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full flex items-center justify-center transition"
                             >
-                                <X className="w-6 h-6 text-white"/>
+                                <X className="w-6 h-6 text-white" />
                             </button>
                             <div className="relative z-10">
                                 <div className="flex items-start gap-4 mb-4">
@@ -267,15 +269,15 @@ export const Projects = ({projects}) => {
 
                                 <div className="flex flex-wrap gap-6 text-white text-sm">
                                     <div className="flex items-center gap-2">
-                                        <Calendar className="w-5 h-5"/>
+                                        <Calendar className="w-5 h-5" />
                                         <span className="font-semibold">{selectedProject.period}</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <Users className="w-5 h-5"/>
-                                        <span className="font-semibold">{selectedProject.team} members</span>
+                                        <Users className="w-5 h-5" />
+                                        <span className="font-semibold">{selectedProject.teamSize} {t("common:members")}</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <Briefcase className="w-5 h-5"/>
+                                        <Briefcase className="w-5 h-5" />
                                         <span className="font-semibold">{selectedProject.role}</span>
                                     </div>
                                 </div>
@@ -287,8 +289,8 @@ export const Projects = ({projects}) => {
                             {/* Description */}
                             <div className="mb-8">
                                 <h4 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                    <Target className="w-6 h-6 text-blue-600"/>
-                                    Project Overview
+                                    <Target className="w-6 h-6 text-blue-600" />
+                                    {t("common:projectOverview")}
                                 </h4>
                                 <p className="text-gray-700 text-lg leading-relaxed">{selectedProject.fullDescription}</p>
                             </div>
@@ -296,20 +298,20 @@ export const Projects = ({projects}) => {
                             {/* Tech Stack */}
                             <div className="mb-8">
                                 <h4 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                    <Code className="w-6 h-6 text-purple-600"/>
-                                    Technology Stack
+                                    <Code className="w-6 h-6 text-purple-600" />
+                                    {t("common:technologyStack")}
                                 </h4>
                                 <div className="grid md:grid-cols-2 gap-4">
                                     {Object.entries(selectedProject.techStack).map(([category, techs], idx) => (
                                         <div key={idx}
-                                             className={`bg-gradient-to-br from-gray-50 to-white p-4 rounded-xl border-2 ${getColorClasses(selectedProject.color).border}`}>
+                                            className={`bg-gradient-to-br from-gray-50 to-white p-4 rounded-xl border-2 ${getColorClasses(selectedProject.color).border}`}>
                                             <h5 className="font-bold text-gray-900 mb-3">{category}</h5>
                                             <div className="flex flex-wrap gap-2">
                                                 {techs.map((tech, techIdx) => (
                                                     <span key={techIdx}
-                                                          className={`px-3 py-1 ${getColorClasses(selectedProject.color).bg} ${getColorClasses(selectedProject.color).text} rounded-lg text-sm font-medium`}>
-                            {tech}
-                          </span>
+                                                        className={`px-3 py-1 ${getColorClasses(selectedProject.color).bg} ${getColorClasses(selectedProject.color).text} rounded-lg text-sm font-medium`}>
+                                                        {tech}
+                                                    </span>
                                                 ))}
                                             </div>
                                         </div>
@@ -319,11 +321,11 @@ export const Projects = ({projects}) => {
 
                             {/* Responsibilities */}
                             <div className="mb-8">
-                                <h4 className="text-2xl font-bold text-gray-900 mb-4">Key Responsibilities</h4>
+                                <h4 className="text-2xl font-bold text-gray-900 mb-4">{t("common:keyResponsibilities")}</h4>
                                 <div className="grid gap-3">
                                     {selectedProject.responsibilities.map((resp, idx) => (
                                         <div key={idx} className="flex items-start gap-3 bg-gray-50 p-4 rounded-xl">
-                                            <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"/>
+                                            <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
                                             <span className="text-gray-700 leading-relaxed">{resp}</span>
                                         </div>
                                     ))}
@@ -333,13 +335,13 @@ export const Projects = ({projects}) => {
                             {/* Achievements */}
                             <div>
                                 <h4 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                    <Award className="w-6 h-6 text-yellow-600"/>
-                                    Key Achievements
+                                    <Award className="w-6 h-6 text-yellow-600" />
+                                    {t("common:keyAchievements")}
                                 </h4>
                                 <div className="grid md:grid-cols-2 gap-4">
                                     {selectedProject.achievements.map((achievement, idx) => (
                                         <div key={idx}
-                                             className={`bg-gradient-to-br ${getColorClasses(selectedProject.color).gradient} p-6 rounded-xl text-white shadow-lg`}>
+                                            className={`bg-gradient-to-br ${getColorClasses(selectedProject.color).gradient} p-6 rounded-xl text-white shadow-lg`}>
                                             <div className="flex items-start gap-3">
                                                 <div
                                                     className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center flex-shrink-0">
