@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-import { AnimatedBackground } from "../../utils/AnimatedBackground.jsx";
-import { FloatingCodeLines } from "../../utils/FloatingCodeLines.jsx";
-import { ParticleSystem } from "../../utils/ParticleSystem.jsx";
-import { getIconComponent } from "../../utils/GetIconForAll.jsx";
-import { TypingBio } from "../../utils/TypingBio.jsx";
-import { asset } from "../../utils/Assets.jsx";
-import { useTheme } from "../../contexts/ThemeContext.jsx";
-import { useTranslation } from "react-i18next";
+import {useEffect, useState} from "react";
+import {AnimatedBackground} from "../../utils/AnimatedBackground.jsx";
+import {FloatingCodeLines} from "../../utils/FloatingCodeLines.jsx";
+import {ParticleSystem} from "../../utils/ParticleSystem.jsx";
+import {getIconComponent} from "../../utils/GetIconForAll.jsx";
+import {TypingBio} from "../../utils/TypingBio.jsx";
+import {asset} from "../../utils/Assets.jsx";
+import {useTheme} from "../../contexts/ThemeContext.jsx";
+import {useTranslation} from "react-i18next";
+import {AnimatedStat} from "../../utils/AnimatedStat.jsx";
 
 // Tailwind color palette
 const tailwindColors = [
@@ -39,7 +40,7 @@ const handlers = {
     downloadCV: (cta) => {
         const link = document.createElement("a");
         link.href = cta.href;
-        link.download = "PhamQuangHai_CV.pdf";
+        link.download = "pham_quang_hai_software_developer_en_cv.pdf";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -53,12 +54,12 @@ function getRandomColor() {
     return tailwindColors[Math.floor(Math.random() * tailwindColors.length)];
 }
 
-export const Header = ({ headers }) => {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+export const Header = ({headers}) => {
+    const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
 
     // ✅ Sử dụng đúng hooks
-    const { theme, toggleTheme, isDark } = useTheme();
-    const { t, i18n } = useTranslation("header");
+    const {theme, toggleTheme, isDark} = useTheme();
+    const {t, i18n} = useTranslation("header");
 
     const handleMouseMove = (e) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -84,7 +85,7 @@ export const Header = ({ headers }) => {
             className={`relative ${isDark
                 ? "bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white"
                 : "bg-white text-gray-900"
-                } py-24 overflow-hidden transition-colors duration-300`}
+            } py-24 overflow-hidden transition-colors duration-300`}
             onMouseMove={handleMouseMove}
         >
 
@@ -94,29 +95,9 @@ export const Header = ({ headers }) => {
                     : getIconComponent("Sun", 32, "text-yellow-400 drop-shadow-lg")}
             </div>
 
-            <AnimatedBackground />
-            <FloatingCodeLines />
-            <ParticleSystem />
-
-            {/* Hiệu ứng sao background */}
-            <div className="absolute inset-0 pointer-events-none z-0">
-                <div className="w-full h-full">
-                    {[...Array(50)].map((_, i) => (
-                        <span
-                            key={i}
-                            className="absolute star-twinkle"
-                            style={{
-                                top: `${Math.random() * 100}%`,
-                                left: `${Math.random() * 100}%`,
-                                fontSize: `${Math.random() * 8 + 8}px`,
-                                color: "#fff",
-                                opacity: Math.random() * 0.7 + 0.3,
-                                filter: "drop-shadow(0 0 6px #fff)"
-                            }}
-                        >★</span>
-                    ))}
-                </div>
-            </div>
+            <AnimatedBackground/>
+            <FloatingCodeLines/>
+            <ParticleSystem/>
 
             {/* Top-right controls - Fixed */}
             <div className="absolute top-6 right-6 flex gap-4 z-20">
@@ -126,8 +107,8 @@ export const Header = ({ headers }) => {
                     className={`${isDark
                         ? "bg-white/10 hover:bg-white/20"
                         : "bg-gray-200 hover:bg-gray-300"
-                        } px-3 py-2 rounded-lg border ${isDark ? "border-white/20" : "border-gray-300"
-                        } transition-all duration-300`}
+                    } px-3 py-2 rounded-lg border ${isDark ? "border-white/20" : "border-gray-300"
+                    } transition-all duration-300`}
                     aria-label="Toggle theme"
                 >
                     {isDark
@@ -141,8 +122,8 @@ export const Header = ({ headers }) => {
                     className={`${isDark
                         ? "bg-white/10 hover:bg-white/20"
                         : "bg-gray-200 hover:bg-gray-300"
-                        } px-3 py-2 rounded-lg border ${isDark ? "border-white/20" : "border-gray-300"
-                        } transition-all duration-300 font-bold flex items-center gap-2`}
+                    } px-3 py-2 rounded-lg border ${isDark ? "border-white/20" : "border-gray-300"
+                    } transition-all duration-300 font-bold flex items-center gap-2`}
                 >
                     {i18n.language === "en"
                         ? (
@@ -163,7 +144,7 @@ export const Header = ({ headers }) => {
             <div className={`absolute inset-0 ${isDark
                 ? "bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)]"
                 : "bg-[linear-gradient(rgba(59,130,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.05)_1px,transparent_1px)]"
-                } bg-[size:100px_100px]`}></div>
+            } bg-[size:100px_100px]`}></div>
 
             <div className="container mx-auto px-6 relative z-10">
                 <div className="max-w-6xl mx-auto">
@@ -178,7 +159,7 @@ export const Header = ({ headers }) => {
                                 <div
                                     className="absolute inset-2 rounded-full bg-gradient-to-r from-pink-500 via-blue-500 to-purple-500"></div>
                                 <div className={`absolute inset-4 rounded-full ${isDark ? "bg-gray-900" : "bg-white"
-                                    } overflow-hidden border-4 border-white shadow-2xl`}>
+                                } overflow-hidden border-4 border-white shadow-2xl`}>
                                     <img
                                         src={headers.profile.avatar || asset("/imgs/avatar/avatar_me.jpeg")}
                                         alt={headers.profile.name}
@@ -203,8 +184,8 @@ export const Header = ({ headers }) => {
                                 <div
                                     key={idx}
                                     className={`absolute ${badge.position === "top-right" ? "-top-4 -right-4" : "-bottom-2 -left-4"
-                                        } bg-${badge.color} text-${badge.textColor} px-4 py-2 rounded-lg font-bold text-sm shadow-xl transform ${badge.rotate} animate-bounce-slow`}
-                                    style={{ animationDelay: idx * 500 + "ms" }}
+                                    } bg-${badge.color} text-${badge.textColor} px-4 py-2 rounded-lg font-bold text-sm shadow-xl transform ${badge.rotate} animate-bounce-slow`}
+                                    style={{animationDelay: idx * 500 + "ms"}}
                                 >
                                     {badge.text}
                                     {t(`badges.${badge.i18n}`) || badge.i18n}
@@ -216,7 +197,7 @@ export const Header = ({ headers }) => {
                         <div className="flex-1 text-center md:text-left">
                             <div className="mb-4">
                                 <span className={`${isDark ? "text-blue-400" : "text-blue-600"
-                                    } font-mono text-sm`}>$ whoami</span>
+                                } font-mono text-sm`}>$ whoami</span>
                             </div>
 
                             <h1 className="text-5xl md:text-7xl font-black mb-4 relative">
@@ -239,20 +220,29 @@ export const Header = ({ headers }) => {
                                 </p>
                             </div>
 
-                            <TypingBio text={headers.profile.bio} speed={40} />
+                            <TypingBio text={headers.profile.bio}
+                                       speed={40}
+                                       className={`
+                                                text-center md:text-left font-semibold
+                                            ${isDark
+                                            ? "bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent"
+                                            : "bg-gradient-to-r from-orange-400 via-pink-500 to-red-500 bg-clip-text text-transparent"}
+                                                `}
+                            />
 
                             {/* Stats Bar */}
                             <div className="grid grid-cols-3 gap-4 mb-8 max-w-xl mx-auto md:mx-0">
                                 {headers.stats.map((stat, idx) => {
-                                    const color = stat.color || getRandomColor();
+                                    const color = tailwindColors[idx % tailwindColors.length];
                                     return (
                                         <div
                                             key={idx}
                                             className={`${isDark ? "bg-white/10" : "bg-gray-100"
-                                                } backdrop-blur-lg rounded-xl p-4 border ${isDark ? "border-white/20" : "border-gray-200"
-                                                } hover:scale-105 transition transform`}
+                                            } backdrop-blur-lg rounded-xl p-4 border ${isDark ? "border-white/20" : "border-gray-200"
+                                            } hover:scale-105 transition transform`}
                                         >
-                                            <div className={`text-3xl font-bold text-${color}`}>{stat.value}</div>
+                                            {/*<div className={`text-3xl font-bold text-${color}`}>{stat.value}+</div>*/}
+                                            <AnimatedStat value={stat.value} color={color} />
                                             <div className={isDark ? "text-gray-300" : "text-gray-600 text-sm"}>
                                                 {t(`stats.labels.${stat.i18n}`) || stat.i18n}
                                             </div>
@@ -262,10 +252,11 @@ export const Header = ({ headers }) => {
                             </div>
 
                             {/* Contact info */}
-                            <div className={`flex flex-wrap gap-4 justify-center md:justify-start ${isDark ? "text-gray-300" : "text-gray-700"
+                            <div
+                                className={`flex flex-wrap gap-4 justify-center md:justify-start ${isDark ? "text-gray-300" : "text-gray-700"
                                 } mb-8`}>
                                 {headers.contacts.map((contact, idx) => {
-                                    const color = contact.color || getRandomColor();
+                                    const color = tailwindColors[idx % tailwindColors.length];
                                     return contact.href ? (
                                         <a
                                             key={idx}
@@ -273,7 +264,7 @@ export const Header = ({ headers }) => {
                                             className={`flex items-center gap-2 ${isDark
                                                 ? "bg-white/10 hover:bg-white/20 border-white/20"
                                                 : "bg-gray-100 hover:bg-gray-200 border-gray-200"
-                                                } backdrop-blur-lg px-4 py-2 rounded-lg transition border`}
+                                            } backdrop-blur-lg px-4 py-2 rounded-lg transition border`}
                                         >
                                             {getIconComponent(contact.icon, 18, `text-${color}`)}
                                             <span className="text-sm font-medium">{contact.value}</span>
@@ -282,7 +273,7 @@ export const Header = ({ headers }) => {
                                         <div
                                             key={idx}
                                             className={`flex items-center gap-2 ${isDark ? "bg-white/10 border-white/20" : "bg-gray-100 border-gray-200"
-                                                } backdrop-blur-lg px-4 py-2 rounded-lg border`}
+                                            } backdrop-blur-lg px-4 py-2 rounded-lg border`}
                                         >
                                             {getIconComponent(contact.icon, 18, `text-${color}`)}
                                             <span className="text-sm font-medium">{contact.value}</span>
@@ -305,7 +296,7 @@ export const Header = ({ headers }) => {
                                     >
                                         <div
                                             className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-20 transition"></div>
-                                        {getIconComponent(social.icon, 24, "relative z-10")}
+                                        {getIconComponent(social.icon, 24, "relative z-10 text-gray-800 dark:text-white")}
                                     </a>
                                 ))}
                                 {ctas.map((cta, idx) => (
@@ -316,8 +307,8 @@ export const Header = ({ headers }) => {
                                     >
                                         <div
                                             className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition"></div>
-                                        {getIconComponent(cta.icon, 24, "relative z-10 group-hover:animate-bounce")}
-                                        <span className="font-bold text-lg relative z-10">
+                                        {getIconComponent(cta.icon, 24, "relative z-10 group-hover:animate-bounce text-gray-800 dark:text-white")}
+                                        <span className="font-bold text-lg relative z-10 text-gray-800 dark:text-white">
                                             {t(cta.textKey) || cta.text}
                                         </span>
                                     </button>
@@ -331,9 +322,9 @@ export const Header = ({ headers }) => {
             {/* Scroll indicator */}
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
                 <div className={`w-6 h-10 border-2 ${isDark ? "border-white/30" : "border-gray-400"
-                    } rounded-full flex items-start justify-center p-2`}>
+                } rounded-full flex items-start justify-center p-2`}>
                     <div className={`w-1 h-2 ${isDark ? "bg-white" : "bg-gray-600"
-                        } rounded-full animate-scroll`}></div>
+                    } rounded-full animate-scroll`}></div>
                 </div>
             </div>
         </header>

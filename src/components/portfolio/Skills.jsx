@@ -24,7 +24,7 @@ export const Skills = ({ skills }) => {
                         💪 {t("expertise")}
                     </div>
                     <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-4">
-                        {t("technical")} <span
+                        {t("technical")} &<span
                             className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{t("arsenal")}</span>
                     </h2>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">

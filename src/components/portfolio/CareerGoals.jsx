@@ -28,7 +28,7 @@ export const CareerGoals = ({careerGoals}) => {
                         🎯 {t("my_vision")}
                     </div>
                     <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-4">
-                        {t("title_career")} &nbsp;
+                        {t("title_career")} &
                         <span
                             className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                         {t("title_roadmap")}

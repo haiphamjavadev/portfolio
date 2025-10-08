@@ -18,7 +18,8 @@ export const Education = ({ educations = [] }) => {
                         🎓 {t("academicBackground")}
                     </div>
                     <h2 className="text-5xl md:text-6xl font-black mb-4">
-                        {t("education")} <span
+                        {t("education")} &
+                        <span
                             className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">{t("journey")}</span>
                     </h2>
                 </div>

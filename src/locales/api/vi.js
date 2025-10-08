@@ -178,6 +178,10 @@ export const experiences = [
                     "Tối ưu hiệu năng hệ thống tăng 40%",
                     "Giảm thời gian phản hồi từ 3s xuống còn 1.2s",
                     "Triển khai pipeline CI/CD giúp giảm 60% thời gian deploy"
+                ],
+                images: [
+                    {src: asset("/projects/vna/vna_sao_khue.jpg"), alt: "🎉Giải Thưởng Sao Khuê 2025"},
+                    {src: asset("/projects/vna/vna_stevie_awards.jpg"), alt: "🎉Giải Thưởng Stevie Awards 2025"},
                 ]
             },
             {
@@ -293,7 +297,7 @@ export const experiences = [
             },
             {
                 name: "Hệ thống Blacklist TPBank",
-                description: "Dự án quản lý khách hàng nghi ngờ, danh sách đen",
+                description: "Dự án quản lý khách hàng danh sách đen, nghi ngờ",
                 period: "10/2023 - 04/2024",
                 customer: "TPBank (Onsite)",
                 teamSize: 3,
@@ -418,8 +422,8 @@ export const headers = {
     },
     stats: [
         {value: getDuration("2022-01-01"), i18n: "year_exp"},
-        {value: 7, i18n: "projects"},
-        {value: 60, i18n: "team_size"}
+        {value: allProjects.length, i18n: "projects"},
+        {value: Math.max(...allProjects.map(p => p.teamSize || 0)), i18n: "team_size"}
     ],
     contacts: [
         {type: "email", icon: "Mail", value: "haiphamjavadev@gmail.com", href: "mailto:haiphamjavadev@gmail.com"},

@@ -199,6 +199,10 @@ export const experiences = [
                     "Optimized system performance by 40%",
                     "Reduced response time from 3s to 1.2s",
                     "Implemented CI/CD pipeline reducing deployment time by 60%"
+                ],
+                images: [
+                    {src: asset("/projects/vna/vna_sao_khue.jpg"), alt: "🎉Sao Khue Award 2025"},
+                    {src: asset("/projects/vna/vna_stevie_awards.jpg"), alt: "🎉Stevie Awards 2025"},
                 ]
             },
             {

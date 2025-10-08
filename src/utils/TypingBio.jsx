@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const TypingBio = ({ text, speed = 50 }) => {
+export const TypingBio = ({ text, speed = 50, className= "" }) => {
     const [displayedText, setDisplayedText] = useState("");
     const [index, setIndex] = useState(0);
 
@@ -22,9 +22,9 @@ export const TypingBio = ({ text, speed = 50 }) => {
                         border border-white/10
                         mt-2 sm:mt-4 mb-2 sm:mb-4
                         max-w-full sm:max-w-2xl lg:max-w-4xl mx-auto">
-            <p className="whitespace-pre-line
+            <p className={`whitespace-pre-line
                           text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl
-                          text-gray-200 font-medium leading-relaxed break-words">
+                          text-gray-200 font-medium leading-relaxed break-words ${className}`}>
                 {displayedText}
                 <span className="animate-pulse">|</span>
             </p>
