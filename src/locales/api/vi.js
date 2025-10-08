@@ -54,7 +54,7 @@ export const educations = [
 export const skills = {
     skills: [
         {
-            title: "Phát triển Backend",
+            title: "Backend",
             icon: "Terminal",
             color: "blue",
             gradient: "from-blue-500 to-cyan-500",
@@ -95,7 +95,11 @@ export const skills = {
             color: "purple",
             gradient: "from-purple-500 to-pink-500",
             skills: [
-                {name: "Hệ điều hành (Windows & Linux)", level: 80, icon: asset("/imgs/skills/devOps/opera_system.jpeg")},
+                {
+                    name: "Hệ điều hành (Windows & Linux)",
+                    level: 80,
+                    icon: asset("/imgs/skills/devOps/opera_system.jpeg")
+                },
                 {name: "Docker", level: 90, icon: asset("/imgs/skills/devOps/docker.jpeg")},
                 {name: "Kubernetes", level: 75, icon: asset("/imgs/skills/devOps/k8s.jpeg")},
                 {name: "Jenkins", level: 87, icon: asset("/imgs/skills/devOps/jenkins.jpeg")},
@@ -423,7 +427,52 @@ export const headers = {
         {type: "location", icon: "MapPin", value: "Hà Nội, Việt Nam"}
     ],
     socials: [
-        {icon: "FiGithub", href: "https://github.com", bg: "from-gray-800 to-gray-900", hoverBg: "from-gray-700 to-gray-800"},
-        {icon: "Linkedin", href: "https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile", bg: "from-blue-600 to-blue-700", hoverBg: "from-blue-500 to-blue-600"}
+        {
+            icon: "FiGithub",
+            href: "https://github.com",
+            bg: "from-gray-800 to-gray-900",
+            hoverBg: "from-gray-700 to-gray-800"
+        },
+        {
+            icon: "Linkedin",
+            href: "https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile",
+            bg: "from-blue-600 to-blue-700",
+            hoverBg: "from-blue-500 to-blue-600"
+        }
     ]
 };
+
+export const whyHireMe = {
+    whyHireMe: {
+        tag: "Tại sao",
+        title: "Tại Sao Chọn Tôi?",
+        subtitle: "Những lý do tôi phù hợp với vị trí Kỹ sư Phát triển Phần mềm",
+        reasons: [
+            {
+                title: "Kinh nghiệm với doanh nghiệp lớn",
+                desc: "Đã triển khai thành công các dự án cho Vietnam Airlines, Viettel Telecom và TPBank,... đảm bảo hiệu suất cao và khả năng mở rộng hệ thống."
+            },
+            {
+                title: "Kiến trúc Microservices",
+                desc: "Thành thạo Spring Framework và các công nghệ hiện đại, có kinh nghiệm thực chiến trong hệ thống phân tán và kiến trúc event-driven."
+            },
+            {
+                title: "Tối ưu hiệu năng hệ thống",
+                desc: "Tối ưu truy vấn SQL, áp dụng Redis caching, giảm đáng kể thời gian phản hồi cho các hệ thống production phục vụ hàng chục nghìn người dùng."
+            },
+            {
+                title: "Kinh nghiệm dẫn dắt nhóm",
+                desc: "Từng đảm nhiệm vai trò Team Lead, hướng dẫn fresher và junior, review code, đảm bảo chất lượng và tiến độ dự án."
+            },
+            {
+                title: "Kỹ năng DevOps",
+                desc: "Xây dựng CI/CD với Jenkins và GitLab CI, container hóa ứng dụng bằng Docker, triển khai trên Kubernetes, giúp tối ưu quy trình phát triển."
+            },
+            {
+                title: "Học nhanh & giải quyết vấn đề",
+                desc: "Thích nghi nhanh với công nghệ mới, phân tích yêu cầu phức tạp cùng BA team, và đề xuất giải pháp hiệu quả trong môi trường Agile."
+            }
+        ]
+    }
+};
+

@@ -10,6 +10,7 @@ import {Footer} from "./Footer.jsx";
 import * as en from '../../locales/api/en.js';
 import * as vi from '../../locales/api/vi.js';
 import {useTranslation} from "react-i18next";
+import {WhyHireMe} from "./WhyHireMe.jsx";
 
 const PortfolioIndex = () => {
     const { i18n } = useTranslation();
@@ -113,7 +114,7 @@ const PortfolioIndex = () => {
     }, []);
 
     return (
-        console.log("Rendering header:", data.headers),
+        console.log("Rendering header:", data.whyHireMe),
 
         <div className="min-h-screen bg-white font-sans antialiased">
             <Header headers={data.headers}/>
@@ -123,6 +124,7 @@ const PortfolioIndex = () => {
             <Experience experiences={data.experiences}/>
             <Projects projects={data.allProjects}/>
             <Hobbies hobbies={data.hobbies}/>
+            <WhyHireMe whyHireMe={data.whyHireMe}/>
             <Footer profiles={data.headers.profile}
                     socials={data.headers.socials}
                     quickLinks={data.headers.quickLinks}

@@ -3,6 +3,7 @@ import PortfolioIndex from "../src/components/portfolio/PortfolioIndex.jsx";
 import DashboardCms from "../src/components/dashboard/Dashboard.jsx";
 import Error404Page from "../src/components/error/Error404Page.jsx";
 import QRGenerator from "../src/components/QRCode/QRGenerator.jsx";
+import Portfolio2 from "../src/components/portfolio2/Portfolio2.jsx";
 
 export const useAppRoutes = () => {
 
@@ -17,6 +18,10 @@ export const useAppRoutes = () => {
         {
             path: "/portfolio",
             element: <PortfolioIndex/>,
+        },
+        {
+            path: "/portfolio/tmp-2",
+            element: <Portfolio2/>,
         },
         {
             path: "/portfolio/qrcode",

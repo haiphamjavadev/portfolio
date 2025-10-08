@@ -505,3 +505,37 @@ export const headers = {
         }
     ]
 };
+
+export const whyHireMe = {
+    whyHireMe: {
+        tag: "Why",
+        title: "Why Choose Me?",
+        subtitle: "Reasons why I’m a strong fit for the Software Engineer position",
+        reasons: [
+            {
+                title: "Experience with Large Enterprises",
+                desc: "Successfully delivered projects for Vietnam Airlines, Viettel Telecom, and TPBank with high performance and scalability."
+            },
+            {
+                title: "Microservices Architecture",
+                desc: "Proficient in Spring Framework and modern technologies, with hands-on experience in distributed systems and event-driven architecture."
+            },
+            {
+                title: "System Performance Optimization",
+                desc: "Optimized SQL queries, implemented Redis caching, and reduced response time in production systems serving tens of thousands of users."
+            },
+            {
+                title: "Team Leadership Experience",
+                desc: "Led a small development team, mentored juniors, conducted code reviews, and ensured both code quality and project deadlines."
+            },
+            {
+                title: "DevOps Proficiency",
+                desc: "Built CI/CD pipelines with Jenkins and GitLab CI, containerized applications using Docker, and deployed to Kubernetes clusters for faster delivery."
+            },
+            {
+                title: "Fast Learner & Problem Solver",
+                desc: "Adapt quickly to new technologies, analyze complex requirements with BA teams, and propose optimal solutions in Agile environments."
+            }
+        ]
+    }
+};
