@@ -62,7 +62,7 @@ export const Projects = ({ projects }) => {
                             <div
                                 key={idx}
                                 className="group relative cursor-pointer"
-                                onClick={() => setSelectedProject(project)}
+                                onClick={() => setSelectedProject({ ...project, colors })}
                             >
                                 <div
                                     className={`absolute inset-0 bg-gradient-to-r ${colors.gradient} rounded-2xl blur opacity-25 group-hover:opacity-50 transition`}
@@ -134,7 +134,7 @@ export const Projects = ({ projects }) => {
             {selectedProject && (
                 <ProjectDetailModal
                     project={selectedProject}
-                    companyColor={"red"}
+                    companyColor={selectedProject.colors}
                     isOpen={!!selectedProject}
                     onClose={() => setSelectedProject(null)}
                 />

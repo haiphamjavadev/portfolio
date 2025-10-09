@@ -2,9 +2,9 @@ import {useTranslation} from "react-i18next";
 import {ArrowRight, Clock, Users} from "lucide-react";
 import React from "react";
 
-export const ExperienceCard = ({ experience, index, onClick }) => {
+export const ExperienceCard = ({experience, index, onClick}) => {
     const isLeft = index % 2 === 0;
-    const { t } = useTranslation("experience");
+    const {t} = useTranslation("experience");
 
     return (
         <div className={`relative ${isLeft ? 'md:pr-[50%]' : 'md:pl-[50%] md:text-right'}`}>
@@ -12,7 +12,7 @@ export const ExperienceCard = ({ experience, index, onClick }) => {
             <div className="absolute left-8 md:left-1/2 top-8 w-16 h-16 transform -translate-x-1/2 hidden md:block">
                 <div
                     className={`w-full h-full bg-gradient-to-br from-${experience.color}-500 to-${experience.color}-400 rounded-full flex items-center justify-center text-3xl shadow-2xl animate-pulse-slow border-4 border-gray-900`}>
-                    <img src={experience.logo} alt={experience.company} className="w-20 h-20 object-contain" />
+                    <img src={experience.logo} alt={experience.company} className="w-20 h-20 object-contain"/>
                 </div>
             </div>
 
@@ -47,7 +47,7 @@ export const ExperienceCard = ({ experience, index, onClick }) => {
                                 </span>
                             )}
                             <span className="flex items-center gap-2 text-gray-400 font-medium">
-                                <Clock size={18} />
+                                <Clock size={18}/>
                                 {experience.period}
                             </span>
                         </div>
@@ -60,11 +60,14 @@ export const ExperienceCard = ({ experience, index, onClick }) => {
                             {experience.projects.slice(0, 3).map((project, pIdx) => (
                                 <div key={pIdx} className="p-3 bg-gray-700/50 rounded-lg border border-gray-600">
                                     <div className="flex items-center justify-between">
-                                        <div>
+                                        <div className="flex flex-col items-start">
                                             <p className="font-bold text-white text-sm">{project.name}</p>
                                             <p className="text-xs text-gray-400">{project.role}</p>
                                         </div>
-                                        <Users size={14} className="text-gray-400" />
+                                        <div className="flex items-center">
+                                            <p className="text-xs text-gray-400">{project.teamSize}</p>
+                                            <Users size={14} className="text-gray-400"/>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -78,8 +81,8 @@ export const ExperienceCard = ({ experience, index, onClick }) => {
                         onClick={() => onClick(experience)}
                         className={`w-full bg-gradient-to-r from-${experience.color}-600 to-${experience.color}-400 hover:from-${experience.color}-700 hover:to-${experience.color}-500 text-white py-4 px-6 rounded-xl font-bold transition transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg`}
                     >
-                        <span>{t("viewAllProjects", { count: experience.projects.length })}</span>
-                        <ArrowRight size={20} className="group-hover:translate-x-1 transition" />
+                        <span>{t("viewAllProjects", {count: experience.projects.length})}</span>
+                        <ArrowRight size={20} className="group-hover:translate-x-1 transition"/>
                     </button>
                 </div>
             </div>
