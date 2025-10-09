@@ -16,7 +16,7 @@ import {
     Globe, Database, Server, Smartphone, Settings, Cpu, Box, Cloud, Layers, Shield, Network, Zap, Lock, Bell, Clock
 } from "lucide-react";
 
-export const ProjectDetailModal = ({project, companyColor, isOpen, onClose}) => {
+export const ProjectDetailModal = ({project, color, companyColor, isOpen, onClose}) => {
     const techIcons = {
         architecture: <Layers className={companyColor.text} size={20}/>,
         backend: <Server className={companyColor.text} size={20}/>,

@@ -14,6 +14,7 @@ import {
     X
 } from "lucide-react";
 import {ProjectDetailModal} from "./ProjectDetailModal.jsx";
+import {getColorClasses} from "../../../utils/RandomColor.jsx";
 
 export const CompanyExperienceModal = ({ experience, isOpen, onClose }) => {
     const [selectedProject, setSelectedProject] = useState(null);
@@ -272,7 +273,7 @@ export const CompanyExperienceModal = ({ experience, isOpen, onClose }) => {
             {/* Project Detail Modal (nested) */}
             <ProjectDetailModal
                 project={selectedProject}
-                companyColor={experience.color}
+                companyColor={getColorClasses(experience.color)}
                 isOpen={!!selectedProject}
                 onClose={() => setSelectedProject(null)}
             />

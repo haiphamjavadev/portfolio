@@ -138,7 +138,7 @@ export const Experience = ({ experiences }) => {
                                     key={idx}
                                     experience={exp}
                                     index={idx}
-                                    onClick={setSelectedExperience}
+                                    onClick={item => setSelectedExperience(item)}
                                 />
                             ))}
                         </div>

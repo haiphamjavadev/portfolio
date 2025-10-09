@@ -14,7 +14,7 @@ export const ThemeProvider = ({ children }) => {
         }
 
         // 3. Default to light
-        return 'light';
+        return 'dark';
     });
 
     useEffect(() => {
